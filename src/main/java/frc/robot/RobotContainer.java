@@ -12,6 +12,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,7 +26,7 @@ import frc.robot.commands.*;
 
 public class RobotContainer {
 
-    Elevator elevator = new Elevator();
+    Elevator m_elevator = new Elevator();
 
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -94,9 +95,9 @@ public class RobotContainer {
 
 
         // Driver Buttons
-        joystick.b().onTrue(elevator.runOnce(() -> elevator.setPosition(0)));
-        joystick.x().onTrue(elevator.runOnce(() -> elevator.setPosition(10)));
-        joystick.y().onTrue(elevator.runOnce(() -> elevator.setPosition(100)));
+        joystick.b().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(0)));
+        joystick.x().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(10)));
+        joystick.y().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(100)));
     }
 
     public Command getAutonomousCommand() {
