@@ -12,22 +12,25 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.*;
 import frc.robot.commands.*;
 
 public class RobotContainer {
 
     Elevator m_elevator = new Elevator();
-
+    Fish_Hook m_fish_hook = new Fish_Hook();
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
@@ -43,7 +46,8 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController xboxcontroller = new CommandXboxController(0);
+    private final GenericHID driver = new GenericHID(0);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -63,41 +67,46 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                drive.withVelocityX(-xboxcontroller.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                    .withVelocityY(-xboxcontroller.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                    .withRotationalRate(-xboxcontroller.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
 
-        joystick.a().toggleOnTrue(drivetrain.applyRequest(() -> brake));
+        xboxcontroller.a().toggleOnTrue(drivetrain.applyRequest(() -> brake));
         // joystick.b().whileTrue(drivetrain.applyRequest(() ->
         //     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         // ));
 
-        joystick.pov(0).whileTrue(drivetrain.applyRequest(() ->
+        xboxcontroller.pov(0).whileTrue(drivetrain.applyRequest(() ->
             forwardStraight.withVelocityX(0.5).withVelocityY(0))
         );
-        joystick.pov(180).whileTrue(drivetrain.applyRequest(() ->
+        xboxcontroller.pov(180).whileTrue(drivetrain.applyRequest(() ->
             forwardStraight.withVelocityX(-0.5).withVelocityY(0))
         );
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        xboxcontroller.back().and(xboxcontroller.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        xboxcontroller.back().and(xboxcontroller.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        xboxcontroller.start().and(xboxcontroller.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        xboxcontroller.start().and(xboxcontroller.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on left bumper press
-        joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+        xboxcontroller.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
 
         // Driver Buttons
-        joystick.b().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(0)));
-        joystick.x().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(10)));
-        joystick.y().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(100)));
+
+
+        final JoystickButton elevator_bottom = new JoystickButton(driver, Button.kA.value);
+        elevator_bottom.whileTrue(new Elevator_Bottom(m_elevator, m_fish_hook).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
+        //joystick.a().onTrue(new Elevator_Top(elevator).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        xboxcontroller.x().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(10)));
+        //joystick.y().onTrue(elevator.runOnce(() -> elevator.elevator_top()));
     }
 
     public Command getAutonomousCommand() {
