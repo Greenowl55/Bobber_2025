@@ -145,9 +145,9 @@ public class RobotContainer {
 				.y()
 				.onTrue(new CMD_ScoringState(ScoringState.State.L4, m_elevator, m_fish_hook));
 
-		//TODO right bumper for right side of reef alignment
+		// TODO right bumper for right side of reef alignment
 
-		//TODO left bumper for left side of reef alignment
+		// TODO left bumper for left side of reef alignment
 
 		// Idle to bottom
 		driverController

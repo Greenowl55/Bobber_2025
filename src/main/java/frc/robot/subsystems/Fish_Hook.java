@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Fish_Hook extends SubsystemBase {
 
-	private final TalonFX m_coral = new TalonFX(1);
-	private final TalonFX m_algae = new TalonFX(0);
-	private final TalonFX m_tilt = new TalonFX(2);
+	private final TalonFX m_coral = new TalonFX(10);
+	private final TalonFX m_algae = new TalonFX(9);
+	private final TalonFX m_tilt = new TalonFX(8);
 
 	public Fish_Hook() {
 		m_coral.getConfigurator().apply(new TalonFXConfiguration());

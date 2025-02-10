@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Fish_Hook;
@@ -20,7 +21,10 @@ public class CMD_ScoringState extends SequentialCommandGroup {
 
 		addCommands(
 				// Set elevator to enum height
-				elevator.runOnce(() -> elevator.setPosition(newScoringState.getHeightM())),
-				fishHook.runOnce(() -> fishHook.setposition(newScoringState.getAngleDeg())));
+				Commands.parallel(
+						elevator.runOnce(() -> elevator.setPosition(newScoringState.getHeightM())),
+						fishHook.runOnce(() -> fishHook.setposition(newScoringState.getAngleDeg()))
+						)
+					);
 	}
 }
