@@ -11,9 +11,9 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
-public class Drive extends SequentialCommandGroup {
+public class Drive1 extends SequentialCommandGroup {
 
-	public Drive(CommandSwerveDrivetrain m_swerve) {
+	public Drive1(CommandSwerveDrivetrain m_swerve) {
 
 		// Optional<Pose2d> pose =
 		// PathPlannerAuto.getPathGroupFromAutoFile("Drive").get(0).getStartingHolonomicPose();

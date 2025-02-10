@@ -12,18 +12,15 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.Autos.Drive1;
 import frc.robot.commands.*;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.*;
@@ -66,6 +63,8 @@ public class RobotContainer {
 		SmartDashboard.putData("Auto Mode", autoChooser);
 
 		autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
+		autoChooser.addOption("Drive", new Drive1(drivetrain));
+		autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
 
 		configureBindings();
 
@@ -85,7 +84,8 @@ public class RobotContainer {
 												-driverController.getLeftY()
 														* MaxSpeed) // Drive forward with negative Y (forward)
 										.withVelocityY(
-												-driverController.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+												-driverController.getLeftX()
+														* MaxSpeed) // Drive left with negative X (left)
 										.withRotationalRate(
 												-driverController.getRightX()
 														* MaxAngularRate) // Drive counterclockwise with negative X (left)
@@ -125,22 +125,41 @@ public class RobotContainer {
 				.whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
 		// reset the field-centric heading on left bumper press
-		driverController.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+		driverController.start().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
 		drivetrain.registerTelemetry(logger::telemeterize);
 
 		// Driver Buttons
 
 		// Coral Scoring
-		driverController.a().onTrue(new CMD_ScoringState(ScoringState.State.L1, m_elevator, m_fish_hook));
-		driverController.b().onTrue(new CMD_ScoringState(ScoringState.State.L2, m_elevator, m_fish_hook));
-		driverController.x().onTrue(new CMD_ScoringState(ScoringState.State.L3, m_elevator, m_fish_hook));
-		driverController.y().onTrue(new CMD_ScoringState(ScoringState.State.L4, m_elevator, m_fish_hook));
+		driverController
+				.a()
+				.onTrue(new CMD_ScoringState(ScoringState.State.L1, m_elevator, m_fish_hook));
+		driverController
+				.b()
+				.onTrue(new CMD_ScoringState(ScoringState.State.L2, m_elevator, m_fish_hook));
+		driverController
+				.x()
+				.onTrue(new CMD_ScoringState(ScoringState.State.L3, m_elevator, m_fish_hook));
+		driverController
+				.y()
+				.onTrue(new CMD_ScoringState(ScoringState.State.L4, m_elevator, m_fish_hook));
+
+		//TODO right bumper for right side of reef alignment
+
+		//TODO left bumper for left side of reef alignment
 
 		// Idle to bottom
-		driverController.button(5).onTrue(new CMD_ScoringState(ScoringState.State.BOTTOM, m_elevator, m_fish_hook));
+		driverController
+				.button(5)
+				.onTrue(new CMD_ScoringState(ScoringState.State.BOTTOM, m_elevator, m_fish_hook));
 
+		// Co-Driver Buttons
 
+		/*TODO
+		Coral minipulation
+		algae minipulation
+		climber */
 	}
 
 	public Command getAutonomousCommand() {

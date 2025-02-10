@@ -216,6 +216,10 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 		}
 	}
 
+	public Command getAutoPath(String pathName) {
+		return AutoBuilder.buildAuto(pathName);
+	}
+
 	/**
 	 * Returns a command that applies the specified control request to this swerve drivetrain.
 	 *

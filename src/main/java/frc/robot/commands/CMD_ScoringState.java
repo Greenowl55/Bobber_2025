@@ -13,15 +13,14 @@ import frc.robot.subsystems.Fish_Hook;
 
 public class CMD_ScoringState extends SequentialCommandGroup {
 
-	public CMD_ScoringState(ScoringState.State newScoringState, Elevator elevator, Fish_Hook fishHook) {
+	public CMD_ScoringState(
+			ScoringState.State newScoringState, Elevator elevator, Fish_Hook fishHook) {
 
 		addRequirements(elevator, fishHook);
 
 		addCommands(
 				// Set elevator to enum height
 				elevator.runOnce(() -> elevator.setPosition(newScoringState.getHeightM())),
-				
-				fishHook.runOnce(() -> fishHook.setposition(newScoringState.getAngleDeg()))
-				);
+				fishHook.runOnce(() -> fishHook.setposition(newScoringState.getAngleDeg())));
 	}
 }

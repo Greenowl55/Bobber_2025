@@ -16,11 +16,16 @@ public class CommandRegristry {
 	public static void setupNamedCommands(Elevator elevator, Fish_Hook fishHook) {
 
 		// Elevator Scoring
-        NamedCommands.registerCommand("Bottom", new CMD_ScoringState(ScoringState.State.BOTTOM, elevator, fishHook));
-		NamedCommands.registerCommand("L1", new CMD_ScoringState(ScoringState.State.L1, elevator, fishHook));
-		NamedCommands.registerCommand("L2", new CMD_ScoringState(ScoringState.State.L2, elevator, fishHook));
-		NamedCommands.registerCommand("L3", new CMD_ScoringState(ScoringState.State.L3, elevator, fishHook));
-		NamedCommands.registerCommand("L4", new CMD_ScoringState(ScoringState.State.L4, elevator, fishHook));
+		NamedCommands.registerCommand(
+				"Bottom", new CMD_ScoringState(ScoringState.State.BOTTOM, elevator, fishHook));
+		NamedCommands.registerCommand(
+				"L1", new CMD_ScoringState(ScoringState.State.L1, elevator, fishHook));
+		NamedCommands.registerCommand(
+				"L2", new CMD_ScoringState(ScoringState.State.L2, elevator, fishHook));
+		NamedCommands.registerCommand(
+				"L3", new CMD_ScoringState(ScoringState.State.L3, elevator, fishHook));
+		NamedCommands.registerCommand(
+				"L4", new CMD_ScoringState(ScoringState.State.L4, elevator, fishHook));
 
 		// Elevator Util
 
