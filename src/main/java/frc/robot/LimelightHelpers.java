@@ -45,27 +45,18 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LimelightHelpers {
 
-	
-            public static int getTag()
-        {
-            Optional<Alliance> alliance = DriverStation.getAlliance();
-            if (alliance.isPresent()) 
-            {
-                if (alliance.get() == DriverStation.Alliance.Blue)
-                {
-                    return 21;
-                }
-                else
-                {
-                    return 10;
-                }
-            }
-            else
-            {
-                return 21;
-            }
-        }
-
+	public static int getTag() {
+		Optional<Alliance> alliance = DriverStation.getAlliance();
+		if (alliance.isPresent()) {
+			if (alliance.get() == DriverStation.Alliance.Blue) {
+				return 21;
+			} else {
+				return 10;
+			}
+		} else {
+			return 21;
+		}
+	}
 
 	private static final Map<String, DoubleArrayEntry> doubleArrayEntries = new ConcurrentHashMap<>();
 
@@ -1573,7 +1564,7 @@ public class LimelightHelpers {
 	 * @param yaw Yaw angle in degrees
 	 */
 	public static void setCameraPose_RobotSpace(
-		//TODO set camera to robot offsets
+			// TODO set camera to robot offsets
 			String limelightName,
 			double forward,
 			double side,
