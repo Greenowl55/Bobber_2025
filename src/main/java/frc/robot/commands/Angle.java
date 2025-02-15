@@ -15,24 +15,21 @@ import frc.robot.subsystems.*;
 public class Angle extends Command {
 
 	private final Fish_Hook m_Angle;
-	private Double m_speed;
+	private DoubleSupplier m_speed;
 
-	public Angle(Fish_Hook m_fish_hook, double speed) {
+	public Angle(Fish_Hook m_fish_hook, DoubleSupplier speed) {
 		m_Angle = m_fish_hook;
 		m_speed = speed;
 		addRequirements(m_Angle);
 	}
 
-	public Angle(Fish_Hook m_fish_hook, Object speed) {
-		//TODO Auto-generated constructor stub
-	}
 
 	@Override
 	public void initialize() {}
 
 	@Override
 	public void execute() {
-		m_Angle.tilt(m_speed);
+		m_Angle.tilt(m_speed.getAsDouble());
 	}
 
 	@Override

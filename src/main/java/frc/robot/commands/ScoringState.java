@@ -10,10 +10,10 @@ package frc.robot.commands;
 public class ScoringState {
 	public enum State {
 		BOTTOM(0.0, 0.0),
-		L1(5, 0.0),
-		L2(10, 0.0),
-		L3(15, 0.0),
-		L4(30, 0.0),
+		L1(10, 0.0),
+		L2(15, 0.0),
+		L3(25, 0.0),
+		L4(35, 0.0),
 
 		BRARGE(1.8, 0.0);
 
