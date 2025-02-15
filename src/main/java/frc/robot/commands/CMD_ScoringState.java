@@ -23,6 +23,7 @@ public class CMD_ScoringState extends SequentialCommandGroup {
 				// Set elevator to enum height
 				Commands.parallel(
 						elevator.runOnce(() -> elevator.setPosition(newScoringState.getHeightM())),
-						fishHook.runOnce(() -> fishHook.setposition(newScoringState.getAngleDeg()))));
+						fishHook.runOnce(() -> fishHook.setposition(newScoringState.getAngleDeg()))
+						));
 	}
 }

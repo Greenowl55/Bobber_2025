@@ -112,26 +112,26 @@ tasks.withType(JavaCompile) {
     options.compilerArgs.add '-XDstringConcat=inline'
 }
 
-// Configure Spotless formatting
-project.compileJava.dependsOn(spotlessApply)
-spotless {
-    java {
-        target fileTree(".") {
-            include "**/*.java"
-            exclude "**/build/**", "**/build-*/**", "**/bin/**"
-        }
-        toggleOffOn()
-        googleJavaFormat('1.17.0')
-        trimTrailingWhitespace()
-        endWithNewline()
-        licenseHeader("// Copyright (c) 2024 - 2025 : FRC 3102 : Tech-No-Tigers\n// https://www.tnt3102.org\n\n// Use of this source code is governed by an MIT-style\n// license that can be found in the LICENSE file at\n// the root directory of this project.\n\n")
-        indentWithTabs(2)
+// Configure Spotless formatting 
+// project.compileJava.dependsOn(spotlessApply)
+// spotless {
+//     java {
+//         target fileTree(".") {
+//             include "**/*.java"
+//             exclude "**/build/**", "**/build-*/**", "**/bin/**"
+//         }
+//         toggleOffOn()
+//         googleJavaFormat('1.17.0')
+//         trimTrailingWhitespace()
+//         endWithNewline()
+//         licenseHeader("// Copyright (c) 2024 - 2025 : FRC 3102 : Tech-No-Tigers\n// https://www.tnt3102.org\n\n// Use of this source code is governed by an MIT-style\n// license that can be found in the LICENSE file at\n// the root directory of this project.\n\n")
+//         indentWithTabs(2)
 
 
 
 
-    }
-}
+//     }
+// }
 
 // Make spotless run before compilation
 project.compileJava.dependsOn(spotlessApply)
