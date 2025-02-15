@@ -24,21 +24,21 @@ public class Angle extends Command {
 	}
 
 
-	@Override
-	public void initialize() {}
+    @Override
+    public void initialize() {}
 
 	@Override
 	public void execute() {
 		m_Angle.tilt(m_speed.getAsDouble());
 	}
 
-	@Override
-	public boolean isFinished() {
-		return false;
-	}
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 
-	@Override
-	public boolean runsWhenDisabled() {
-		return false;
-	}
+    @Override
+    public boolean runsWhenDisabled() {
+        return false;
+    }
 }

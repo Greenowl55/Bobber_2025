@@ -181,7 +181,7 @@ public class RobotContainer {
 
 		//TODO
 		m_fish_hook.setDefaultCommand(
-		 	new Angle(m_fish_hook, (() -> codriverJoystick.getRawAxis(Joystick.getY.value))));
+			new Angle(m_fish_hook, () -> codriverJoystick.getRawAxis(Joystick.AxisType.kY.value)));
 		
 		/*TODO
 		Coral minipulation
