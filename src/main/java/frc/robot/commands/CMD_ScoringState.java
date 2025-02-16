@@ -24,7 +24,6 @@ public class CMD_ScoringState extends SequentialCommandGroup {
 				Commands.parallel(
 						elevator.runOnce(() -> elevator.setPosition(newScoringState.getHeightM())),
 						fishHook.runOnce(() -> fishHook.setposition(newScoringState.getAngleDeg()))
-						)
-					);
+						));
 	}
 }

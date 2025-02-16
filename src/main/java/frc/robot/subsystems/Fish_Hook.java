@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -72,5 +74,9 @@ public class Fish_Hook extends SubsystemBase {
 
 	public void setposition(double position) {
 		m_tilt.setControl(new PositionVoltage(position).withSlot(0));
+	}
+
+	public void tilt(Double speed) {
+		m_tilt.set(speed);
 	}
 }
