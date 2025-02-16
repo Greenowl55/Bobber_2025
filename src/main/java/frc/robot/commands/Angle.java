@@ -7,10 +7,9 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
+import java.util.function.DoubleSupplier;
 
 public class Angle extends Command {
 
@@ -23,22 +22,21 @@ public class Angle extends Command {
 		addRequirements(m_Angle);
 	}
 
-
-    @Override
-    public void initialize() {}
+	@Override
+	public void initialize() {}
 
 	@Override
 	public void execute() {
 		m_Angle.tilt(m_speed.getAsDouble());
 	}
 
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 
-    @Override
-    public boolean runsWhenDisabled() {
-        return false;
-    }
+	@Override
+	public boolean runsWhenDisabled() {
+		return false;
+	}
 }

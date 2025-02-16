@@ -12,9 +12,7 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
-
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -160,39 +158,33 @@ public class RobotContainer {
 				.button(7)
 				.onTrue(new CMD_ScoringState(ScoringState.State.BOTTOM, m_elevator, m_fish_hook));
 
-		driverController
-				.rightBumper()
-				.whileTrue(new ElevatorUp(m_elevator));
+		driverController.rightBumper().whileTrue(new ElevatorUp(m_elevator));
 
-		driverController
-				.leftBumper()
-				.whileTrue(new ElevatorDown(m_elevator));
+		driverController.leftBumper().whileTrue(new ElevatorDown(m_elevator));
 		// Co-Driver Buttons
 
 		coDriverController
-				.button(1)
+				.button(1) // trigger
 				.whileTrue(
 						new Coralrun(m_fish_hook).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		coDriverController
-				.button(3)
+				.button(3) // left face buttom
 				.whileTrue(
 						new AlgaeIn(m_fish_hook).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		coDriverController
-				.button(4)
+				.button(4) // right face button
 				.whileTrue(
 						new AlgaeOut(m_fish_hook).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		// m_fish_hook.run(new tilt(() -> coDriverController.getY().m_Fishhook));
 
-		//TODO
 		m_fish_hook.setDefaultCommand(
-			new Angle(m_fish_hook, () -> codriverJoystick.getRawAxis(Joystick.AxisType.kY.value) * 0.1));
-		
+				new Angle(
+						m_fish_hook, () -> codriverJoystick.getRawAxis(Joystick.AxisType.kY.value) * 0.1));
+
 		/*TODO
-		Coral minipulation
-		algae minipulation
 		climber */
 	}
 

@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -22,14 +20,7 @@ public class Fish_Hook extends SubsystemBase {
 	private final TalonFX m_tilt = new TalonFX(8);
 
 	public Fish_Hook() {
-		m_coral.getConfigurator().apply(new TalonFXConfiguration());
-		m_coral.setNeutralMode(NeutralModeValue.Brake);
 
-		m_algae.getConfigurator().apply(new TalonFXConfiguration());
-		m_algae.setNeutralMode(NeutralModeValue.Brake);
-
-		m_tilt.getConfigurator().apply(new TalonFXConfiguration());
-		m_tilt.setNeutralMode(NeutralModeValue.Brake);
 
 		var talonFXconfigs = new TalonFXConfiguration();
 
@@ -54,6 +45,15 @@ public class Fish_Hook extends SubsystemBase {
 		motionMagicConfigs.MotionMagicJerk = 1000; // jerk in units/100ms^3
 
 		m_tilt.getConfigurator().apply(talonFXconfigs);
+
+		m_coral.getConfigurator().apply(new TalonFXConfiguration());
+		m_coral.setNeutralMode(NeutralModeValue.Brake);
+
+		m_algae.getConfigurator().apply(new TalonFXConfiguration());
+		m_algae.setNeutralMode(NeutralModeValue.Brake);
+
+		m_tilt.getConfigurator().apply(new TalonFXConfiguration());
+		m_tilt.setNeutralMode(NeutralModeValue.Brake);
 	}
 
 	final PositionVoltage drive1PositionVoltage = new PositionVoltage(0).withSlot(0);
