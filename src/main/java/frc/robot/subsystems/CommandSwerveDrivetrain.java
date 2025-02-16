@@ -18,9 +18,16 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+
+import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -30,8 +37,14 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
+
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
+
+import org.littletonrobotics.junction.AutoLogOutput;
 
 /**
  * Class that extends the Phoenix 6 SwerveDrivetrain class and implements Subsystem so it can easily
@@ -324,4 +337,34 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 		super.addVisionMeasurement(
 				visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds), visionMeasurementStdDevs);
 	}
+
+	  public static AprilTagFieldLayout aprilTagLayout =
+      AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+
+	  public Pose3d findClosestTag(List<AprilTag> tags) {
+    Transform2d lowestTransform = null;
+    int closestTagId = 99;
+    for (var tag : tags) {
+      var transform = getPose().minus(tag.pose.toPose2d());
+			if (lowestTransform == null) {
+			  lowestTransform = transform;
+			  closestTagId = tag.ID;
+			  break;
+			}
+			if (lowestTransform.getTranslation().getNorm() > transform.getTranslation().getNorm()) {
+			  lowestTransform = transform;
+			  closestTagId = tag.ID;
+			}
+		  }
+		  return aprilTagLayout.getTagPose(closestTagId).get();
+		}
+	  
+	/** Returns the current odometry pose. */
+	@AutoLogOutput(key = "Odometry/Robot")
+	public Pose2d getPose() {
+		return getState().Pose;
+	}
+
+
+  
 }
