@@ -160,6 +160,13 @@ public class RobotContainer {
 				.button(7)
 				.onTrue(new CMD_ScoringState(ScoringState.State.BOTTOM, m_elevator, m_fish_hook));
 
+		driverController
+				.rightBumper()
+				.whileTrue(new ElevatorUp(m_elevator));
+
+		driverController
+				.leftBumper()
+				.whileTrue(new ElevatorDown(m_elevator));
 		// Co-Driver Buttons
 
 		coDriverController
@@ -181,7 +188,7 @@ public class RobotContainer {
 
 		//TODO
 		m_fish_hook.setDefaultCommand(
-			new Angle(m_fish_hook, () -> codriverJoystick.getRawAxis(Joystick.AxisType.kY.value)));
+			new Angle(m_fish_hook, () -> codriverJoystick.getRawAxis(Joystick.AxisType.kY.value) * 0.1));
 		
 		/*TODO
 		Coral minipulation
