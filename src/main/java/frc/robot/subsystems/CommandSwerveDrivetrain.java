@@ -279,6 +279,16 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 								m_hasAppliedOperatorPerspective = true;
 							});
 		}
+
+		// visionRobotPoseMeters.update(
+		// 	getPigeon2().getRotation2d(),
+		// 	new SwerveModulePosition[] {
+		// 		getModule(1).getPosition(m_hasAppliedOperatorPerspective),
+		// 		getModule(2).getPosition(m_hasAppliedOperatorPerspective),
+		// 		getModule(3).getPosition(m_hasAppliedOperatorPerspective),
+		// 		getModule(4).getPosition(m_hasAppliedOperatorPerspective)
+		// 	}
+		// );
 	}
 
 	private void startSimThread() {

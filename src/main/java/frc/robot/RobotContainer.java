@@ -75,6 +75,8 @@ public class RobotContainer {
 		CommandRegristry.setupNamedCommands(m_elevator, m_fish_hook);
 	}
 
+	final Limelight m_Limelight = new Limelight(drivetrain);
+
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
 		// and Y is defined as to the left according to WPILib convention.
@@ -152,6 +154,8 @@ public class RobotContainer {
 		// TODO right bumper for right side of reef alignment
 
 		// TODO left bumper for left side of reef alignment
+
+		driverController.leftTrigger().onTrue(new ReefRight(drivetrain, m_Limelight));
 
 		// Idle to bottom
 		driverController

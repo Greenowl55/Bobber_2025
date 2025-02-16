@@ -21,7 +21,6 @@ public class Fish_Hook extends SubsystemBase {
 
 	public Fish_Hook() {
 
-
 		var talonFXconfigs = new TalonFXConfiguration();
 
 		// in init function, set slot 0 gains
