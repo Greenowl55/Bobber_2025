@@ -90,17 +90,17 @@ public class Fish_Hook extends SubsystemBase {
 	public Command zeroFishhook() {
 
 		return this.run(
-						() -> {
-							m_tilt.setVoltage(-3);
-							isHomed = false;
-						})
-				.until(currentOverZeroThreshold)
-				.andThen(
-						this.runOnce(
-								() -> {
-									m_tilt.setControl(new NeutralOut());
-									m_tilt.setPosition(0);
-									isHomed = true;
-								}));
+					() -> {
+						m_tilt.setVoltage(-3);
+						isHomed = false;
+					})
+			.until(currentOverZeroThreshold)
+			.andThen(
+					this.runOnce(
+							() -> {
+								m_tilt.setControl(new NeutralOut());
+								m_tilt.setPosition(0);
+								isHomed = true;
+							}));
 	}
 }

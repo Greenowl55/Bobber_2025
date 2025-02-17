@@ -97,8 +97,9 @@ public class RobotContainer {
 						));
 
 		// Zero the elevator and fishhook when disabled
-		RobotModeTriggers.disabled().onTrue(m_elevator.runOnce(() -> m_elevator.zeroElevator()));
-		RobotModeTriggers.disabled().onTrue(m_fish_hook.runOnce(() -> m_fish_hook.zeroFishhook()));
+		RobotModeTriggers.disabled().onFalse(m_elevator.runOnce(() -> m_elevator.zeroElevator()));
+		RobotModeTriggers.disabled().onFalse(m_fish_hook.runOnce(() -> m_fish_hook.zeroFishhook()));
+
 		// TODO Find button for: driverController.a().toggleOnTrue(drivetrain.applyRequest(() ->
 		// brake));
 		// joystick.b().whileTrue(drivetrain.applyRequest(() ->
