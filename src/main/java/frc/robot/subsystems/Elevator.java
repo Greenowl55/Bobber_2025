@@ -9,10 +9,13 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class Elevator extends SubsystemBase {
 
@@ -65,5 +68,27 @@ public class Elevator extends SubsystemBase {
 
 	public void elevator(double speed) {
 		m_elevator1.set(speed);
+	}
+
+	public boolean isHomed = false;
+
+	Trigger currentOverZeroThreshold =
+			new Trigger(() -> m_elevator1.getSupplyCurrent().getValueAsDouble() > 10).debounce(0.2);
+
+	public Command zeroElevator() {
+
+		return this.run(
+						() -> {
+							m_elevator1.setVoltage(-3);
+							isHomed = false;
+						})
+				.until(currentOverZeroThreshold)
+				.andThen(
+						this.runOnce(
+								() -> {
+									m_elevator1.setControl(new NeutralOut());
+									m_elevator1.setPosition(0);
+									isHomed = true;
+								}));
 	}
 }

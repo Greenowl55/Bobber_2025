@@ -8,10 +8,13 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class Fish_Hook extends SubsystemBase {
 
@@ -77,5 +80,27 @@ public class Fish_Hook extends SubsystemBase {
 
 	public void tilt(Double speed) {
 		m_tilt.set(speed);
+	}
+
+	public boolean isHomed = false;
+
+	Trigger currentOverZeroThreshold =
+			new Trigger(() -> m_tilt.getSupplyCurrent().getValueAsDouble() > 10).debounce(0.2);
+
+	public Command zeroFishhook() {
+
+		return this.run(
+						() -> {
+							m_tilt.setVoltage(-3);
+							isHomed = false;
+						})
+				.until(currentOverZeroThreshold)
+				.andThen(
+						this.runOnce(
+								() -> {
+									m_tilt.setControl(new NeutralOut());
+									m_tilt.setPosition(0);
+									isHomed = true;
+								}));
 	}
 }
