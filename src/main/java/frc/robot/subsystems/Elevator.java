@@ -78,17 +78,17 @@ public class Elevator extends SubsystemBase {
 	public Command zeroElevator() {
 
 		return this.run(
-					() -> {
-						m_elevator1.setVoltage(-3);
-						isHomed = false;
-					})
-			.until(currentOverZeroThreshold)
-			.andThen(
-					this.runOnce(
-							() -> {
-								m_elevator1.setControl(new NeutralOut());
-								m_elevator1.setPosition(0);
-								isHomed = true;
-							}));
+						() -> {
+							m_elevator1.setVoltage(-3);
+							isHomed = false;
+						})
+				.until(currentOverZeroThreshold)
+				.andThen(
+						this.runOnce(
+								() -> {
+									m_elevator1.setControl(new NeutralOut());
+									m_elevator1.setPosition(0);
+									isHomed = true;
+								}));
 	}
 }
