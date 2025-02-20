@@ -7,12 +7,10 @@
 
 package frc.robot.commands;
 
-public class FishHookState {
+public class ClimberState {
 	public enum State {
-		IDLE(0.0),
-		Intake(0.2),
-		L4(0.5),
-		Algae(0.75);
+		IN(0.0),
+		OUT(20.0);
 
 		private double angle;
 

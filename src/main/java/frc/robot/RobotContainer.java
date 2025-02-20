@@ -12,8 +12,6 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
-
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -33,6 +31,7 @@ public class RobotContainer {
 
 	Elevator m_elevator = new Elevator();
 	Fish_Hook m_fish_hook = new Fish_Hook();
+	Climber m_climber = new Climber();
 
 	private double MaxSpeed =
 			TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -72,12 +71,7 @@ public class RobotContainer {
 		autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
 
 		configureBindings();
-
-		// Configure the pathplanner named commands
-		CommandRegristry.setupNamedCommands(m_elevator, m_fish_hook);
 	}
-
-	final Limelight m_Limelight = new Limelight(drivetrain);
 
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
@@ -144,39 +138,35 @@ public class RobotContainer {
 		// Driver Buttons
 
 		// Coral Scoring
-		driverController
-				.a()
-				.onTrue(new CMD_ScoringState(ScoringState.State.L1, m_elevator, m_fish_hook));
-		driverController
-				.b()
-				.onTrue(new CMD_ScoringState(ScoringState.State.L2, m_elevator, m_fish_hook));
-		driverController
-				.x()
-				.onTrue(new CMD_ScoringState(ScoringState.State.L3, m_elevator, m_fish_hook));
-		driverController
-				.y()
-				.onTrue(new CMD_ScoringState(ScoringState.State.L4, m_elevator, m_fish_hook));
+		driverController.a().onTrue(new CMD_ElevatorState(ElevatorHight.State.L1, m_elevator));
+		driverController.b().onTrue(new CMD_ElevatorState(ElevatorHight.State.L2, m_elevator));
+		driverController.x().onTrue(new CMD_ElevatorState(ElevatorHight.State.L3, m_elevator));
+		driverController.y().onTrue(new CMD_ElevatorState(ElevatorHight.State.L4, m_elevator));
 
 		// TODO right bumper for right side of reef alignment
 
+		driverController.rightTrigger().whileTrue(new ReefRight(drivetrain));
 		// TODO left bumper for left side of reef alignment
 
-		driverController.leftTrigger().onTrue(new ReefRight(drivetrain, m_Limelight));
+		driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
 
 		// Idle to bottom
 		driverController
 				.button(7)
-				.onTrue(new CMD_ScoringState(ScoringState.State.BOTTOM, m_elevator, m_fish_hook));
+				.onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(0.5)));
 
 		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(-0.5)));
 
 		// Co-Driver Buttons
-
 		coDriverController
 				.button(1 /*Trigger*/)
-				.whileTrue(m_fish_hook.run(() -> m_fish_hook.coral(-0.2))); // move coral forward
+				.whileTrue(m_fish_hook.run(() -> m_fish_hook.coral(0.5))); // run coral motors
+
+		coDriverController
+				.button(2 /*Bottom Face button*/)
+				.onTrue(new Intake(m_elevator, m_fish_hook, null)); // intake coral
 
 		coDriverController
 				.button(3 /*Left face button*/)
@@ -186,11 +176,41 @@ public class RobotContainer {
 				.button(4 /*Right face button*/)
 				.whileTrue(m_fish_hook.run(() -> m_fish_hook.algae(0.5))); // outtake algae
 
+		coDriverController
+				.button(5)
+				.onTrue(new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook)); // move fishhook to idle
+
+		coDriverController
+				.button(6)
+				.onTrue(new CMD_FishHookState(FishHookState.State.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
+
+		coDriverController
+				.button(7)
+				.onTrue(new CMD_FishHookState(FishHookState.State.L4, m_fish_hook)); // move fishhook to L4
+
+		coDriverController
+				.button(8)
+				.onTrue(new CMD_FishHookState(FishHookState.State.Algae, m_fish_hook)); // move fishhook to Algea
+
+		coDriverController
+				.button(9)
+				.onTrue(new CMD_ClimberState(ClimberState.State.IN, m_climber)); // move climber to IN
+
+		coDriverController
+				.button(10)
+				.onTrue(new CMD_ClimberState(ClimberState.State.OUT, m_climber)); // move climber to OUT
+
+		coDriverController
+				.button(11)
+				.onTrue(m_climber.run(() -> m_climber.climber(0.5))); // move climber up
+
+		coDriverController
+				.button(12)
+				.onTrue(m_climber.run(() -> m_climber.climber(-0.5))); // move climber down
+
 		m_fish_hook.tilt(
 				coDriverController.getRawAxis(Joystick.AxisType.kY.value)
 						* 0.1); // get the y axis of the joystick and multiply by 0.1 to get the speed
-		/*TODO
-		climber */
 	}
 
 	public Command getAutonomousCommand() {

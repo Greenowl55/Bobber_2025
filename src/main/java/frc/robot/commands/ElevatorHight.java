@@ -7,21 +7,24 @@
 
 package frc.robot.commands;
 
-public class FishHookState {
+public class ElevatorHight {
 	public enum State {
-		IDLE(0.0),
-		Intake(0.2),
-		L4(0.5),
-		Algae(0.75);
+		BOTTOM(0.0),
+		L1(10),
+		L2(15),
+		L3(25),
+		L4(35),
 
-		private double angle;
+		BARGE(1.8);
+
+		private double Hight;
 
 		State(double MotorRotations) {
-			this.angle = MotorRotations;
+			this.Hight = MotorRotations;
 		}
 
-		public double getAngle() {
-			return angle;
+		public double getHight() {
+			return Hight;
 		}
 	}
 }

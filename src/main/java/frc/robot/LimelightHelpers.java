@@ -45,16 +45,32 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LimelightHelpers {
 
-	public static int getTag() {
+	public static int[] getTag() {
+		int[] Blue = new int[6];
+		Blue[0] = 17;
+		Blue[1] = 18;
+		Blue[2] = 19;
+		Blue[3] = 20;
+		Blue[4] = 21;
+		Blue[5] = 22;
+
+		int[] Red = new int[6];
+		Red[0] = 6;
+		Red[1] = 7;
+		Red[2] = 8;
+		Red[3] = 9;
+		Red[4] = 10;
+		Red[5] = 11;
 		Optional<Alliance> alliance = DriverStation.getAlliance();
 		if (alliance.isPresent()) {
 			if (alliance.get() == DriverStation.Alliance.Blue) {
-				return 21;
+
+				return Blue;
 			} else {
-				return 10;
+				return Red;
 			}
 		} else {
-			return 21;
+			return Blue;
 		}
 	}
 

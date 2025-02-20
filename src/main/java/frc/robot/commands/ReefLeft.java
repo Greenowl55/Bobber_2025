@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
-public class ReefRight extends Command {
+public class ReefLeft extends Command {
 	private final SwerveRequest.RobotCentric drive =
 			new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
@@ -27,7 +27,7 @@ public class ReefRight extends Command {
 	private final PIDController strafePID;
 	private final PIDController distancePID;
 
-	public ReefRight(CommandSwerveDrivetrain drive_subsystem) {
+	public ReefLeft(CommandSwerveDrivetrain drive_subsystem) {
 		addRequirements(drive_subsystem);
 		m_tag = ReefTags;
 		m_drive = drive_subsystem;
@@ -80,7 +80,7 @@ public class ReefRight extends Command {
 		}
 		if (tagFound == true) { // Calculate control outputs
 			double rotationOutput = rotationPID.calculate(tx, 0) * 1.5 * Math.PI;
-			double strafeOutput = strafePID.calculate(tx, 5);
+			double strafeOutput = strafePID.calculate(tx, -5);
 			double forwardOutput = distancePID.calculate(ty, 0);
 
 			// Apply combined movement
