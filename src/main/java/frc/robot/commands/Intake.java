@@ -14,7 +14,7 @@ import frc.robot.subsystems.Fish_Hook;
 
 public class Intake extends SequentialCommandGroup {
 
-	//private final Elevator Elevator;
+	// private final Elevator Elevator;
 	private final Fish_Hook Fish_Hook;
 	private final DigitalInput photoelectricSensor = new DigitalInput(0);
 
@@ -22,7 +22,7 @@ public class Intake extends SequentialCommandGroup {
 
 	public Intake(Elevator m_Elevator, Fish_Hook m_Fish_Hook) {
 
-		//Elevator = m_Elevator;
+		// Elevator = m_Elevator;
 		Fish_Hook = m_Fish_Hook;
 		addRequirements(m_Elevator, m_Fish_Hook);
 

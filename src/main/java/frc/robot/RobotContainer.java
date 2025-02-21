@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.XboxController.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
@@ -131,14 +131,17 @@ public class RobotContainer {
 				.and(driverController.x())
 				.whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
-		// reset the field-centric heading on left bumper press
+		// reset the field-centric heading on start button press
 		driverController.button(8).onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
 		drivetrain.registerTelemetry(logger::telemeterize);
 
 		// Driver Buttons
 
-		// Coral Scoring
+		// Idle to bottom
+		m_elevator.setDefaultCommand(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
+
+		// Elevator positions
 		driverController.a().onTrue(new CMD_ElevatorState(ElevatorHight.State.L1, m_elevator));
 		driverController.b().onTrue(new CMD_ElevatorState(ElevatorHight.State.L2, m_elevator));
 		driverController.x().onTrue(new CMD_ElevatorState(ElevatorHight.State.L3, m_elevator));
@@ -151,19 +154,38 @@ public class RobotContainer {
 
 		driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
 
-		// Idle to bottom
 		driverController
 				.button(7)
 				.onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
-		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		driverController
+				.rightBumper()
+				.whileTrue(
+						m_elevator
+								.run(() -> m_elevator.elevator(0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(-0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		driverController
+				.rightBumper()
+				.whileTrue(
+						m_elevator
+								.run(() -> m_elevator.elevator(-0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		// Co-Driver Buttons
+
+		// Idle fishHook in
+		m_fish_hook.setDefaultCommand(new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook));
+
+		//idle climber in
+		m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN, m_climber));
+
 		coDriverController
 				.button(1 /*Trigger*/)
-				.whileTrue(m_fish_hook.run(() -> m_fish_hook.coral(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // run coral motors
+				.whileTrue(
+						m_fish_hook
+								.run(() -> m_fish_hook.coral(0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // run coral motors
 
 		coDriverController
 				.button(2 /*Bottom Face button*/)
@@ -171,11 +193,17 @@ public class RobotContainer {
 
 		coDriverController
 				.button(3 /*Left face button*/)
-				.whileTrue(m_fish_hook.run(() -> m_fish_hook.algae(-0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // intake algae
+				.whileTrue(
+						m_fish_hook
+								.run(() -> m_fish_hook.algae(-0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // intake algae
 
 		coDriverController
 				.button(4 /*Right face button*/)
-				.whileTrue(m_fish_hook.run(() -> m_fish_hook.algae(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // outtake algae
+				.whileTrue(
+						m_fish_hook
+								.run(() -> m_fish_hook.algae(0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // outtake algae
 
 		coDriverController
 				.button(5)
@@ -208,11 +236,17 @@ public class RobotContainer {
 
 		coDriverController
 				.button(11)
-				.onTrue(m_climber.run(() -> m_climber.climber(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber up
+				.onTrue(
+						m_climber
+								.run(() -> m_climber.climber(0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber up
 
 		coDriverController
 				.button(12)
-				.onTrue(m_climber.run(() -> m_climber.climber(-0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber down
+				.onTrue(
+						m_climber
+								.run(() -> m_climber.climber(-0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber down
 
 		m_fish_hook.tilt(
 				coDriverController.getRawAxis(Joystick.AxisType.kY.value)
