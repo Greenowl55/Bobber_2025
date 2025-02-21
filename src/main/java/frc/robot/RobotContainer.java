@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
@@ -155,34 +156,37 @@ public class RobotContainer {
 				.button(7)
 				.onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
-		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(0.5)));
+		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(-0.5)));
+		driverController.rightBumper().whileTrue(m_elevator.run(() -> m_elevator.elevator(-0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		// Co-Driver Buttons
 		coDriverController
 				.button(1 /*Trigger*/)
-				.whileTrue(m_fish_hook.run(() -> m_fish_hook.coral(0.5))); // run coral motors
+				.whileTrue(m_fish_hook.run(() -> m_fish_hook.coral(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // run coral motors
 
 		coDriverController
 				.button(2 /*Bottom Face button*/)
-				.onTrue(new Intake(m_elevator, m_fish_hook, null)); // intake coral
+				.onTrue(new Intake(m_elevator, m_fish_hook)); // intake coral
 
 		coDriverController
 				.button(3 /*Left face button*/)
-				.whileTrue(m_fish_hook.run(() -> m_fish_hook.algae(-0.5))); // intake algae
+				.whileTrue(m_fish_hook.run(() -> m_fish_hook.algae(-0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // intake algae
 
 		coDriverController
 				.button(4 /*Right face button*/)
-				.whileTrue(m_fish_hook.run(() -> m_fish_hook.algae(0.5))); // outtake algae
+				.whileTrue(m_fish_hook.run(() -> m_fish_hook.algae(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // outtake algae
 
 		coDriverController
 				.button(5)
-				.onTrue(new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook)); // move fishhook to idle
+				.onTrue(
+						new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook)); // move fishhook to idle
 
 		coDriverController
 				.button(6)
-				.onTrue(new CMD_FishHookState(FishHookState.State.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
+				.onTrue(
+						new CMD_FishHookState(
+								FishHookState.State.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
 
 		coDriverController
 				.button(7)
@@ -190,7 +194,9 @@ public class RobotContainer {
 
 		coDriverController
 				.button(8)
-				.onTrue(new CMD_FishHookState(FishHookState.State.Algae, m_fish_hook)); // move fishhook to Algea
+				.onTrue(
+						new CMD_FishHookState(
+								FishHookState.State.Algae, m_fish_hook)); // move fishhook to Algea
 
 		coDriverController
 				.button(9)
@@ -202,11 +208,11 @@ public class RobotContainer {
 
 		coDriverController
 				.button(11)
-				.onTrue(m_climber.run(() -> m_climber.climber(0.5))); // move climber up
+				.onTrue(m_climber.run(() -> m_climber.climber(0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber up
 
 		coDriverController
 				.button(12)
-				.onTrue(m_climber.run(() -> m_climber.climber(-0.5))); // move climber down
+				.onTrue(m_climber.run(() -> m_climber.climber(-0.5)).withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber down
 
 		m_fish_hook.tilt(
 				coDriverController.getRawAxis(Joystick.AxisType.kY.value)
