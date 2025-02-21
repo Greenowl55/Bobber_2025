@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Autos.Drive1;
+import frc.robot.Enums.ElevatorHight;
+import frc.robot.Enums.FishHookState;
 import frc.robot.commands.*;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.*;
@@ -175,9 +177,18 @@ public class RobotContainer {
 		// Co-Driver Buttons
 
 		// Idle fishHook in
-		m_fish_hook.setDefaultCommand(new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook));
+		// m_fish_hook.setDefaultCommand(new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook));
+		m_fish_hook.setDefaultCommand(
+				m_fish_hook.run(
+						() -> {
+							if (!m_fish_hook.autoIntakeRunning()) {
+								m_fish_hook.coral(0);
+							}
+							m_fish_hook.algae(0);
+							// new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook).execute();
+						}));
 
-		//idle climber in
+		// idle climber in
 		m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN, m_climber));
 
 		coDriverController
@@ -185,11 +196,11 @@ public class RobotContainer {
 				.whileTrue(
 						m_fish_hook
 								.run(() -> m_fish_hook.coral(0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // run coral motors
+								.withInterruptBehavior(InterruptionBehavior.kCancelIncoming)); // run coral motors
 
 		coDriverController
 				.button(2 /*Bottom Face button*/)
-				.onTrue(new Intake(m_elevator, m_fish_hook)); // intake coral
+				.whileTrue(new Intake(m_elevator, m_fish_hook)); // intake coral
 
 		coDriverController
 				.button(3 /*Left face button*/)
@@ -208,23 +219,23 @@ public class RobotContainer {
 		coDriverController
 				.button(5)
 				.onTrue(
-						new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook)); // move fishhook to idle
+						new CMD_FishHookState(FishHookState.Angle.IDLE, m_fish_hook)); // move fishhook to idle
 
 		coDriverController
 				.button(6)
 				.onTrue(
 						new CMD_FishHookState(
-								FishHookState.State.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
+								FishHookState.Angle.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
 
 		coDriverController
 				.button(7)
-				.onTrue(new CMD_FishHookState(FishHookState.State.L4, m_fish_hook)); // move fishhook to L4
+				.onTrue(new CMD_FishHookState(FishHookState.Angle.L4, m_fish_hook)); // move fishhook to L4
 
 		coDriverController
 				.button(8)
 				.onTrue(
 						new CMD_FishHookState(
-								FishHookState.State.Algae, m_fish_hook)); // move fishhook to Algea
+								FishHookState.Angle.Algae, m_fish_hook)); // move fishhook to Algea
 
 		coDriverController
 				.button(9)

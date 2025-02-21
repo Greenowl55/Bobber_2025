@@ -12,15 +12,22 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Enums.FishHookState;
 
 public class Fish_Hook extends SubsystemBase {
 
 	private final TalonFX m_coral = new TalonFX(10);
 	private final TalonFX m_algae = new TalonFX(9);
 	private final TalonFX m_tilt = new TalonFX(8);
+	private FishHookState.intake m_intake_state = FishHookState.intake.Idle;
+
+	private final DigitalInput photoelectricSensor = new DigitalInput(0);
+	private final DigitalOutput PES = new DigitalOutput(1);
 
 	public Fish_Hook() {
 
@@ -61,7 +68,23 @@ public class Fish_Hook extends SubsystemBase {
 	final PositionVoltage drive1PositionVoltage = new PositionVoltage(0).withSlot(0);
 
 	@Override
-	public void periodic() {}
+	public void periodic() {
+		// periodic code here
+		if (m_intake_state.equals(FishHookState.intake.INTAKE)) {
+			if (photoelectricSensor.get()) {
+				this.coral(0);
+				m_intake_state = FishHookState.intake.Idle;
+			}
+		}
+	}
+
+	public boolean autoIntakeRunning() {
+		return m_intake_state.equals(FishHookState.intake.INTAKE);
+	}
+
+	public void startAutoIntake() {
+		m_intake_state = FishHookState.intake.INTAKE;
+	}
 
 	@Override
 	public void simulationPeriodic() {}

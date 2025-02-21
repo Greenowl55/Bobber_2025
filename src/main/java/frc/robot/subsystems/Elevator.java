@@ -30,8 +30,8 @@ public class Elevator extends SubsystemBase {
 		var slot0Configs = talonFXconfigs.Slot0;
 		slot0Configs.kS = 0.56; // voltage needed to overcome static friction
 		slot0Configs.kV = 12.19; // output per unit of target velocity (output/rps)
-		slot0Configs.kA = 0.03; // output per unit of target acceleration (output/rps^2)
-		slot0Configs.kP = 0.5; // output per unit of error in position (output/rotation)
+		slot0Configs.kA = 0.02; // output per unit of target acceleration (output/rps^2)
+		slot0Configs.kP = 0.4; // output per unit of error in position (output/rotation)
 		slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s))
 		slot0Configs.kD = 0.05; // output per unit of error in velocity (output/rps)
 

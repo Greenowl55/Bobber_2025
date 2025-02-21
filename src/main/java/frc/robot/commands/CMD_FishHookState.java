@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.FishHookState.State;
+import frc.robot.Enums.FishHookState.Angle;
 import frc.robot.subsystems.Fish_Hook;
 
 public class CMD_FishHookState extends SequentialCommandGroup {
 
-	public CMD_FishHookState(State newScoringState, Fish_Hook FishHook) {
+	public CMD_FishHookState(Angle newScoringState, Fish_Hook FishHook) {
 
 		addRequirements(FishHook);
 

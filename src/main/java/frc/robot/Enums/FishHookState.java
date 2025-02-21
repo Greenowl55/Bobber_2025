@@ -5,10 +5,10 @@
 // license that can be found in the LICENSE file at
 // the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.Enums;
 
 public class FishHookState {
-	public enum State {
+	public enum Angle {
 		IDLE(0.0),
 		Intake(0.2),
 		L4(0.5),
@@ -16,12 +16,27 @@ public class FishHookState {
 
 		private double angle;
 
-		State(double MotorRotations) {
+		Angle(double MotorRotations) {
 			this.angle = MotorRotations;
 		}
 
 		public double getAngle() {
 			return angle;
+		}
+	}
+
+	public enum intake {
+		Idle(0),
+		INTAKE(0.2);
+
+		private double intake;
+
+		intake(double speed) {
+			this.intake = speed;
+		}
+
+		public double getSpeed() {
+			return intake;
 		}
 	}
 }
