@@ -9,6 +9,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -21,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Autos.Drive1;
 import frc.robot.Enums.ElevatorHight;
@@ -34,7 +34,7 @@ public class RobotContainer {
 
 	Elevator m_elevator = new Elevator();
 	Fish_Hook m_fish_hook = new Fish_Hook();
-	Climber m_climber = new Climber();
+	//Climber m_climber = new Climber();
 
 	private double MaxSpeed =
 			TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -74,6 +74,16 @@ public class RobotContainer {
 		autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
 
 		configureBindings();
+
+		// // Set the logger to log to the first flashdrive plugged in
+		// SignalLogger.setPath("/media/sda1/");
+
+		// // Explicitly start the logger
+		// SignalLogger.start();
+
+		// // Explicitly stop logging
+		// // If the user does not call stop(), then it's possible to lose the last few seconds of data
+		// SignalLogger.stop();
 	}
 
 	private void configureBindings() {
@@ -96,8 +106,8 @@ public class RobotContainer {
 						));
 
 		// Zero the elevator and fishhook when disabled
-		RobotModeTriggers.disabled().onFalse(m_elevator.runOnce(() -> m_elevator.zeroElevator()));
-		RobotModeTriggers.disabled().onFalse(m_fish_hook.runOnce(() -> m_fish_hook.zeroFishhook()));
+		//	RobotModeTriggers.disabled().onFalse(m_elevator.runOnce(() -> m_elevator.zeroElevator()));
+		//	RobotModeTriggers.disabled().onFalse(m_fish_hook.runOnce(() -> m_fish_hook.zeroFishhook()));
 
 		// TODO Find button for: driverController.a().toggleOnTrue(drivetrain.applyRequest(() ->
 		// brake));
@@ -141,7 +151,7 @@ public class RobotContainer {
 		// Driver Buttons
 
 		// Idle to bottom
-		m_elevator.setDefaultCommand(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
+		// m_elevator.setDefaultCommand(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		// Elevator positions
 		driverController.a().onTrue(new CMD_ElevatorState(ElevatorHight.State.L1, m_elevator));
@@ -151,28 +161,34 @@ public class RobotContainer {
 
 		// TODO right bumper for right side of reef alignment
 
-		driverController.rightTrigger().whileTrue(new ReefRight(drivetrain));
+		// driverController.rightTrigger().whileTrue(new ReefRight(drivetrain));
 		// TODO left bumper for left side of reef alignment
 
-		driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
+		// driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
 
 		driverController
 				.button(7)
 				.onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		driverController
-				.rightBumper()
-				.whileTrue(
+					.rightBumper()
+					.whileTrue(
 						m_elevator
-								.run(() -> m_elevator.elevator(0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
+							.run(() -> m_elevator.elevator(0.5))
+							.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		
 		driverController
-				.rightBumper()
-				.whileTrue(
+					.leftBumper()
+					.whileTrue(
 						m_elevator
-								.run(() -> m_elevator.elevator(-0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+							.run(() -> m_elevator.elevator(-0.5))
+							.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
+		m_elevator.setDefaultCommand(
+				m_elevator.run(
+						() -> {
+								m_elevator.elevator(0);						
+						}));
 
 		// Co-Driver Buttons
 
@@ -181,21 +197,25 @@ public class RobotContainer {
 		m_fish_hook.setDefaultCommand(
 				m_fish_hook.run(
 						() -> {
-							if (!m_fish_hook.autoIntakeRunning()) {
-								m_fish_hook.coral(0);
-							}
+							// if (!m_fish_hook.autoIntakeRunning()) {
+							// 	m_fish_hook.coral(0);
+							// }
 							m_fish_hook.algae(0);
+							// m_fish_hook.tilt(0.0);
+							m_fish_hook.tilt(
+									codriverJoystick.getRawAxis(Joystick.AxisType.kY.value)
+											* 0.1); // get the y axis of the joystick and multiply by 0.1 to get the speed
 							// new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook).execute();
 						}));
 
 		// idle climber in
-		m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN, m_climber));
+		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN, m_climber));
 
 		coDriverController
 				.button(1 /*Trigger*/)
 				.whileTrue(
 						m_fish_hook
-								.run(() -> m_fish_hook.coral(0.5))
+								.run(() -> m_fish_hook.coral(-0.5))
 								.withInterruptBehavior(InterruptionBehavior.kCancelIncoming)); // run coral motors
 
 		coDriverController
@@ -237,31 +257,27 @@ public class RobotContainer {
 						new CMD_FishHookState(
 								FishHookState.Angle.Algae, m_fish_hook)); // move fishhook to Algea
 
-		coDriverController
-				.button(9)
-				.onTrue(new CMD_ClimberState(ClimberState.State.IN, m_climber)); // move climber to IN
+		// coDriverController
+		// 		.button(9)
+		// 		.onTrue(new CMD_ClimberState(ClimberState.State.IN, m_climber)); // move climber to IN
 
-		coDriverController
-				.button(10)
-				.onTrue(new CMD_ClimberState(ClimberState.State.OUT, m_climber)); // move climber to OUT
+		// coDriverController
+		// 		.button(10)
+		// 		.onTrue(new CMD_ClimberState(ClimberState.State.OUT, m_climber)); // move climber to OUT
 
-		coDriverController
-				.button(11)
-				.onTrue(
-						m_climber
-								.run(() -> m_climber.climber(0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber up
+		// coDriverController
+		// 		.button(11)
+		// 		.onTrue(
+		// 				m_climber
+		// 						.run(() -> m_climber.climber(0.5))
+		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber up
 
-		coDriverController
-				.button(12)
-				.onTrue(
-						m_climber
-								.run(() -> m_climber.climber(-0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber down
-
-		m_fish_hook.tilt(
-				coDriverController.getRawAxis(Joystick.AxisType.kY.value)
-						* 0.1); // get the y axis of the joystick and multiply by 0.1 to get the speed
+		// coDriverController
+		// 		.button(12)
+		// 		.onTrue(
+		// 				m_climber
+		// 						.run(() -> m_climber.climber(-0.5))
+		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber down
 	}
 
 	public Command getAutonomousCommand() {

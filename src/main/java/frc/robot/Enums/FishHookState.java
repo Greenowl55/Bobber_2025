@@ -9,10 +9,10 @@ package frc.robot.Enums;
 
 public class FishHookState {
 	public enum Angle {
-		IDLE(0.0),
-		Intake(0.2),
-		L4(0.5),
-		Algae(0.75);
+		IDLE(1),
+		Intake(3),
+		L4(5),
+		Algae(7.5);
 
 		private double angle;
 
@@ -27,7 +27,7 @@ public class FishHookState {
 
 	public enum intake {
 		Idle(0),
-		INTAKE(0.2);
+		INTAKE(-0.2);
 
 		private double intake;
 

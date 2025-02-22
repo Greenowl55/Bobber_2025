@@ -1,25 +1,25 @@
-// Copyright (c) 2024 - 2025 : FRC 3102 : Tech-No-Tigers
-// https://www.tnt3102.org
+// // Copyright (c) 2024 - 2025 : FRC 3102 : Tech-No-Tigers
+// // https://www.tnt3102.org
 
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file at
-// the root directory of this project.
+// // Use of this source code is governed by an MIT-style
+// // license that can be found in the LICENSE file at
+// // the root directory of this project.
 
-package frc.robot.commands;
+// package frc.robot.commands;
 
-public class ClimberState {
-	public enum State {
-		IN(0.0),
-		OUT(20.0);
+// public class ClimberState {
+// 	public enum State {
+// 		IN(0.0),
+// 		OUT(20.0);
 
-		private double angle;
+// 		private double angle;
 
-		State(double MotorRotations) {
-			this.angle = MotorRotations;
-		}
+// 		State(double MotorRotations) {
+// 			this.angle = MotorRotations;
+// 		}
 
-		public double getAngle() {
-			return angle;
-		}
-	}
-}
+// 		public double getAngle() {
+// 			return angle;
+// 		}
+// 	}
+// }

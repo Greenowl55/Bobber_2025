@@ -27,7 +27,6 @@ public class Fish_Hook extends SubsystemBase {
 	private FishHookState.intake m_intake_state = FishHookState.intake.Idle;
 
 	private final DigitalInput photoelectricSensor = new DigitalInput(0);
-	private final DigitalOutput PES = new DigitalOutput(1);
 
 	public Fish_Hook() {
 
@@ -39,13 +38,13 @@ public class Fish_Hook extends SubsystemBase {
 		slot0Configs.kV = 0.1; // output per unit of target velocity (output/rps)
 		slot0Configs.kA = 0.1; // output per unit of target acceleration (output/rps^2)
 		slot0Configs.kP =
-				2.4; // output per unit of error in position (output/rotation), An error of 1 rotation
+				0.01; // output per unit of error in position (output/rotation), An error of 1 rotation
 		// results in 2.4 V output
 		slot0Configs.kI =
 				0; // output per unit of integrated error in position (output/(rotation*s)), no output for
 		// integrated error
 		slot0Configs.kD =
-				0.1; // output per unit of error in velocity (output/rps), A velocity of 1 rps results in
+				0.001; // output per unit of error in velocity (output/rps), A velocity of 1 rps results in
 		// 0.1 V output
 
 		var motionMagicConfigs = talonFXconfigs.MotionMagic;
@@ -101,7 +100,7 @@ public class Fish_Hook extends SubsystemBase {
 		m_tilt.setControl(new PositionVoltage(position).withSlot(0));
 	}
 
-	public void tilt(Double speed) {
+	public void tilt(double speed) {
 		m_tilt.set(speed);
 	}
 

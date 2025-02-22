@@ -30,8 +30,8 @@ public class Intake extends SequentialCommandGroup {
 		addCommands(
 				Fish_Hook.run(
 						() -> {
-							Fish_Hook.coral(0.2);
-							Fish_Hook.startAutoIntake();
+							Fish_Hook.coral(-0.2);
+							// Fish_Hook.startAutoIntake();
 						}));
 
 		// puts elevator in same position as L1 but runs coral motors

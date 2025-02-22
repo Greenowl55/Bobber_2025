@@ -8,12 +8,12 @@
 package frc.robot.Enums;
 
 public class ElevatorHight {
-	public enum State {
+	public enum State { // 32, 48, 72
 		BOTTOM(0.0),
-		L1(10),
-		L2(15),
-		L3(25),
-		L4(35),
+		L1(0), /*put to 10 later once ground button is a thing */
+		L2(21),
+		L3(40),
+		L4(60),
 
 		BARGE(1.8);
 
