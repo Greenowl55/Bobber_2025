@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -8,6 +9,7 @@ import frc.robot.Constants;
 public class Tilt extends SubsystemBase {
 
     private final TalonFX m_tilt = new TalonFX(Constants.TILT_MOTOR_ID);
+    private double angle;
 
     public Tilt() {
         var talonFXconfigs = new TalonFXConfiguration();
@@ -32,8 +34,16 @@ public class Tilt extends SubsystemBase {
         m_tilt.getConfigurator().apply(talonFXconfigs);
     }
 
-    public void Setangle(Double angle) {
+    public void setAngle(double angle) {
+        this.angle = angle;
         m_tilt.setPosition(angle);
     }
 
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.addBooleanProperty("TiltConnected", () -> m_tilt.isConnected(), null);
+        builder.addBooleanProperty("TiltAlive", () -> m_tilt.isAlive(), null);
+        builder.addDoubleProperty("TiltAngle", () -> this.angle, null);
+    }
 }

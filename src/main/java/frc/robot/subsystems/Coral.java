@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -20,4 +21,12 @@ public class Coral extends SubsystemBase {
     public void setSpeed(double speed) {
         motor.set(speed);
     }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.addBooleanProperty("CoralConnected", () -> motor.isConnected(), null);
+        builder.addBooleanProperty("CoralAlive", () -> motor.isAlive(), null);
+    }
+
+
 }

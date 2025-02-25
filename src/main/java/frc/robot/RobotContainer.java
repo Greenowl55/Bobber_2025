@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.autos.*;
 import frc.robot.commands.algae.*;
 import frc.robot.commands.coral.*;
+import frc.robot.commands.elevator.ManualControl;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.*;
 
@@ -157,11 +158,11 @@ public class RobotContainer {
 		// CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		// Elevator positions
-		driverController.button(7).onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_BOTTOM)));
-		driverController.a().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_INTAKE)));
-		driverController.b().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_L2)));
-		driverController.x().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_L3)));
-		driverController.y().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_L4)));
+		driverController.button(7).onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_BOTTOM)));
+		driverController.a().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_INTAKE)));
+		driverController.b().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_L2)));
+		driverController.x().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_L3)));
+		driverController.y().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_L4)));
 
 		// TODO right bumper for right side of reef alignment
 
@@ -176,20 +177,14 @@ public class RobotContainer {
 
 		driverController
 				.rightBumper()
-				.whileTrue(
-						m_elevator
-								.run(() -> m_elevator.elevator(0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+				.whileTrue(new ManualControl(m_elevator, 0.5));
 
 		driverController
 				.leftBumper()
-				.whileTrue(
-						m_elevator
-								.run(() -> m_elevator.elevator(-0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+				.whileTrue(new ManualControl(m_elevator, -0.5));
 
 		m_elevator.setDefaultCommand(
-				m_elevator.run(
+				m_elevator.runOnce(
 						() -> {
 							m_elevator.elevator(0);
 						}));
@@ -211,7 +206,7 @@ public class RobotContainer {
 		coDriverController.button(Constants.CODRIVER_LEFT_FACE).whileTrue(
 				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		m_tilt.setDefaultCommand(
-				m_tilt.run(() -> m_tilt.Setangle(codriverJoystick.getY())));
+				m_tilt.runOnce(() -> m_tilt.setAngle(codriverJoystick.getY())));
 	}
 
 	public Command getAutonomousCommand() {

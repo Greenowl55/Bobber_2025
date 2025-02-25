@@ -1,5 +1,6 @@
 package frc.robot.commands.coral;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -16,6 +17,10 @@ public class AutoIntake extends Command {
         addRequirements(coral);
     }
 
+    private boolean sensorTriggered() {
+        return photoelectricSensor.get();
+    }
+
     @Override
     public void initialize() {
         this.coral.setSpeed(this.speed);
@@ -23,11 +28,16 @@ public class AutoIntake extends Command {
 
     @Override
     public boolean isFinished() {
-        return (photoelectricSensor.get());
+        return this.sensorTriggered();
     }
 
     @Override
     public void end(boolean isFinished) {
         this.coral.setSpeed(0);
+    }
+
+    @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.addBooleanProperty("CoralSensor", () -> this.sensorTriggered(), null);
     }
 }

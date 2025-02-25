@@ -14,7 +14,7 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.Constants;
-
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -79,7 +79,7 @@ public class Elevator extends SubsystemBase {
 
 	public Command zeroElevator() {
 
-		return this.run(
+		return this.runOnce(
 				() -> {
 					m_elevator1.setVoltage(-3);
 					isHomed = false;
@@ -93,4 +93,14 @@ public class Elevator extends SubsystemBase {
 									isHomed = true;
 								}));
 	}
+	@Override
+    public void initSendable(SendableBuilder builder) {
+        builder.addBooleanProperty("ElevatorLeaderConnected", () -> m_elevator1.isConnected(), null);
+        builder.addBooleanProperty("ElevatorLeaderAlive", () -> m_elevator1.isAlive(), null);
+		builder.addBooleanProperty("ElevatorFollowerConnected", () -> m_elevator2.isConnected(), null);
+        builder.addBooleanProperty("ElevatorFollowerAlive", () -> m_elevator2.isAlive(), null);
+		builder.addDoubleProperty("ElevatorPosition", () -> m_elevator1.getPosition().getValueAsDouble(), null);
+    }
+
 }
+
