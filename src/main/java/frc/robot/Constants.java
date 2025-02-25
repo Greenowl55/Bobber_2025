@@ -28,7 +28,8 @@ public class Constants {
     //Fishhook setpoints
     
     public static final double ALGAE_MOTOR_SPEED = 0.2;
-    public static final double CORAL_MOTOR_SPEED = 0.5;
+    public static final double CORAL_Slow = 0.2;
+    public static final double CORAL_Fast = 0.5;
     public static final double TILT_MOTOR_SPEED = 0.0; //TODO SPEED
 
 }

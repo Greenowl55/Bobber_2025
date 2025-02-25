@@ -28,7 +28,6 @@ import frc.robot.Enums.ElevatorHight;
 import frc.robot.Enums.FishHookState;
 import frc.robot.NewCommands.coral.*;
 import frc.robot.NewSubsytems.*;
-import frc.robot.commands.*;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.*;
 
@@ -157,10 +156,10 @@ public class RobotContainer {
 		// m_elevator.setDefaultCommand(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		// Elevator positions
-		driverController.a().onTrue(new CMD_ElevatorState(ElevatorHight.State.L1, m_elevator));
-		driverController.b().onTrue(new CMD_ElevatorState(ElevatorHight.State.L2, m_elevator));
-		driverController.x().onTrue(new CMD_ElevatorState(ElevatorHight.State.L3, m_elevator));
-		driverController.y().onTrue(new CMD_ElevatorState(ElevatorHight.State.L4, m_elevator));
+		// driverController.a().onTrue(new CMD_ElevatorState(ElevatorHight.State.L1, m_elevator));
+		// driverController.b().onTrue(new CMD_ElevatorState(ElevatorHight.State.L2, m_elevator));
+		// driverController.x().onTrue(new CMD_ElevatorState(ElevatorHight.State.L3, m_elevator));
+		// driverController.y().onTrue(new CMD_ElevatorState(ElevatorHight.State.L4, m_elevator));
 
 		// TODO right bumper for right side of reef alignment
 
@@ -169,9 +168,9 @@ public class RobotContainer {
 
 		// driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
 
-		driverController
-				.button(7)
-				.onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
+		// driverController
+		// 		.button(7)
+		// 		.onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		driverController
 					.rightBumper()
@@ -195,94 +194,39 @@ public class RobotContainer {
 
 		// Co-Driver Buttons
 
-		// Idle fishHook in
-		// m_fish_hook.setDefaultCommand(new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook));
-		m_fish_hook.setDefaultCommand(
-				m_fish_hook.run(
-						() -> {
-							// if (!m_fish_hook.autoIntakeRunning()) {
-							// 	m_fish_hook.coral(0);
-							// }
-							m_fish_hook.algae(0);
-							// m_fish_hook.tilt(0.0);
-							m_fish_hook.tilt(
-									codriverJoystick.getRawAxis(Joystick.AxisType.kY.value)
-											* 0.1); // get the y axis of the joystick and multiply by 0.1 to get the speed
-							// new CMD_FishHookState(FishHookState.State.IDLE, m_fish_hook).execute();
-						}));
-
 		// idle climber in
 		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN, m_climber));
 
-		coDriverController
-				.button(1 /*Trigger*/)
-				.whileTrue(
-						m_fish_hook
-								.run(() -> m_fish_hook.coral(-0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelIncoming)); // run coral motors
-
-		coDriverController
-				.button(2 /*Bottom Face button*/)
-				.whileTrue(new Intake(m_elevator, m_fish_hook)); // intake coral
-
-		coDriverController
-				.button(3 /*Left face button*/)
-				.whileTrue(
-						m_fish_hook
-								.run(() -> m_fish_hook.algae(-0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // intake algae
-
-		coDriverController
-				.button(4 /*Right face button*/)
-				.whileTrue(
-						m_fish_hook
-								.run(() -> m_fish_hook.algae(0.5))
-								.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // outtake algae
-
-		coDriverController
-				.button(5)
-				.onTrue(
-						new CMD_FishHookState(FishHookState.Angle.IDLE, m_fish_hook)); // move fishhook to idle
-
-		coDriverController
-				.button(6)
-				.onTrue(new CMD_FishHookState(FishHookState.Angle.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
-
-		coDriverController
-				.button(7)
-				.onTrue(new CMD_FishHookState(FishHookState.Angle.L4, m_fish_hook)); // move fishhook to L4
-
-		coDriverController
-				.button(8)
-				.onTrue(
-						new CMD_FishHookState(FishHookState.Angle.Algae, m_fish_hook)); // move fishhook to Algea
+		// coDriverController
+		// 		.button(1 /*Trigger*/)
+		// 		.whileTrue(
+		// 				m_fish_hook
+		// 						.run(() -> m_fish_hook.coral(-0.5))
+		// 						.withInterruptBehavior(InterruptionBehavior.kCancelIncoming)); // run coral motors
 
 		// coDriverController
-		// 		.button(9)
-		// 		.onTrue(new CMD_ClimberState(ClimberState.State.IN, m_climber)); // move climber to IN
+		// 		.button(2 /*Bottom Face button*/)
+		// 		.whileTrue(new Intake(m_elevator, m_fish_hook)); // intake coral
 
 		// coDriverController
-		// 		.button(10)
-		// 		.onTrue(new CMD_ClimberState(ClimberState.State.OUT, m_climber)); // move climber to OUT
+		// 		.button(3 /*Left face button*/)
+		// 		.whileTrue(
+		// 				m_fish_hook
+		// 						.run(() -> m_fish_hook.algae(-0.5))
+		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // intake algae
 
 		// coDriverController
-		// 		.button(11)
-		// 		.onTrue(
-		// 				m_climber
-		// 						.run(() -> m_climber.climber(0.5))
-		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber up
+		// 		.button(4 /*Right face button*/)
+		// 		.whileTrue(
+		// 				m_fish_hook
+		// 						.run(() -> m_fish_hook.algae(0.5))
+		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // outtake algae
 
-		// coDriverController
-		// 		.button(12)
-		// 		.onTrue(
-		// 				m_climber
-		// 						.run(() -> m_climber.climber(-0.5))
-		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber down
+	
 
-		coDriverController.button(0).whileTrue(new AutoIntake(m_coral).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
-		coDriverController.button(0).whileTrue(new Coral.Fast(Constants.CORAL_MOTOR_SPEED).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(0).whileTrue(new Coral.Slow(Constants.CORAL_MOTOR_SPEED).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(0).whileTrue(new AutoIntake(m_coral, Constants.CORAL_Fast).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(0).whileTrue(new Fast(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(0).whileTrue(new Slow(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 	}
 
