@@ -45,4 +45,9 @@ public class Constants {
     public static final int Left_Face_Button = 3;
     public static final int Right_Face_Button = 4;
 
+    //Reef April Tag array
+    public static final int[] ReefTags = {
+        6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
+    };
+
 }

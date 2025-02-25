@@ -11,6 +11,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.NewSubsytems.CommandSwerveDrivetrain;
 
@@ -19,8 +20,6 @@ public class ReefRight extends Command {
 			new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
 	private CommandSwerveDrivetrain m_drive;
-	private int[] m_tag;
-	private int[] ReefTags;
 
 	// PID Controllers for alignment
 	private final PIDController rotationPID;
@@ -29,7 +28,7 @@ public class ReefRight extends Command {
 
 	public ReefRight(CommandSwerveDrivetrain drive_subsystem) {
 		addRequirements(drive_subsystem);
-		m_tag = ReefTags;
+
 		m_drive = drive_subsystem;
 
 		// Configure PID controllers with gains
@@ -37,20 +36,6 @@ public class ReefRight extends Command {
 		strafePID = new PIDController(0.015, 0, 0);
 		distancePID = new PIDController(0.1, 0, 0);
 		addRequirements(drive_subsystem);
-
-		ReefTags = new int[12];
-		ReefTags[0] = 6;
-		ReefTags[1] = 7;
-		ReefTags[2] = 8;
-		ReefTags[3] = 9;
-		ReefTags[4] = 10;
-		ReefTags[5] = 11;
-		ReefTags[6] = 17;
-		ReefTags[7] = 18;
-		ReefTags[8] = 19;
-		ReefTags[9] = 20;
-		ReefTags[10] = 21;
-		ReefTags[11] = 22;
 
 		// Set tolerances for when we consider ourselv+es "aligned"
 		rotationPID.setTolerance(1.0);
@@ -72,7 +57,7 @@ public class ReefRight extends Command {
 		double id = LimelightHelpers.getFiducialID("ll4");
 
 		boolean tagFound = false;
-		for (int tag : m_tag) {
+		for (int tag : Constants.ReefTags) {
 			if (id == tag) {
 				tagFound = true;
 				break;
