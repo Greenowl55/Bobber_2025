@@ -36,7 +36,7 @@ Commands have three phases: `initialize()`, `execute()`, and `end(boolean)`.
 
 - Up
 - Down
-- SetPoint
+- SetPoint (aprox 10, 21, 40, 60)
 
 #### Open Questions
 
