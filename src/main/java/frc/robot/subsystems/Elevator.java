@@ -13,14 +13,16 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import frc.robot.Constants;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class Elevator extends SubsystemBase {
 
-	TalonFX m_elevator1 = new TalonFX(11);
-	TalonFX m_elevator2 = new TalonFX(12);
+	TalonFX m_elevator1 = new TalonFX(Constants.Elevator_Leader);
+	TalonFX m_elevator2 = new TalonFX(Constants.Elevator_Follower);
 
 	public Elevator() {
 

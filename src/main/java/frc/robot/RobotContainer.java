@@ -26,6 +26,8 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Autos.Drive1;
 import frc.robot.Enums.ElevatorHight;
 import frc.robot.Enums.FishHookState;
+import frc.robot.NewCommands.coral.*;
+import frc.robot.NewSubsytems.*;
 import frc.robot.commands.*;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.*;
@@ -34,6 +36,7 @@ public class RobotContainer {
 
 	Elevator m_elevator = new Elevator();
 	Fish_Hook m_fish_hook = new Fish_Hook();
+	Coral m_coral = new Coral();
 	//Climber m_climber = new Climber();
 
 	private double MaxSpeed =
@@ -243,9 +246,7 @@ public class RobotContainer {
 
 		coDriverController
 				.button(6)
-				.onTrue(
-						new CMD_FishHookState(
-								FishHookState.Angle.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
+				.onTrue(new CMD_FishHookState(FishHookState.Angle.Intake, m_fish_hook)); // move fishhook to Intake/L1, L2, L3
 
 		coDriverController
 				.button(7)
@@ -254,8 +255,7 @@ public class RobotContainer {
 		coDriverController
 				.button(8)
 				.onTrue(
-						new CMD_FishHookState(
-								FishHookState.Angle.Algae, m_fish_hook)); // move fishhook to Algea
+						new CMD_FishHookState(FishHookState.Angle.Algae, m_fish_hook)); // move fishhook to Algea
 
 		// coDriverController
 		// 		.button(9)
@@ -278,6 +278,12 @@ public class RobotContainer {
 		// 				m_climber
 		// 						.run(() -> m_climber.climber(-0.5))
 		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // move climber down
+
+		coDriverController.button(0).whileTrue(new AutoIntake(m_coral).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
+		coDriverController.button(0).whileTrue(new Coral.Fast(Constants.CORAL_MOTOR_SPEED).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(0).whileTrue(new Coral.Slow(Constants.CORAL_MOTOR_SPEED).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
 	}
 
 	public Command getAutonomousCommand() {
