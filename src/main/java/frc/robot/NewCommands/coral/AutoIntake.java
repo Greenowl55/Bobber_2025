@@ -18,28 +18,17 @@ public class AutoIntake extends Command {
     
     @Override
     public void initialize() {
-        //this.coral.setSpeed(this.speed);
+        this.coral.setSpeed(this.speed);
     }
 
-    @Override 
-    public void execute(){
-        if (photoelectricSensor.get()){
-            coral.setSpeed(speed);
-        }
-        else{
-            coral.setSpeed(0);
-        }
+
+    @Override
+    public boolean isFinished() {
+        return (photoelectricSensor.get());
     }
 
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean isFinished) {
         this.coral.setSpeed(0);
     }
 }
-    
-
-
-
-
-
-

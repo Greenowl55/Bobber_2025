@@ -23,19 +23,18 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.Autos.Drive1;
-import frc.robot.Enums.ElevatorHight;
-import frc.robot.Enums.FishHookState;
+import frc.robot.Autos.*;
+import frc.robot.NewCommands.algae.*;
 import frc.robot.NewCommands.coral.*;
 import frc.robot.NewSubsytems.*;
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
 	Elevator m_elevator = new Elevator();
-	Fish_Hook m_fish_hook = new Fish_Hook();
 	Coral m_coral = new Coral();
+	Algae m_algae = new Algae();
+	Tilt m_tilt = new Tilt();
 	//Climber m_climber = new Climber();
 
 	private double MaxSpeed =
@@ -196,38 +195,16 @@ public class RobotContainer {
 
 		// idle climber in
 		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN, m_climber));
-
-		// coDriverController
-		// 		.button(1 /*Trigger*/)
-		// 		.whileTrue(
-		// 				m_fish_hook
-		// 						.run(() -> m_fish_hook.coral(-0.5))
-		// 						.withInterruptBehavior(InterruptionBehavior.kCancelIncoming)); // run coral motors
-
-		// coDriverController
-		// 		.button(2 /*Bottom Face button*/)
-		// 		.whileTrue(new Intake(m_elevator, m_fish_hook)); // intake coral
-
-		// coDriverController
-		// 		.button(3 /*Left face button*/)
-		// 		.whileTrue(
-		// 				m_fish_hook
-		// 						.run(() -> m_fish_hook.algae(-0.5))
-		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // intake algae
-
-		// coDriverController
-		// 		.button(4 /*Right face button*/)
-		// 		.whileTrue(
-		// 				m_fish_hook
-		// 						.run(() -> m_fish_hook.algae(0.5))
-		// 						.withInterruptBehavior(InterruptionBehavior.kCancelSelf)); // outtake algae
-
 	
 
-		coDriverController.button(0).whileTrue(new AutoIntake(m_coral, Constants.CORAL_Fast).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(0).whileTrue(new Fast(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.Bottom_Face_Button).whileTrue(new AutoIntake(m_coral, Constants.CORAL_Fast).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.Trigger).whileTrue(new Fast(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(0).whileTrue(new Slow(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-
+		coDriverController.button(Constants.Right_Face_Button).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.Left_Face_Button).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		m_tilt.setDefaultCommand(
+			m_tilt.run(() -> m_tilt.Setangle(codriverJoystick.getY()))
+		);
 	}
 
 	public Command getAutonomousCommand() {
