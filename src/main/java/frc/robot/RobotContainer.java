@@ -157,11 +157,11 @@ public class RobotContainer {
 		// CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		// Elevator positions
-		driverController.button(7).onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_Bottom)));
-		driverController.a().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_Intake)));
-		driverController.b().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L2)));
-		driverController.x().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L3)));
-		driverController.y().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L4)));
+		driverController.button(7).onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_BOTTOM)));
+		driverController.a().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_INTAKE)));
+		driverController.b().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_L2)));
+		driverController.x().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_L3)));
+		driverController.y().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.ELEVATOR_L4)));
 
 		// TODO right bumper for right side of reef alignment
 
@@ -200,15 +200,15 @@ public class RobotContainer {
 		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN,
 		// m_climber));
 
-		coDriverController.button(Constants.Bottom_Face_Button).whileTrue(
-				new AutoIntake(m_coral, Constants.CORAL_Fast).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.Trigger).whileTrue(
-				new Fast(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_BOTTOM_FACE).whileTrue(
+				new AutoIntake(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_TRIGGER).whileTrue(
+				new Fast(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(0).whileTrue(
-				new Slow(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.Right_Face_Button).whileTrue(
+				new Slow(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_RIGHT_FACE).whileTrue(
 				new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.Left_Face_Button).whileTrue(
+		coDriverController.button(Constants.CODRIVER_LEFT_FACE).whileTrue(
 				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		m_tilt.setDefaultCommand(
 				m_tilt.run(() -> m_tilt.Setangle(codriverJoystick.getY())));

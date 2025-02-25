@@ -21,8 +21,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class Elevator extends SubsystemBase {
 
-	TalonFX m_elevator1 = new TalonFX(Constants.Elevator_Leader);
-	TalonFX m_elevator2 = new TalonFX(Constants.Elevator_Follower);
+	TalonFX m_elevator1 = new TalonFX(Constants.ELEVATOR_LEADER);
+	TalonFX m_elevator2 = new TalonFX(Constants.ELEVATOR_FOLLOWER);
 
 	public Elevator() {
 

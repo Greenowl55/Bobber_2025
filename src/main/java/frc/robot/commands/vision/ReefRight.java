@@ -5,7 +5,7 @@
 // license that can be found in the LICENSE file at
 // the root directory of this project.
 
-package frc.robot.commands.Vision;
+package frc.robot.commands.vision;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -57,7 +57,7 @@ public class ReefRight extends Command {
 		double id = LimelightHelpers.getFiducialID("ll4");
 
 		boolean tagFound = false;
-		for (int tag : Constants.ReefTags) {
+		for (int tag : Constants.REEF_TAGS) {
 			if (id == tag) {
 				tagFound = true;
 				break;

@@ -8,7 +8,7 @@ import frc.robot.subsystems.Coral;
 public class AutoIntake extends Command {
     private double speed;
     private Coral coral;
-    private final DigitalInput photoelectricSensor = new DigitalInput(Constants.Coral_Sensor);
+    private final DigitalInput photoelectricSensor = new DigitalInput(Constants.CORAL_SENSOR);
 
     public AutoIntake(Coral coral, double speed) {
         this.coral = coral;
