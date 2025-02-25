@@ -1,9 +1,9 @@
-package frc.robot.NewCommands.coral;
+package frc.robot.commands.coral;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.NewSubsytems.Coral;
+import frc.robot.subsystems.Coral;
 
 public class AutoIntake extends Command {
     private double speed;
@@ -15,12 +15,11 @@ public class AutoIntake extends Command {
         this.speed = speed;
         addRequirements(coral);
     }
-    
+
     @Override
     public void initialize() {
         this.coral.setSpeed(this.speed);
     }
-
 
     @Override
     public boolean isFinished() {

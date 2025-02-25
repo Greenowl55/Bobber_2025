@@ -23,11 +23,11 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.Autos.*;
-import frc.robot.NewCommands.algae.*;
-import frc.robot.NewCommands.coral.*;
-import frc.robot.NewSubsytems.*;
+import frc.robot.autos.*;
+import frc.robot.commands.algae.*;
+import frc.robot.commands.coral.*;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
@@ -35,25 +35,22 @@ public class RobotContainer {
 	Coral m_coral = new Coral();
 	Algae m_algae = new Algae();
 	Tilt m_tilt = new Tilt();
-	//Climber m_climber = new Climber();
+	// Climber m_climber = new Climber();
 
-	private double MaxSpeed =
-			TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-	private double MaxAngularRate =
-			RotationsPerSecond.of(0.75)
-					.in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+	private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+	private double MaxAngularRate = RotationsPerSecond.of(0.75)
+			.in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
 	/* Setting up bindings for necessary control of the swerve drive platform */
-	private final SwerveRequest.FieldCentric drive =
-			new SwerveRequest.FieldCentric()
-					.withDeadband(MaxSpeed * 0.05)
-					.withRotationalDeadband(MaxAngularRate * 0.05) // Add a 10% deadband
-					.withDriveRequestType(
-							DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
+	private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+			.withDeadband(MaxSpeed * 0.05)
+			.withRotationalDeadband(MaxAngularRate * 0.05) // Add a 10% deadband
+			.withDriveRequestType(
+					DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
 	private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
 	private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-	private final SwerveRequest.RobotCentric forwardStraight =
-			new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+	private final SwerveRequest.RobotCentric forwardStraight = new SwerveRequest.RobotCentric()
+			.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
 	private final Telemetry logger = new Telemetry(MaxSpeed);
 
@@ -83,7 +80,8 @@ public class RobotContainer {
 		// SignalLogger.start();
 
 		// // Explicitly stop logging
-		// // If the user does not call stop(), then it's possible to lose the last few seconds of data
+		// // If the user does not call stop(), then it's possible to lose the last few
+		// seconds of data
 		// SignalLogger.stop();
 	}
 
@@ -93,27 +91,30 @@ public class RobotContainer {
 		drivetrain.setDefaultCommand(
 				// Drivetrain will execute this command periodically
 				drivetrain.applyRequest(
-						() ->
-								drive
-										.withVelocityX(
-												-driverController.getLeftY()
-														* MaxSpeed) // Drive forward with negative Y (forward)
-										.withVelocityY(
-												-driverController.getLeftX()
-														* MaxSpeed) // Drive left with negative X (left)
-										.withRotationalRate(
-												-driverController.getRightX()
-														* MaxAngularRate) // Drive counterclockwise with negative X (left)
-						));
+						() -> drive
+								.withVelocityX(
+										-driverController.getLeftY()
+												* MaxSpeed) // Drive forward with negative Y (forward)
+								.withVelocityY(
+										-driverController.getLeftX()
+												* MaxSpeed) // Drive left with negative X (left)
+								.withRotationalRate(
+										-driverController.getRightX()
+												* MaxAngularRate) // Drive counterclockwise with negative X (left)
+				));
 
 		// Zero the elevator and fishhook when disabled
-		//	RobotModeTriggers.disabled().onFalse(m_elevator.runOnce(() -> m_elevator.zeroElevator()));
-		//	RobotModeTriggers.disabled().onFalse(m_fish_hook.runOnce(() -> m_fish_hook.zeroFishhook()));
+		// RobotModeTriggers.disabled().onFalse(m_elevator.runOnce(() ->
+		// m_elevator.zeroElevator()));
+		// RobotModeTriggers.disabled().onFalse(m_fish_hook.runOnce(() ->
+		// m_fish_hook.zeroFishhook()));
 
-		// TODO Find button for: driverController.a().toggleOnTrue(drivetrain.applyRequest(() ->
+		// TODO Find button for:
+		// driverController.a().toggleOnTrue(drivetrain.applyRequest(() ->
 		// brake));
 		// joystick.b().whileTrue(drivetrain.applyRequest(() ->
-		//     point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
+		// point.withModuleDirection(new Rotation2d(-joystick.getLeftY(),
+		// -joystick.getLeftX()))
 		// ));
 
 		driverController
@@ -152,13 +153,14 @@ public class RobotContainer {
 		// Driver Buttons
 
 		// Idle to bottom
-		// m_elevator.setDefaultCommand(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
+		// m_elevator.setDefaultCommand(new
+		// CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		// Elevator positions
 		driverController.button(7).onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_Bottom)));
 		driverController.a().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_Intake)));
 		driverController.b().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L2)));
-		driverController.x().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L3)));	
+		driverController.x().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L3)));
 		driverController.y().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L4)));
 
 		// TODO right bumper for right side of reef alignment
@@ -169,43 +171,47 @@ public class RobotContainer {
 		// driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
 
 		// driverController
-		// 		.button(7)
-		// 		.onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
+		// .button(7)
+		// .onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		driverController
-					.rightBumper()
-					.whileTrue(
+				.rightBumper()
+				.whileTrue(
 						m_elevator
-							.run(() -> m_elevator.elevator(0.5))
-							.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		
+								.run(() -> m_elevator.elevator(0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
 		driverController
-					.leftBumper()
-					.whileTrue(
+				.leftBumper()
+				.whileTrue(
 						m_elevator
-							.run(() -> m_elevator.elevator(-0.5))
-							.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+								.run(() -> m_elevator.elevator(-0.5))
+								.withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		m_elevator.setDefaultCommand(
 				m_elevator.run(
 						() -> {
-								m_elevator.elevator(0);						
+							m_elevator.elevator(0);
 						}));
 
 		// Co-Driver Buttons
 
 		// idle climber in
-		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN, m_climber));
-	
+		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN,
+		// m_climber));
 
-		coDriverController.button(Constants.Bottom_Face_Button).whileTrue(new AutoIntake(m_coral, Constants.CORAL_Fast).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.Trigger).whileTrue(new Fast(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(0).whileTrue(new Slow(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.Right_Face_Button).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.Left_Face_Button).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.Bottom_Face_Button).whileTrue(
+				new AutoIntake(m_coral, Constants.CORAL_Fast).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.Trigger).whileTrue(
+				new Fast(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(0).whileTrue(
+				new Slow(m_coral, Constants.CORAL_Slow).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.Right_Face_Button).whileTrue(
+				new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.Left_Face_Button).whileTrue(
+				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		m_tilt.setDefaultCommand(
-			m_tilt.run(() -> m_tilt.Setangle(codriverJoystick.getY()))
-		);
+				m_tilt.run(() -> m_tilt.Setangle(codriverJoystick.getY())));
 	}
 
 	public Command getAutonomousCommand() {

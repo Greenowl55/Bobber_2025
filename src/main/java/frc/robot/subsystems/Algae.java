@@ -1,4 +1,4 @@
-package frc.robot.NewSubsytems;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -9,10 +9,9 @@ import frc.robot.Constants;
 public class Algae extends SubsystemBase {
     private final TalonFX motor = new TalonFX(Constants.ALGAE_MOTOR_ID);
 
-
     public Algae() {
         motor.getConfigurator().apply(new TalonFXConfiguration());
-		motor.setNeutralMode(NeutralModeValue.Brake);
+        motor.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public void setSpeed(double speed) {

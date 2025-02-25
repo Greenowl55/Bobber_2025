@@ -5,19 +5,19 @@
 // license that can be found in the LICENSE file at
 // the root directory of this project.
 
-package frc.robot.NewCommands.Vision;
+package frc.robot.commands.Vision;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.LimelightHelpers;
-import frc.robot.NewSubsytems.CommandSwerveDrivetrain;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 
-public class ReefLeft extends Command {
-	private final SwerveRequest.RobotCentric drive =
-			new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+public class ReefRight extends Command {
+	private final SwerveRequest.RobotCentric drive = new SwerveRequest.RobotCentric()
+			.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
 	private CommandSwerveDrivetrain m_drive;
 
@@ -26,8 +26,9 @@ public class ReefLeft extends Command {
 	private final PIDController strafePID;
 	private final PIDController distancePID;
 
-	public ReefLeft(CommandSwerveDrivetrain drive_subsystem) {
+	public ReefRight(CommandSwerveDrivetrain drive_subsystem) {
 		addRequirements(drive_subsystem);
+
 		m_drive = drive_subsystem;
 
 		// Configure PID controllers with gains
@@ -64,7 +65,7 @@ public class ReefLeft extends Command {
 		}
 		if (tagFound == true) { // Calculate control outputs
 			double rotationOutput = rotationPID.calculate(tx, 0) * 1.5 * Math.PI;
-			double strafeOutput = strafePID.calculate(tx, -5);
+			double strafeOutput = strafePID.calculate(tx, 5);
 			double forwardOutput = distancePID.calculate(ty, 0);
 
 			// Apply combined movement

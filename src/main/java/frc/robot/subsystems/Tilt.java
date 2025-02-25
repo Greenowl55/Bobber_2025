@@ -1,13 +1,13 @@
-package frc.robot.NewSubsytems;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants;
 
-public class Tilt extends SubsystemBase{
+public class Tilt extends SubsystemBase {
 
-   private final TalonFX m_tilt = new TalonFX(Constants.TILT_MOTOR_ID);
+    private final TalonFX m_tilt = new TalonFX(Constants.TILT_MOTOR_ID);
 
     public Tilt() {
         var talonFXconfigs = new TalonFXConfiguration();
@@ -17,20 +17,22 @@ public class Tilt extends SubsystemBase{
         slot0Configs.kS = 0.2; // voltage needed to overcome static friction
         slot0Configs.kV = 0.1; // output per unit of target velocity (output/rps)
         slot0Configs.kA = 0.1; // output per unit of target acceleration (output/rps^2)
-        slot0Configs.kP = 0.01; // output per unit of error in position (output/rotation), An error of 1 rotation results in 2.4 V output
-        slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s)), no output form integrated error
-        slot0Configs.kD = 0.001; // output per unit of error in velocity (output/rps), A velocity of 1 rps results in 0.1 V output
-    
+        slot0Configs.kP = 0.01; // output per unit of error in position (output/rotation), An error of 1
+                                // rotation results in 2.4 V output
+        slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s)), no
+                             // output form integrated error
+        slot0Configs.kD = 0.001; // output per unit of error in velocity (output/rps), A velocity of 1 rps
+                                 // results in 0.1 V output
+
         var motionMagicConfigs = talonFXconfigs.MotionMagic;
         motionMagicConfigs.MotionMagicCruiseVelocity = 1000; // velocity in units/100ms
         motionMagicConfigs.MotionMagicAcceleration = 1000; // acceleration in units/100ms^2
         motionMagicConfigs.MotionMagicJerk = 1000; // jerk in units/100ms^3
-    
+
         m_tilt.getConfigurator().apply(talonFXconfigs);
     }
-    
 
-    public void Setangle(Double angle){
+    public void Setangle(Double angle) {
         m_tilt.setPosition(angle);
     }
 

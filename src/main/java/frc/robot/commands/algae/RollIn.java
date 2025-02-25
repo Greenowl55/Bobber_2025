@@ -1,13 +1,13 @@
-package frc.robot.NewCommands.algae;
+package frc.robot.commands.algae;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.NewSubsytems.Algae;
+import frc.robot.subsystems.Algae;
 
-public class Rollout extends Command {
+public class RollIn extends Command {
     private double speed;
     private Algae algae;
 
-    public Rollout(Algae algae, double speed) {
+    public RollIn(Algae algae, double speed) {
         this.speed = speed;
         this.algae = algae;
         addRequirements(algae);

@@ -5,7 +5,7 @@
 // license that can be found in the LICENSE file at
 // the root directory of this project.
 
-package frc.robot.NewSubsytems;
+package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
@@ -64,7 +64,7 @@ public class Elevator extends SubsystemBase {
 		// This method will be called once per scheduler run
 	}
 
-	public  void setPosition(double position) {
+	public void setPosition(double position) {
 		m_elevator1.setControl(new PositionVoltage(position).withSlot(0));
 	}
 
@@ -74,16 +74,16 @@ public class Elevator extends SubsystemBase {
 
 	public boolean isHomed = false;
 
-	Trigger currentOverZeroThreshold =
-			new Trigger(() -> m_elevator1.getSupplyCurrent().getValueAsDouble() > 10).debounce(0.2);
+	Trigger currentOverZeroThreshold = new Trigger(() -> m_elevator1.getSupplyCurrent().getValueAsDouble() > 10)
+			.debounce(0.2);
 
 	public Command zeroElevator() {
 
 		return this.run(
-						() -> {
-							m_elevator1.setVoltage(-3);
-							isHomed = false;
-						})
+				() -> {
+					m_elevator1.setVoltage(-3);
+					isHomed = false;
+				})
 				.until(currentOverZeroThreshold)
 				.andThen(
 						this.runOnce(
