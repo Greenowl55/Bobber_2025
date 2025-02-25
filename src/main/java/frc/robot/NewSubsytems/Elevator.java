@@ -64,7 +64,7 @@ public class Elevator extends SubsystemBase {
 		// This method will be called once per scheduler run
 	}
 
-	public void setPosition(double position) {
+	public  void setPosition(double position) {
 		m_elevator1.setControl(new PositionVoltage(position).withSlot(0));
 	}
 

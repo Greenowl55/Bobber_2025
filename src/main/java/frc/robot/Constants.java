@@ -18,6 +18,11 @@ public class Constants {
     public static final int Elevator_Follower = 12;
 
     //Elevator positions
+    public static final double Elevator_Bottom = 0.0;
+    public static final double Elevator_Intake = 10.0;
+    public static final double Elevator_L2 = 21.0;
+    public static final double Elevator_L3 = 40.0;
+    public static final double Elevator_L4 = 60.0;
 
     //Fishhook Motors
     public static final int TILT_MOTOR_ID = 8;

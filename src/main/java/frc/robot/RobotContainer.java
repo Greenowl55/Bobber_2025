@@ -155,10 +155,11 @@ public class RobotContainer {
 		// m_elevator.setDefaultCommand(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		// Elevator positions
-		// driverController.a().onTrue(new CMD_ElevatorState(ElevatorHight.State.L1, m_elevator));
-		// driverController.b().onTrue(new CMD_ElevatorState(ElevatorHight.State.L2, m_elevator));
-		// driverController.x().onTrue(new CMD_ElevatorState(ElevatorHight.State.L3, m_elevator));
-		// driverController.y().onTrue(new CMD_ElevatorState(ElevatorHight.State.L4, m_elevator));
+		driverController.button(7).onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_Bottom)));
+		driverController.a().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_Intake)));
+		driverController.b().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L2)));
+		driverController.x().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L3)));	
+		driverController.y().onTrue(m_elevator.run(() -> m_elevator.setPosition(Constants.Elevator_L4)));
 
 		// TODO right bumper for right side of reef alignment
 
