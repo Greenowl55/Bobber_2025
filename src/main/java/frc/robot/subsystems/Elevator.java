@@ -52,7 +52,7 @@ public class Elevator extends SubsystemBase {
 		m_elevator2.setControl(new Follower(m_elevator1.getDeviceID(), true));
 	}
 
-	final PositionVoltage drive1PositionVoltage = new PositionVoltage(0).withSlot(0);
+	//final PositionVoltage drive1PositionVoltage = new PositionVoltage(0).withSlot(0);
 
 	@Override
 	public void simulationPeriodic() {

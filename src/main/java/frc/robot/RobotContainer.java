@@ -178,11 +178,11 @@ public class RobotContainer {
 
 		driverController
 				.rightBumper()
-				.whileTrue(new ManualControl(m_elevator, 0.5));
+				.whileTrue(new ManualControl(m_elevator, 0.2));
 
 		driverController
 				.leftBumper()
-				.whileTrue(new ManualControl(m_elevator, -0.5));
+				.whileTrue(new ManualControl(m_elevator, -0.2));
 
 		m_elevator.setDefaultCommand(
 				m_elevator.runOnce(
@@ -196,13 +196,13 @@ public class RobotContainer {
 		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN,
 		// m_climber));
 
-		coDriverController.button(Constants.CODRIVER_BOTTOM_FACE).whileTrue(new AutoIntake(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_TRIGGER).whileTrue(new Fast(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_BOTTOM_FACE).onTrue(new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_TRIGGER).whileTrue(new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_RIGHT_FACE).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_LEFT_FACE).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_RightBaseTop).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_RightBaseBottom).whileTrue(new Climber_Out(m_climber, -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		m_tilt.setDefaultCommand(m_tilt.runOnce(() -> m_tilt.setAngle(codriverJoystick.getY())));
+		m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*0.1)));
 	}
 
 	public Command getAutonomousCommand() {

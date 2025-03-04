@@ -18,7 +18,7 @@ public class AutoIntake extends Command {
     }
 
     private boolean sensorTriggered() {
-        return photoelectricSensor.get();
+        return photoelectricSensor.get() == false;
     }
 
     @Override

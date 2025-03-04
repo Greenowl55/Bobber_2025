@@ -31,11 +31,10 @@ public class Constants {
     public static final int CORAL_SENSOR = 0;
 
     // Fishhook setpoints
-
     public static final double ALGAE_IN = -0.5;
     public static final double ALGAE_OUT = 0.5;
-    public static final double CORAL_SLOW = 0.2;
-    public static final double CORAL_FAST = 0.5;
+    public static final double CORAL_SLOW = -0.2;
+    public static final double CORAL_FAST = -0.5;
     public static final double TILT_MOTOR_SPEED = 0.0; // TODO SPEED
 
     // Climber Motor
