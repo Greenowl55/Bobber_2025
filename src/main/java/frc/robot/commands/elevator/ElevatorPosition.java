@@ -18,4 +18,8 @@ public class ElevatorPosition extends Command {
         this.elevator.setPosition(this.position);
     }
 
+    // @Override
+    // public boolean isFinished() {
+    //     return true;
+    // }
 }

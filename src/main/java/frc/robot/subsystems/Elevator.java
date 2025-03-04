@@ -35,7 +35,7 @@ public class Elevator extends SubsystemBase {
 		slot0Configs.kA = 0.02; // output per unit of target acceleration (output/rps^2)
 		slot0Configs.kP = 0.3; // output per unit of error in position (output/rotation)
 		slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s))
-		slot0Configs.kD = 0.05; // output per unit of error in velocity (output/rps)
+		slot0Configs.kD = 0; // output per unit of error in velocity (output/rps)
 
 		var motionMagicConfigs = talonFXconfigs.MotionMagic;
 		motionMagicConfigs.MotionMagicCruiseVelocity = 1000; // velocity in units/100ms

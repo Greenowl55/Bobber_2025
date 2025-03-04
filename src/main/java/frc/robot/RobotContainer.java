@@ -27,7 +27,8 @@ import frc.robot.autos.*;
 import frc.robot.commands.Climb.*;
 import frc.robot.commands.algae.*;
 import frc.robot.commands.coral.*;
-import frc.robot.commands.elevator.ManualControl;
+import frc.robot.commands.elevator.*;
+import frc.robot.commands.tilt.*;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.*;
 
@@ -71,7 +72,7 @@ public class RobotContainer {
 
 		autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
 		autoChooser.addOption("Drive", new Drive1(drivetrain));
-		autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
+		//autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
 
 		configureBindings();
 
@@ -160,10 +161,11 @@ public class RobotContainer {
 
 		// Elevator positions
 		driverController.button(7).onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_BOTTOM)));
-		driverController.a().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_INTAKE)));
-		driverController.b().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_L2)));
-		driverController.x().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_L3)));
-		driverController.y().onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_L4)));
+		
+		driverController.a().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_INTAKE));
+		driverController.b().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L2));
+		driverController.x().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L3));
+		driverController.y().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L4));
 
 		// TODO right bumper for right side of reef alignment
 
@@ -196,13 +198,21 @@ public class RobotContainer {
 		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN,
 		// m_climber));
 
+		// game piece control
 		coDriverController.button(Constants.CODRIVER_BOTTOM_FACE).onTrue(new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_TRIGGER).whileTrue(new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_RIGHT_FACE).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_LEFT_FACE).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_RightBaseTop).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_RightBaseBottom).whileTrue(new Climber_Out(m_climber, -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*0.1)));
+
+		//tilt control
+		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_GROUND));
+		coDriverController.button(Constants.CODRIVER_8).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_L4));
+		//coDriverController.button(9).onTrue(new Tilt_Position(m_tilt, 20));
+
+		// climber control
+		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_6).whileTrue(new Climber_Out(m_climber, -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
 	}
 
 	public Command getAutonomousCommand() {

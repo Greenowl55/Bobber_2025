@@ -20,7 +20,7 @@ public class Constants {
     // Elevator positions
     public static final double ELEVATOR_BOTTOM = 0.0;
     public static final double ELEVATOR_INTAKE = 10.0;
-    public static final double ELEVATOR_L2 = 21.0;
+    public static final double ELEVATOR_L2 = 19.0;
     public static final double ELEVATOR_L3 = 40.0;
     public static final double ELEVATOR_L4 = 60.0;
 
@@ -30,12 +30,16 @@ public class Constants {
     public static final int CORAL_MOTOR_ID = 10;
     public static final int CORAL_SENSOR = 0;
 
-    // Fishhook setpoints
+    // Game piece speeds
     public static final double ALGAE_IN = -0.5;
     public static final double ALGAE_OUT = 0.5;
     public static final double CORAL_SLOW = -0.2;
     public static final double CORAL_FAST = -0.5;
-    public static final double TILT_MOTOR_SPEED = 0.0; // TODO SPEED
+
+    // fish hook setpoints
+    public static final double FISHHOOK_IN = 0;
+    public static final double FISHHOOK_L4 = 3;
+    public static final double FISHHOOK_GROUND = 9;
 
     // Climber Motor
     public static final int CLIMBER_MOTOR_ID = 13;
@@ -48,8 +52,12 @@ public class Constants {
     public static final int CODRIVER_BOTTOM_FACE = 2;
     public static final int CODRIVER_LEFT_FACE = 3;
     public static final int CODRIVER_RIGHT_FACE = 4;
-    public static final int CODRIVER_RightBaseTop = 5;  
-    public static final int CODRIVER_RightBaseBottom = 6;
+    public static final int CODRIVER_5 = 5;  
+    public static final int CODRIVER_6 = 6;
+    public static final int CODRIVER_7 = 7;
+    public static final int CODRIVER_8 = 8;
+    public static final int CODRIVER_9 = 9;
+    public static final int CODRIVER_10 = 10;
 
     // Reef April Tag array
     public static final int[] REEF_TAGS = {
