@@ -32,17 +32,25 @@ public class Constants {
 
     // Fishhook setpoints
 
-    public static final double ALGAE_IN = -0.2;
-    public static final double ALGAE_OUT = 0.2;
+    public static final double ALGAE_IN = -0.5;
+    public static final double ALGAE_OUT = 0.5;
     public static final double CORAL_SLOW = 0.2;
     public static final double CORAL_FAST = 0.5;
     public static final double TILT_MOTOR_SPEED = 0.0; // TODO SPEED
+
+    // Climber Motor
+    public static final int CLIMBER_MOTOR_ID = 13;
+
+    // Climber setpoints
+    //TODO: Set these values
 
     // CoDriver Buttons
     public static final int CODRIVER_TRIGGER = 1;
     public static final int CODRIVER_BOTTOM_FACE = 2;
     public static final int CODRIVER_LEFT_FACE = 3;
     public static final int CODRIVER_RIGHT_FACE = 4;
+    public static final int CODRIVER_RightBaseTop = 5;  
+    public static final int CODRIVER_RightBaseBottom = 6;
 
     // Reef April Tag array
     public static final int[] REEF_TAGS = {
