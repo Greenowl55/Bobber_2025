@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -31,16 +32,16 @@ public class Elevator extends SubsystemBase {
 		// in init function, set slot 0 gains
 		var slot0Configs = talonFXconfigs.Slot0;
 		slot0Configs.kS = 0.56; // voltage needed to overcome static friction
-		slot0Configs.kV = 12.19; // output per unit of target velocity (output/rps)
+		slot0Configs.kV = 0.1219; // output per unit of target velocity (output/rps)
 		slot0Configs.kA = 0.02; // output per unit of target acceleration (output/rps^2)
-		slot0Configs.kP = 0.3; // output per unit of error in position (output/rotation)
+		slot0Configs.kP = 3; // output per unit of error in position (output/rotation)
 		slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s))
 		slot0Configs.kD = 0; // output per unit of error in velocity (output/rps)
 
 		var motionMagicConfigs = talonFXconfigs.MotionMagic;
-		motionMagicConfigs.MotionMagicCruiseVelocity = 1000; // velocity in units/100ms
+		motionMagicConfigs.MotionMagicCruiseVelocity = 50; // velocity in units/100ms
 		motionMagicConfigs.MotionMagicAcceleration = 100; // acceleration in units/100ms^2
-		motionMagicConfigs.MotionMagicJerk = 1000; // jerk in units/100ms^3
+		motionMagicConfigs.MotionMagicJerk = 500; // jerk in units/100ms^3
 
 		// apply motion magic config to slot 0 on Drive1
 		m_elevator1.getConfigurator().apply(talonFXconfigs);
@@ -53,6 +54,7 @@ public class Elevator extends SubsystemBase {
 	}
 
 	//final PositionVoltage drive1PositionVoltage = new PositionVoltage(0).withSlot(0);
+	final MotionMagicVoltage m_request = new MotionMagicVoltage(0);
 
 	@Override
 	public void simulationPeriodic() {
@@ -65,7 +67,8 @@ public class Elevator extends SubsystemBase {
 	}
 
 	public void setPosition(double position) {
-		m_elevator1.setControl(new PositionVoltage(position).withSlot(0));
+		//m_elevator1.setControl(new PositionVoltage(position).withSlot(0));
+		m_elevator1.setControl(m_request.withPosition(position));
 	}
 
 	public void elevator(double speed) {

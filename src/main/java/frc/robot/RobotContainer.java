@@ -149,7 +149,7 @@ public class RobotContainer {
 				.whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
 		// reset the field-centric heading on start button press
-		driverController.button(8).onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+		driverController.button(7).onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
 		drivetrain.registerTelemetry(logger::telemeterize);
 
@@ -160,8 +160,7 @@ public class RobotContainer {
 		// CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
 		// Elevator positions
-		driverController.button(7).onTrue(m_elevator.runOnce(() -> m_elevator.setPosition(Constants.ELEVATOR_BOTTOM)));
-		
+		driverController.button(8).onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_BOTTOM));
 		driverController.a().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_INTAKE));
 		driverController.b().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L2));
 		driverController.x().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L3));
@@ -207,7 +206,7 @@ public class RobotContainer {
 		//tilt control
 		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_GROUND));
 		coDriverController.button(Constants.CODRIVER_8).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_L4));
-		//coDriverController.button(9).onTrue(new Tilt_Position(m_tilt, 20));
+		coDriverController.button(Constants.CODRIVER_9).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_IN));
 
 		// climber control
 		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));

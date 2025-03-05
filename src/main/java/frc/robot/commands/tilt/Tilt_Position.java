@@ -14,24 +14,24 @@ public class Tilt_Position extends Command {
         this.position = position;
     }
 
-
+    @Override
+    public void initialize() {
+        this.m_tilt.setAngle(this.position);
+    }
     
     @Override
     public void execute() {
         System.out.println(m_tilt.getPosition());
     }
 
-
-
-    @Override
-    public void initialize() {
-        this.m_tilt.setAngle(this.position);
-    }
-
     @Override
     public void end(boolean interrupted) {
-        this.m_tilt.setAngle(Constants.FISHHOOK_IN);
+        m_tilt.setAngle(Constants.FISHHOOK_IN);
         System.out.println("set back to 0");
+    }
+
+    public boolean isFinished() {
+        return true;
     }
 
 }

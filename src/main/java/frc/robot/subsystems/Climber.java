@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants;
 public class Climber extends SubsystemBase{
@@ -35,7 +36,7 @@ public class Climber extends SubsystemBase{
 
     public void setAngle(double angle) {
         this.angle = angle;
-        m_Climb.setPosition(angle);
+        m_Climb.setControl(new PositionVoltage(angle).withSlot(0));
     }
 
     public void setSpeed(double speed) {

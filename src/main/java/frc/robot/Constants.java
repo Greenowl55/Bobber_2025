@@ -19,9 +19,9 @@ public class Constants {
 
     // Elevator positions
     public static final double ELEVATOR_BOTTOM = 0.0;
-    public static final double ELEVATOR_INTAKE = 10.0;
+    public static final double ELEVATOR_INTAKE = 8.0;
     public static final double ELEVATOR_L2 = 19.0;
-    public static final double ELEVATOR_L3 = 40.0;
+    public static final double ELEVATOR_L3 = 32.0;
     public static final double ELEVATOR_L4 = 60.0;
 
     // Fishhook Motors
@@ -34,7 +34,7 @@ public class Constants {
     public static final double ALGAE_IN = -0.5;
     public static final double ALGAE_OUT = 0.5;
     public static final double CORAL_SLOW = -0.2;
-    public static final double CORAL_FAST = -0.5;
+    public static final double CORAL_FAST = -0.35;
 
     // fish hook setpoints
     public static final double FISHHOOK_IN = 0;
@@ -42,7 +42,7 @@ public class Constants {
     public static final double FISHHOOK_GROUND = 9;
 
     // Climber Motor
-    public static final int CLIMBER_MOTOR_ID = 13;
+    public static final int CLIMBER_MOTOR_ID = 14;
 
     // Climber setpoints
     //TODO: Set these values

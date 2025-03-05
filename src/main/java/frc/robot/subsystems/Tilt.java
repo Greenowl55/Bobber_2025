@@ -25,7 +25,7 @@ public class Tilt extends SubsystemBase {
             slot0Configs.kS = 0.2; // voltage needed to overcome static friction
             slot0Configs.kV = 0.1; // output per unit of target velocity (output/rps)
             slot0Configs.kA = 0.1; // output per unit of target acceleration (output/rps^2)
-            slot0Configs.kP = 0.15; // output per unit of error in position (output/rotation), An error of 1
+            slot0Configs.kP = 0.2; // output per unit of error in position (output/rotation), An error of 1
                                     // rotation results in 2.4 V output
             slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s)), no
                                  // output form integrated error
