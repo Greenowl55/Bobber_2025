@@ -24,9 +24,9 @@ public class Tilt extends SubsystemBase {
             // in init function, set slot 0 gains
             var slot0Configs = talonFXconfigs.Slot0;
             slot0Configs.kS = 0.87; // voltage needed to overcome static friction
-            slot0Configs.kV = 5.64; // output per unit of target velocity (output/rps)
-            slot0Configs.kA = 0.14; // output per unit of target acceleration (output/rps^2)
-            slot0Configs.kP = 2; // output per unit of error in position (output/rotation), An error of 1
+            slot0Configs.kV = 0.03; // output per unit of target velocity (output/rps)
+            slot0Configs.kA = 0.1; // output per unit of target acceleration (output/rps^2)
+            slot0Configs.kP = 10; // output per unit of error in position (output/rotation), An error of 1
                                     // rotation results in 2.4 V output
             slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s)), no
                                  // output form integrated error
@@ -34,9 +34,9 @@ public class Tilt extends SubsystemBase {
                                      // results in 0.1 V output
     
             var motionMagicConfigs = talonFXconfigs.MotionMagic;
-            motionMagicConfigs.MotionMagicCruiseVelocity = 10; // velocity in units/100ms
-            motionMagicConfigs.MotionMagicAcceleration = 20; // acceleration in units/100ms^2 (2x the speed of the cruise velocity)
-            motionMagicConfigs.MotionMagicJerk = 100; // jerk in units/100ms^3 (10x the speed of the cruise velocity)
+            motionMagicConfigs.MotionMagicCruiseVelocity = 15; // velocity in units/100ms
+            motionMagicConfigs.MotionMagicAcceleration = 35; // acceleration in units/100ms^2 (2x the speed of the cruise velocity)
+            motionMagicConfigs.MotionMagicJerk = 200; // jerk in units/100ms^3 (10x the speed of the cruise velocity)
     
             m_tilt.getConfigurator().apply(talonFXconfigs);
             m_tilt.setNeutralMode(NeutralModeValue.Brake);

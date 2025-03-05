@@ -214,7 +214,7 @@ public class RobotContainer {
 		// climber control
 		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_6).whileTrue(new Climber_Out(m_climber, -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
+		//m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
 	}
 
 	public Command getAutonomousCommand() {

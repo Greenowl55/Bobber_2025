@@ -24,14 +24,20 @@ public class Tilt_Position extends Command {
         System.out.println(m_tilt.getPosition());
     }
 
+  public boolean isFinished() {
+        if (m_tilt.getPosition() == this.position){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    
     @Override
-    public void end(boolean interrupted) {
+    public void end(boolean isFinished) {
         m_tilt.setAngle(Constants.FISHHOOK_IN);
         System.out.println("set back to 0");
     }
 
-    public boolean isFinished() {
-        return true;
-    }
+  
 
 }
