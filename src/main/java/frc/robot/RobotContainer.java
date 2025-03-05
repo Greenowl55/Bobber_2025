@@ -29,6 +29,7 @@ import frc.robot.commands.algae.*;
 import frc.robot.commands.coral.*;
 import frc.robot.commands.elevator.*;
 import frc.robot.commands.tilt.*;
+import frc.robot.commands.vision.*;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.*;
 
@@ -166,30 +167,32 @@ public class RobotContainer {
 		driverController.x().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L3));
 		driverController.y().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L4));
 
+		//driverController.rightTrigger().and(driverController.leftTrigger()).whileTrue(new ReefCenter(drivetrain));
+
 		// TODO right bumper for right side of reef alignment
 
-		// driverController.rightTrigger().whileTrue(new ReefRight(drivetrain));
+		driverController.rightTrigger().whileTrue(new ReefRight(drivetrain));
 		// TODO left bumper for left side of reef alignment
 
-		// driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
+		driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
 
 		// driverController
 		// .button(7)
 		// .onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
 
-		driverController
-				.rightBumper()
-				.whileTrue(new ManualControl(m_elevator, 0.2));
+		// driverController
+		// 		.rightBumper()
+		// 		.whileTrue(new ManualControl(m_elevator, 0.2));
 
-		driverController
-				.leftBumper()
-				.whileTrue(new ManualControl(m_elevator, -0.2));
+		// driverController
+		// 		.leftBumper()
+		// 		.whileTrue(new ManualControl(m_elevator, -0.2));
 
-		m_elevator.setDefaultCommand(
-				m_elevator.runOnce(
-						() -> {
-							m_elevator.elevator(0);
-						}));
+		// m_elevator.setDefaultCommand(
+		// 		m_elevator.runOnce(
+		// 				() -> {
+		// 					m_elevator.elevator(0);
+		// 				}));
 
 		// Co-Driver Buttons
 
