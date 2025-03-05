@@ -7,13 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "drive"
+            "pathName": "1 rtm"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "L4"
+            "pathName": "2 rtm"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3 rtm"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4 rtm"
           }
         }
       ]

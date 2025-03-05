@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1 mtm mid"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 mtm mid left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3 ltm"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4 ltm"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
