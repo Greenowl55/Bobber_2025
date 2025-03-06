@@ -53,7 +53,8 @@ public class Elevator extends SubsystemBase {
 		m_elevator2.setControl(new Follower(m_elevator1.getDeviceID(), true));
 	}
 
-	//final PositionVoltage drive1PositionVoltage = new PositionVoltage(0).withSlot(0);
+	// final PositionVoltage drive1PositionVoltage = new
+	// PositionVoltage(0).withSlot(0);
 	final MotionMagicVoltage m_request = new MotionMagicVoltage(0);
 
 	@Override
@@ -67,7 +68,7 @@ public class Elevator extends SubsystemBase {
 	}
 
 	public void setPosition(double position) {
-		//m_elevator1.setControl(new PositionVoltage(position).withSlot(0));
+		// m_elevator1.setControl(new PositionVoltage(position).withSlot(0));
 		m_elevator1.setControl(m_request.withPosition(position));
 	}
 
@@ -96,14 +97,18 @@ public class Elevator extends SubsystemBase {
 									isHomed = true;
 								}));
 	}
+
 	@Override
-    public void initSendable(SendableBuilder builder) {
-        builder.addBooleanProperty("ElevatorLeaderConnected", () -> m_elevator1.isConnected(), null);
-        builder.addBooleanProperty("ElevatorLeaderAlive", () -> m_elevator1.isAlive(), null);
+	public void initSendable(SendableBuilder builder) {
+		builder.addBooleanProperty("ElevatorLeaderConnected", () -> m_elevator1.isConnected(), null);
+		builder.addBooleanProperty("ElevatorLeaderAlive", () -> m_elevator1.isAlive(), null);
 		builder.addBooleanProperty("ElevatorFollowerConnected", () -> m_elevator2.isConnected(), null);
-        builder.addBooleanProperty("ElevatorFollowerAlive", () -> m_elevator2.isAlive(), null);
+		builder.addBooleanProperty("ElevatorFollowerAlive", () -> m_elevator2.isAlive(), null);
 		builder.addDoubleProperty("ElevatorPosition", () -> m_elevator1.getPosition().getValueAsDouble(), null);
-    }
+	}
+
+	public double getPosition() {
+		return m_elevator1.getPosition().getValueAsDouble();
+	}
 
 }
-

@@ -45,19 +45,23 @@ public class Constants {
     public static final int CLIMBER_MOTOR_ID = 14;
 
     // Climber setpoints
-    //TODO: Set these values
+    // TODO: Set these values
 
     // CoDriver Buttons
     public static final int CODRIVER_TRIGGER = 1;
     public static final int CODRIVER_BOTTOM_FACE = 2;
     public static final int CODRIVER_LEFT_FACE = 3;
     public static final int CODRIVER_RIGHT_FACE = 4;
-    public static final int CODRIVER_5 = 5;  
+    public static final int CODRIVER_5 = 5;
     public static final int CODRIVER_6 = 6;
     public static final int CODRIVER_7 = 7;
     public static final int CODRIVER_8 = 8;
     public static final int CODRIVER_9 = 9;
     public static final int CODRIVER_10 = 10;
+
+    // Auto things
+    public static final double MOTOR_POSITION_EPSILON = 0.05;
+    public static final int AUTO_TIMEOUT = 1;
 
     // Reef April Tag array
     public static final int[] REEF_TAGS = {
