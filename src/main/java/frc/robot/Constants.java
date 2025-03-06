@@ -48,10 +48,10 @@ public class Constants {
     // TODO: Set these values
 
     // CoDriver Buttons
-    public static final int CODRIVER_TRIGGER = 1;
-    public static final int CODRIVER_BOTTOM_FACE = 2;
-    public static final int CODRIVER_LEFT_FACE = 3;
-    public static final int CODRIVER_RIGHT_FACE = 4;
+    public static final int CODRIVER_1 = 1;
+    public static final int CODRIVER_2 = 2;
+    public static final int CODRIVER_3 = 3;
+    public static final int CODRIVER_4 = 4;
     public static final int CODRIVER_5 = 5;
     public static final int CODRIVER_6 = 6;
     public static final int CODRIVER_7 = 7;
