@@ -20,9 +20,9 @@ public class Constants {
     // Elevator positions
     public static final double ELEVATOR_BOTTOM = 0.0;
     public static final double ELEVATOR_INTAKE = 8.0;
-    public static final double ELEVATOR_L2 = 18;
-    public static final double ELEVATOR_L3 = 32.0;
-    public static final double ELEVATOR_L4 = 63.0;
+    public static final double ELEVATOR_L2 = 16;
+    public static final double ELEVATOR_L3 = 30.0;
+    public static final double ELEVATOR_L4 = 61.0;
 
     // Fishhook Motors
     public static final int TILT_MOTOR_ID = 8;
@@ -65,7 +65,7 @@ public class Constants {
 
     // Reef April Tag array
     public static final int[] REEF_TAGS = {
-            6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
+            2/* This is not a field tag */, 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
     };
 
 }

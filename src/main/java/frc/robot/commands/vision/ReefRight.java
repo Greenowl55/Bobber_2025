@@ -32,14 +32,14 @@ public class ReefRight extends Command {
 		m_drive = drive_subsystem;
 
 		// Configure PID controllers with gains
-		rotationPID = new PIDController(0.015, 0, 0);
-		strafePID = new PIDController(0.015, 0, 0);
+		rotationPID = new PIDController(0.05, 0, 0);
+		strafePID = new PIDController(0.05, 0, 0);
 		distancePID = new PIDController(0.1, 0, 0);
 		addRequirements(drive_subsystem);
 
 		// Set tolerances for when we consider ourselv+es "aligned"
-		rotationPID.setTolerance(1.0);
-		strafePID.setTolerance(1.0);
+		rotationPID.setTolerance(1.5);
+		strafePID.setTolerance(1.5);
 		distancePID.setTolerance(0.5);
 	}
 
@@ -52,9 +52,10 @@ public class ReefRight extends Command {
 
 	@Override
 	public void execute() {
-		double tx = LimelightHelpers.getTX("ll4");
-		double ty = LimelightHelpers.getTY("ll4");
-		double id = LimelightHelpers.getFiducialID("ll4");
+		double tx = LimelightHelpers.getTX("limelight");
+		double ty = LimelightHelpers.getTY("limelight");
+		double ta = LimelightHelpers.getTA("limelight");
+		double id = LimelightHelpers.getFiducialID("limelight");
 
 		boolean tagFound = false;
 		for (int tag : Constants.REEF_TAGS) {
@@ -64,16 +65,16 @@ public class ReefRight extends Command {
 			}
 		}
 		if (tagFound == true) { // Calculate control outputs
-			double rotationOutput = rotationPID.calculate(tx, 0) * 1.5 * Math.PI;
-			double strafeOutput = strafePID.calculate(tx, 5);
-			double forwardOutput = distancePID.calculate(ty, 0);
+			double rotationOutput = rotationPID.calculate(tx, -20.5)*1.5;
+			double strafeOutput = strafePID.calculate(ty, -0.6);
+			double forwardOutput = distancePID.calculate(ta, 3.7);
 
 			// Apply combined movement
 			m_drive.setControl(
 					drive
 							.withVelocityX(forwardOutput) // Forward/backward
 							.withVelocityY(strafeOutput) // Left/right
-							.withRotationalRate(rotationOutput * -1)); // Rotation
+							.withRotationalRate(rotationOutput)); // Rotation
 		} else {
 			// If we don't see the correct tag, stop moving
 			m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
@@ -88,7 +89,11 @@ public class ReefRight extends Command {
 	@Override
 	public boolean isFinished() {
 		// Command finishes when we're aligned with the target
-		return rotationPID.atSetpoint() && strafePID.atSetpoint() && distancePID.atSetpoint();
+		boolean finished = rotationPID.atSetpoint() && strafePID.atSetpoint() && distancePID.atSetpoint();
+		if (finished) {
+			System.out.println("ReefRight finished");
+		}
+		return finished;
 	}
 
 	@Override

@@ -171,10 +171,10 @@ public class RobotContainer {
 
 		// TODO right bumper for right side of reef alignment
 
-		driverController.rightTrigger().whileTrue(new ReefRight(drivetrain));
+		driverController.rightBumper().whileTrue(new ReefRight(drivetrain));
 		// TODO left bumper for left side of reef alignment
 
-		driverController.leftTrigger().whileTrue(new ReefLeft(drivetrain));
+		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain));
 
 		// driverController
 		// .button(7)
