@@ -9,6 +9,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.ctre.phoenix.platform.can.AutocacheState;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -73,6 +74,8 @@ public class RobotContainer {
 
 		autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
 		autoChooser.addOption("Drive", new Drive1(drivetrain));
+		//autoChooser.addOption("LeftToLeft", new LeftToLeft(drivetrain, m_elevator, m_tilt, m_coral));		TODO WHY NOT WORKING?????
+		//autoChooser.addOption("RightToRight", new RightToRight(drivetrain, m_elevator, m_tilt, m_coral)); TODO WHY NOT WORKING?????
 		//autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
 
 		configureBindings();

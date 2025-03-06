@@ -3,6 +3,7 @@ package frc.robot.autos;
 import java.util.List;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
@@ -21,14 +22,13 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Tilt;
 
-public class RightToRight extends SequentialCommandGroup {
-    public RightToRight(CommandSwerveDrivetrain swerve, Elevator elevator, Tilt tilt, Coral coral)throws Exception {     //EXCEPTION NEEDED???
+public class LeftToLeft extends SequentialCommandGroup {
+    public LeftToLeft(CommandSwerveDrivetrain swerve, Elevator elevator, Tilt tilt, Coral coral)throws Exception {	 //EXCEPTION NEEDED???
 
-        List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile("right to right");               //DOESNT RECOGIZE LEFT TO LEFT I THINK???
-
+        List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile("left to left");             //DOESNT RECOGIZE LEFT TO LEFT I THINK???
         addCommands(
                 AutoBuilder.followPath(paths.get(0)),
-                new ReefRight(swerve),
+                new ReefLeft(swerve),
                 new ElevatorPosition(elevator, Constants.ELEVATOR_L4),
                 new AutoTilt(tilt, Constants.FISHHOOK_L4),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
@@ -39,7 +39,7 @@ public class RightToRight extends SequentialCommandGroup {
                 new AutoIntake(coral, Constants.CORAL_SENSOR),
 
                 AutoBuilder.followPath(paths.get(2)),
-                new ReefLeft(swerve),
+                new ReefRight(swerve),
                 new ElevatorPosition(elevator, Constants.ELEVATOR_L4),
                 new AutoTilt(tilt, Constants.FISHHOOK_L4),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
@@ -48,7 +48,7 @@ public class RightToRight extends SequentialCommandGroup {
                 new AutoIntake(coral, Constants.CORAL_SENSOR),
 
                 AutoBuilder.followPath(paths.get(4)),
-                new ReefRight(swerve),
+                new ReefLeft(swerve),
                 new ElevatorPosition(elevator, Constants.ELEVATOR_L3),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)));
                 
