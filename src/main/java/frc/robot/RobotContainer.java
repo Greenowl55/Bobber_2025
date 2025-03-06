@@ -65,33 +65,6 @@ public class RobotContainer {
 
 	public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
-	/* Path follower */
-	private final SendableChooser<Command> autoChooser;
-
-	public RobotContainer() {
-		autoChooser = AutoBuilder.buildAutoChooser("Tests");
-		SmartDashboard.putData("Auto Mode", autoChooser);
-
-		autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
-		autoChooser.addOption("Drive", new Drive1(drivetrain));
-		//autoChooser.addOption("LeftToLeft", new LeftToLeft(drivetrain, m_elevator, m_tilt, m_coral));		TODO WHY NOT WORKING?????
-		//autoChooser.addOption("RightToRight", new RightToRight(drivetrain, m_elevator, m_tilt, m_coral)); TODO WHY NOT WORKING?????
-		//autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
-
-		configureBindings();
-
-		// // Set the logger to log to the first flashdrive plugged in
-		// SignalLogger.setPath("/media/sda1/");
-
-		// // Explicitly start the logger
-		// SignalLogger.start();
-
-		// // Explicitly stop logging
-		// // If the user does not call stop(), then it's possible to lose the last few
-		// seconds of data
-		// SignalLogger.stop();
-	}
-
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
 		// and Y is defined as to the left according to WPILib convention.
@@ -109,12 +82,6 @@ public class RobotContainer {
 										-driverController.getRightX()
 												* MaxAngularRate) // Drive counterclockwise with negative X (left)
 				));
-
-		// Zero the elevator and fishhook when disabled
-		// RobotModeTriggers.disabled().onFalse(m_elevator.runOnce(() ->
-		// m_elevator.zeroElevator()));
-		// RobotModeTriggers.disabled().onFalse(m_fish_hook.runOnce(() ->
-		// m_fish_hook.zeroFishhook()));
 
 		// TODO Find button for:
 		// driverController.a().toggleOnTrue(drivetrain.applyRequest(() ->
@@ -157,11 +124,7 @@ public class RobotContainer {
 
 		drivetrain.registerTelemetry(logger::telemeterize);
 
-		// Driver Buttons
-
-		// Idle to bottom
-		// m_elevator.setDefaultCommand(new
-		// CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
+	// Driver Buttons
 
 		// Elevator positions
 		driverController.button(8).onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_BOTTOM));
@@ -169,45 +132,22 @@ public class RobotContainer {
 		driverController.b().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L2));
 		driverController.x().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L3));
 		driverController.y().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L4));
+		// driverController.rightBumper().whileTrue(new ManualControl(m_elevator, 0.2));
+		// driverController.leftBumper().whileTrue(new ManualControl(m_elevator, -0.2));
+		// m_elevator.setDefaultCommand(m_elevator.runOnce(() -> {m_elevator.elevator(0);}));
 
-		//driverController.rightTrigger().and(driverController.leftTrigger()).whileTrue(new ReefCenter(drivetrain));
-
-		// TODO right bumper for right side of reef alignment
-
+		// Reef positions
+		driverController.rightTrigger().and(driverController.leftTrigger()).whileTrue(new ReefCenter(drivetrain));
 		driverController.rightBumper().whileTrue(new ReefRight(drivetrain));
-		// TODO left bumper for left side of reef alignment
-
 		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain));
 
-		// driverController
-		// .button(7)
-		// .onTrue(new CMD_ElevatorState(ElevatorHight.State.BOTTOM, m_elevator));
-
-		// driverController
-		// 		.rightBumper()
-		// 		.whileTrue(new ManualControl(m_elevator, 0.2));
-
-		// driverController
-		// 		.leftBumper()
-		// 		.whileTrue(new ManualControl(m_elevator, -0.2));
-
-		// m_elevator.setDefaultCommand(
-		// 		m_elevator.runOnce(
-		// 				() -> {
-		// 					m_elevator.elevator(0);
-		// 				}));
-
-		// Co-Driver Buttons
-
-		// idle climber in
-		// m_climber.setDefaultCommand(new CMD_ClimberState(ClimberState.State.IN,
-		// m_climber));
+	// Co-Driver Buttons
 
 		// game piece control
-		coDriverController.button(Constants.CODRIVER_BOTTOM_FACE).onTrue(new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_TRIGGER).whileTrue(new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_RIGHT_FACE).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_LEFT_FACE).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_2).onTrue(new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_1).whileTrue(new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_4).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_3).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		//tilt control
 		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_GROUND));
@@ -220,6 +160,21 @@ public class RobotContainer {
 		//m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
 	}
 
+		/* Path follower */
+		private final SendableChooser<Command> autoChooser;
+
+		public RobotContainer() {
+			autoChooser = AutoBuilder.buildAutoChooser("Tests");
+			SmartDashboard.putData("Auto Mode", autoChooser);
+	
+			autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
+			autoChooser.addOption("Drive", new Drive1(drivetrain));
+			//autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
+	
+			configureBindings();
+	
+		}
+	
 	public Command getAutonomousCommand() {
 		/* Run the path selected from the auto chooser */
 		return autoChooser.getSelected();
