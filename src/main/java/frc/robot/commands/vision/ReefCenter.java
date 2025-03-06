@@ -4,9 +4,14 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.estimator.PoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class ReefCenter extends Command{
@@ -16,24 +21,29 @@ public class ReefCenter extends Command{
 
 	private CommandSwerveDrivetrain m_drive;
 
+	private final double rotSetpoint = 0;
+	private final double txSetpoint = 0;
+	private final double taSetpoint = 4;
+
 	// PID Controllers for alignment
 	private final PIDController rotationPID;
 	private final PIDController strafePID;
 	private final PIDController distancePID;
+	//public static Pose2d tPose2d(double[] inData);
 
 	public ReefCenter(CommandSwerveDrivetrain drive_subsystem) {
 		addRequirements(drive_subsystem);
 		m_drive = drive_subsystem;
 
 		// Configure PID controllers with gains
-		rotationPID = new PIDController(0.05, 0, 0);
-		strafePID = new PIDController(0.05, 0, 0);
-		distancePID = new PIDController(0.1, 0, 0);
+		rotationPID = new PIDController(0.025, 0, 0 );
+		strafePID = new PIDController(0.1, 0.01, 0.002);
+		distancePID = new PIDController(0.1, 0.01, 0.002);
 		addRequirements(drive_subsystem);
 
 		// Set tolerances for when we consider ourselv+es "aligned"
 		rotationPID.setTolerance(1);
-		strafePID.setTolerance(1.0);
+		strafePID.setTolerance(1);
 		distancePID.setTolerance(1);
 	}
 
@@ -42,6 +52,10 @@ public class ReefCenter extends Command{
 		rotationPID.reset();
 		strafePID.reset();
 		distancePID.reset();
+		
+			rotationPID.setSetpoint(rotSetpoint);
+			strafePID.setSetpoint(txSetpoint);
+			distancePID.setSetpoint(taSetpoint);
 	}
 
 	@Override
@@ -52,6 +66,8 @@ public class ReefCenter extends Command{
 		double id = LimelightHelpers.getFiducialID("");
         double txnc = LimelightHelpers.getTXNC("");  // Horizontal offset from principal pixel/point to target in degrees
         double tync = LimelightHelpers.getTYNC("");  // Vertical offset from principal pixel/point to target in degrees
+		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace("");
+		double rot = Math.toDegrees(pose.getRotation().getY());
 
 		boolean tagFound = false;
 		for (int tag : Constants.REEF_TAGS) {
@@ -61,26 +77,33 @@ public class ReefCenter extends Command{
 			}
 		}
 		if (tagFound == true) { // Calculate control outputs
-			double rotationOutput = rotationPID.calculate(tx, 0);
-			double strafeOutput = strafePID.calculate(txnc, 0);
-			double forwardOutput = distancePID.calculate(ta, 0);
-
+			
+			double rotationOutput = rotationPID.calculate(rot);
+			double strafeOutput = strafePID.calculate(tx);
+			double forwardOutput = distancePID.calculate(ta);
+			
+			System.out.println("tx: " + tx  + ", ta "+ ta + ", rot " + rot);
+			System.out.println("Error: " + (txSetpoint - tx) + ", " + (taSetpoint - ta) + ", " + (rotSetpoint - rot));
+			System.out.println("output: " + strafeOutput + ", " + forwardOutput + ", " + rotationOutput);
+			System.out.println("setpoint: " + strafePID.atSetpoint() + ", " + distancePID.atSetpoint() + ", " + rotationPID.atSetpoint());
 			// Apply combined movement
 			m_drive.setControl(
 					drive
 							.withVelocityX(forwardOutput) // Forward/backward
 							.withVelocityY(strafeOutput) // Left/right
-							.withRotationalRate(rotationOutput)); // Rotation
+							.withRotationalRate(rotationOutput) ); // Rotation
 		} else {
 			// If we don't see the correct tag, stop moving
 			m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
 		}
+
+		
 	}
 
-	@Override
-	public void end(boolean interrupted) {
-		m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
-	}
+	// @Override
+	// public void end(boolean interrupted) {
+	// 	m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
+	// }
 
 	@Override
 	public boolean isFinished() {
