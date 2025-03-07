@@ -140,11 +140,11 @@ public class ReefCenter extends Command{
 		return false;
 	}
     
-        @Override
+    @Override
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("reef offsets"); //to get usable values make setpoints 0
-        builder.publishConstDouble("rotation offset", xoffset);
-		builder.publishConstDouble("strafe offset", zoffset);
+        builder.publishConstDouble("strafe offset", xoffset);
+		builder.publishConstDouble("distance offset", zoffset);
 		builder.publishConstDouble("rotation", rotoffset);
     }
 
