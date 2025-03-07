@@ -147,17 +147,18 @@ public class RobotContainer {
 		// game piece control
 		coDriverController.button(Constants.CODRIVER_2).onTrue(new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_1).whileTrue(new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_4).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_3).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_8).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		//tilt control
-		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_GROUND));
-		coDriverController.button(Constants.CODRIVER_8).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_L4));
+		coDriverController.button(Constants.CODRIVER_3).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_GROUND));
+		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_ALGAE));
+		coDriverController.button(Constants.CODRIVER_4).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_L4));
 		coDriverController.button(Constants.CODRIVER_9).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_IN));
 
 		// climber control
-		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_6).whileTrue(new Climber_Out(m_climber, -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		//TODO coDriverController.button(Constants.CODRIVER_7).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		//TODO coDriverController.button(Constants.CODRIVER_6).whileTrue(new Climber_Out(m_climber, -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		//m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
 	}
 

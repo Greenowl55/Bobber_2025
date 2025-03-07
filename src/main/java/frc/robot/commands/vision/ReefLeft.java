@@ -24,8 +24,8 @@ public class ReefLeft extends Command {
 	private CommandSwerveDrivetrain m_drive;
 
 	private final double rotSetpoint = 0; //TODO
-	private final double txSetpoint = 0; //TODO
-	private final double taSetpoint = 4; //TODO
+	private final double txSetpoint = 17.5; //TODO
+	private final double taSetpoint = 7.5; //TODO
 
 	// PID Controllers for alignment
 	private final PIDController rotationPID;

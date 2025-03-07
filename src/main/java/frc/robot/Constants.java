@@ -37,8 +37,9 @@ public class Constants {
     public static final double CORAL_FAST = -0.35;
 
     // fish hook setpoints
-    public static final double FISHHOOK_IN = 0;
-    public static final double FISHHOOK_L4 = 3.5;
+    public static final double FISHHOOK_IN = 0.2;
+    public static final double FISHHOOK_L4 = 4.25;
+    public static final double FISHHOOK_ALGAE = 6;
     public static final double FISHHOOK_GROUND = 9;
 
     // Climber Motor
@@ -65,7 +66,7 @@ public class Constants {
 
     // Reef April Tag array
     public static final int[] REEF_TAGS = {
-            2/* This is not a field tag */, 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
+            2,/*  This is not a field tag */ 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
     };
 
 }
