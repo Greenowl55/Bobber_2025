@@ -25,6 +25,9 @@ public class ReefCenter extends Command{
 	private final double txSetpoint = 0;
 	private final double taSetpoint = 4;
 
+	private final double xsetpoint = 1; //TODO
+	private final double zsetpoint = 1; //TODO
+
 	// PID Controllers for alignment
 	private final PIDController rotationPID;
 	private final PIDController strafePID;
@@ -60,14 +63,16 @@ public class ReefCenter extends Command{
 
 	@Override
 	public void execute() {
-		double tx = LimelightHelpers.getTX("");// Horizontal offset from crosshair to target in degrees
-		double ty = LimelightHelpers.getTY("");// Vertical offset from crosshair to target in degrees
-        double ta = LimelightHelpers.getTA("");// Target area (0% of image to 100% of image)
-		double id = LimelightHelpers.getFiducialID("");
-        double txnc = LimelightHelpers.getTXNC("");  // Horizontal offset from principal pixel/point to target in degrees
-        double tync = LimelightHelpers.getTYNC("");  // Vertical offset from principal pixel/point to target in degrees
-		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace("");
+		double tx = LimelightHelpers.getTX(Constants.LIMELIGHT4_NAME);// Horizontal offset from crosshair to target in degrees
+		double ty = LimelightHelpers.getTY(Constants.LIMELIGHT4_NAME);// Vertical offset from crosshair to target in degrees
+        double ta = LimelightHelpers.getTA(Constants.LIMELIGHT4_NAME);// Target area (0% of image to 100% of image)
+		double id = LimelightHelpers.getFiducialID(Constants.LIMELIGHT4_NAME);
+        double txnc = LimelightHelpers.getTXNC(Constants.LIMELIGHT4_NAME);  // Horizontal offset from principal pixel/point to target in degrees
+        double tync = LimelightHelpers.getTYNC(Constants.LIMELIGHT4_NAME);  // Vertical offset from principal pixel/point to target in degrees
+		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace(Constants.LIMELIGHT4_NAME);
 		double rot = Math.toDegrees(pose.getRotation().getY());
+		double[] fieldpose = LimelightHelpers.getBotPose_TargetSpace(Constants.LIMELIGHT4_NAME);
+
 
 		boolean tagFound = false;
 		for (int tag : Constants.REEF_TAGS) {
@@ -77,15 +82,27 @@ public class ReefCenter extends Command{
 			}
 		}
 		if (tagFound == true) { // Calculate control outputs
+			double botX = fieldpose[0]; //offset from tag in meters
+			double botZ = fieldpose[2]; //distance from tag in meters
+			double yawtotag = fieldpose[5]; // angle to tag in degrees
+
+			double fieldyaw = m_drive.getState().Pose.getRotation().getDegrees(); // robots angle on field
 			
-			double rotationOutput = rotationPID.calculate(rot);
-			double strafeOutput = strafePID.calculate(tx);
-			double forwardOutput = distancePID.calculate(ta);
+			double targetyaw = fieldyaw - yawtotag + rotSetpoint; //sets robot angle to be inline with tag
+
+			double xoffset = xsetpoint - botX;
+			double zoffset = zsetpoint - botZ;
+			double rotoffset = rotSetpoint - yawtotag;
 			
-			System.out.println("tx: " + tx  + ", ta "+ ta + ", rot " + rot);
-			System.out.println("Error: " + (txSetpoint - tx) + ", " + (taSetpoint - ta) + ", " + (rotSetpoint - rot));
-			System.out.println("output: " + strafeOutput + ", " + forwardOutput + ", " + rotationOutput);
-			System.out.println("setpoint: " + strafePID.atSetpoint() + ", " + distancePID.atSetpoint() + ", " + rotationPID.atSetpoint());
+			double rotationOutput = rotationPID.calculate(rotoffset);
+			double strafeOutput = strafePID.calculate(xoffset);
+			double forwardOutput = distancePID.calculate(zoffset);
+
+			//limit speed
+			rotationOutput = Math.max(-Math.PI, Math.min(Math.PI, rotationOutput));
+			strafeOutput = Math.max(-1, Math.min(1, strafeOutput));
+			forwardOutput = Math.max(-1, Math.min(1, forwardOutput));
+
 			// Apply combined movement
 			m_drive.setControl(
 					drive

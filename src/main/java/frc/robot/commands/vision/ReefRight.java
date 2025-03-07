@@ -108,13 +108,13 @@ public class ReefRight extends Command {
 
 	@Override
 	public void execute() {
-		double tx = LimelightHelpers.getTX("");// Horizontal offset from crosshair to target in degrees
-		double ty = LimelightHelpers.getTY("");// Vertical offset from crosshair to target in degrees
-        double ta = LimelightHelpers.getTA("");// Target area (0% of image to 100% of image)
-		double id = LimelightHelpers.getFiducialID("");
-        double txnc = LimelightHelpers.getTXNC("");  // Horizontal offset from principal pixel/point to target in degrees
-        double tync = LimelightHelpers.getTYNC("");  // Vertical offset from principal pixel/point to target in degrees
-		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace("");
+		double tx = LimelightHelpers.getTX(Constants.LIMELIGHT4_NAME);// Horizontal offset from crosshair to target in degrees
+		double ty = LimelightHelpers.getTY(Constants.LIMELIGHT4_NAME);// Vertical offset from crosshair to target in degrees
+        double ta = LimelightHelpers.getTA(Constants.LIMELIGHT4_NAME);// Target area (0% of image to 100% of image)
+		double id = LimelightHelpers.getFiducialID(Constants.LIMELIGHT4_NAME);
+        double txnc = LimelightHelpers.getTXNC(Constants.LIMELIGHT4_NAME);  // Horizontal offset from principal pixel/point to target in degrees
+        double tync = LimelightHelpers.getTYNC(Constants.LIMELIGHT4_NAME);  // Vertical offset from principal pixel/point to target in degrees
+		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace(Constants.LIMELIGHT4_NAME);
 		double rot = Math.toDegrees(pose.getRotation().getY());
 
 		boolean tagFound = false;

@@ -23,6 +23,8 @@ public class ReefLeft extends Command {
 
 	private CommandSwerveDrivetrain m_drive;
 
+	
+
 	private final double rotSetpoint = 0; //TODO
 	private final double txSetpoint = 17.5; //TODO
 	private final double taSetpoint = 7.5; //TODO
@@ -62,13 +64,13 @@ public class ReefLeft extends Command {
 
 	@Override
 	public void execute() {
-		double tx = LimelightHelpers.getTX("");// Horizontal offset from crosshair to target in degrees
-		double ty = LimelightHelpers.getTY("");// Vertical offset from crosshair to target in degrees
-        double ta = LimelightHelpers.getTA("");// Target area (0% of image to 100% of image)
-		double id = LimelightHelpers.getFiducialID("");
-        double txnc = LimelightHelpers.getTXNC("");  // Horizontal offset from principal pixel/point to target in degrees
-        double tync = LimelightHelpers.getTYNC("");  // Vertical offset from principal pixel/point to target in degrees
-		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace("");
+		double tx = LimelightHelpers.getTX(Constants.LIMELIGHT4_NAME);// Horizontal offset from crosshair to target in degrees
+		double ty = LimelightHelpers.getTY(Constants.LIMELIGHT4_NAME);// Vertical offset from crosshair to target in degrees
+        double ta = LimelightHelpers.getTA(Constants.LIMELIGHT4_NAME);// Target area (0% of image to 100% of image)
+		double id = LimelightHelpers.getFiducialID(Constants.LIMELIGHT4_NAME);
+        double txnc = LimelightHelpers.getTXNC(Constants.LIMELIGHT4_NAME);  // Horizontal offset from principal pixel/point to target in degrees
+        double tync = LimelightHelpers.getTYNC(Constants.LIMELIGHT4_NAME);  // Vertical offset from principal pixel/point to target in degrees
+		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace(Constants.LIMELIGHT4_NAME);
 		double rot = Math.toDegrees(pose.getRotation().getY());
 
 		boolean tagFound = false;
@@ -83,11 +85,6 @@ public class ReefLeft extends Command {
 			double rotationOutput = rotationPID.calculate(rot);
 			double strafeOutput = strafePID.calculate(tx);
 			double forwardOutput = distancePID.calculate(ta);
-			
-			System.out.println("tx: " + tx  + ", ta "+ ta + ", rot " + rot);
-			System.out.println("Error: " + (txSetpoint - tx) + ", " + (taSetpoint - ta) + ", " + (rotSetpoint - rot));
-			System.out.println("output: " + strafeOutput + ", " + forwardOutput + ", " + rotationOutput);
-			System.out.println("setpoint: " + strafePID.atSetpoint() + ", " + distancePID.atSetpoint() + ", " + rotationPID.atSetpoint());
 			// Apply combined movement
 			m_drive.setControl(
 					drive
