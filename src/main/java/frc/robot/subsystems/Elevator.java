@@ -16,6 +16,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.Constants;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -26,7 +27,7 @@ public class Elevator extends SubsystemBase {
 	TalonFX m_elevator2 = new TalonFX(Constants.ELEVATOR_FOLLOWER);
 
 	public Elevator() {
-
+		SmartDashboard.putData(this);
 		var talonFXconfigs = new TalonFXConfiguration();
 
 		// in init function, set slot 0 gains

@@ -24,9 +24,6 @@ public class VisonOutput extends Command {
         Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace("");
         Pose2d pose2d =LimelightHelpers.toPose2D(LimelightHelpers.getBotPose(""));
         Rotation3d rot = pose.getRotation();
-    System.out.println("tx: " + tx + ", " + ty + ", " + txnc + ", "+ ta);
-    
-    System.out.println(Math.toDegrees(rot.getAngle()) +  ", " + Math.toDegrees(rot.getY()));
     }
    
 }

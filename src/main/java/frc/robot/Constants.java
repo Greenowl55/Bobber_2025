@@ -34,7 +34,7 @@ public class Constants {
     public static final double ALGAE_IN = -0.5;
     public static final double ALGAE_OUT = 0.5;
     public static final double CORAL_SLOW = -0.2;
-    public static final double CORAL_FAST = -0.35;
+    public static final double CORAL_FAST = -0.3;
 
     // fish hook setpoints
     public static final double FISHHOOK_IN = 0.2;

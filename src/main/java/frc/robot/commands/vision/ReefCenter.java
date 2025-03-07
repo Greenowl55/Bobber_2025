@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
@@ -24,21 +25,35 @@ public class ReefCenter extends Command{
 
 	private CommandSwerveDrivetrain m_drive;
 
-	private final double rotSetpoint = 0;
+	private double rotSetpoint = 0;
 	private final double txSetpoint = 0;
 	private final double taSetpoint = 4;
 
-	private final double xsetpoint = 1; //TODO
-	private final double zsetpoint = 1; //TODO
+	private double xsetpoint = 1; //TODO
+	private double zsetpoint = 1; //TODO
+	private boolean tagVisible = false;
 
 	// PID Controllers for alignment
 	private final PIDController rotationPID;
 	private final PIDController strafePID;
 	private final PIDController distancePID;
 
-	private double xoffset;
-	private double zoffset;
-	private double rotoffset;
+	private double rotationP = 0.025;
+	private double rotationI = 0;
+	private double rotationD = 0;
+
+	private double strafeP = 0.1;
+	private double strafeI = 0.01;
+	private double strafeD = 0.002;
+
+	private double distanceP = 0.1;
+	private double distanceI = 0.01;
+	private double distanceD = 0.002;
+
+
+	private double botX = 0;
+	private double botZ = 0;
+	private double botYaw = 0;
 	//public static Pose2d tPose2d(double[] inData);
 
 	public ReefCenter(CommandSwerveDrivetrain drive_subsystem) {
@@ -46,10 +61,10 @@ public class ReefCenter extends Command{
 		m_drive = drive_subsystem;
 
 		// Configure PID controllers with gains
-		rotationPID = new PIDController(0.025, 0, 0 );
-		strafePID = new PIDController(0.1, 0.01, 0.002);
-		distancePID = new PIDController(0.1, 0.01, 0.002);
-		addRequirements(drive_subsystem);
+		rotationPID = new PIDController(rotationP, rotationI, rotationD );
+		strafePID = new PIDController(strafeP, strafeI, strafeD);
+		distancePID = new PIDController(distanceP, distanceI, distanceD);
+		SmartDashboard.putData(this);
 
 		// Set tolerances for when we consider ourselv+es "aligned"
 		rotationPID.setTolerance(1);
@@ -82,6 +97,7 @@ public class ReefCenter extends Command{
 
 
 		boolean tagFound = false;
+		tagVisible = false;
 		for (int tag : Constants.REEF_TAGS) {
 			if (id == tag) {
 				tagFound = true;
@@ -89,10 +105,11 @@ public class ReefCenter extends Command{
 			}
 		}
 		if (tagFound == true) { // Calculate control outputs
-			double botX = fieldpose[0]; //offset from tag in meters
-			double botZ = fieldpose[2]; //distance from tag in meters
+			this.tagVisible = true;
+			botX = fieldpose[0]; //offset from tag in meters
+			botZ = fieldpose[2]; //distance from tag in meters
 			double yawtotag = fieldpose[5]; // angle to tag in degrees
-
+			this.botYaw = yawtotag;
 			double fieldyaw = m_drive.getState().Pose.getRotation().getDegrees(); // robots angle on field
 			
 			double targetyaw = fieldyaw - yawtotag + rotSetpoint; //sets robot angle to be inline with tag
@@ -143,9 +160,64 @@ public class ReefCenter extends Command{
     @Override
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("reef offsets"); //to get usable values make setpoints 0
-        builder.publishConstDouble("strafe offset", xoffset);
-		builder.publishConstDouble("distance offset", zoffset);
-		builder.publishConstDouble("rotation", rotoffset);
+        builder.addBooleanProperty("tagVisible", () -> this.tagVisible , null);
+		builder.addDoubleProperty("xOffset", () -> this.xsetpoint, (val) -> 
+		{
+			this.xsetpoint = val;
+			this.strafePID.setSetpoint(xsetpoint);
+		});
+        builder.addDoubleProperty("zOffset", () -> this.zsetpoint, (val) ->{ 
+			this.zsetpoint = val;
+			this.distancePID.setSetpoint(zsetpoint);
+		});
+        builder.addDoubleProperty("rotOffset", () -> this.rotSetpoint, (val) -> {
+			this.rotSetpoint = val;
+			this.rotationPID.setSetpoint(rotSetpoint);
+		});
+		builder.addDoubleProperty("botX", () -> this.botX, null);
+		builder.addDoubleProperty("botZ", () -> this.botZ, null);
+		builder.addDoubleProperty("botYaw", () -> this.botYaw, null);
+		builder.addBooleanProperty("inPosition", () -> {
+			return rotationPID.atSetpoint() && strafePID.atSetpoint() && distancePID.atSetpoint();
+		}, null);
+		builder.addDoubleProperty("rotationP", () -> this.rotationP, (val) -> {
+			this.rotationP = val;
+			rotationPID.setP(this.rotationP);
+		});
+		builder.addDoubleProperty("rotationI", () -> this.rotationI, (val) -> {
+			this.rotationI = val;
+			rotationPID.setI(this.rotationI);
+		});
+		builder.addDoubleProperty("rotationD", () -> this.rotationD, (val) -> {
+			this.rotationD = val;
+			rotationPID.setD(this.rotationD);
+		});
+
+		builder.addDoubleProperty("strafeP", () -> this.strafeP, (val) -> {
+			this.strafeP = val;
+			strafePID.setP(this.strafeP);
+		});
+		builder.addDoubleProperty("strafeI", () -> this.strafeI, (val) -> {
+			this.strafeI = val;
+			strafePID.setI(this.strafeI);
+		});
+		builder.addDoubleProperty("strafeD", () -> this.strafeD, (val) -> {
+			this.strafeD = val;
+			strafePID.setD(this.strafeD);
+		});
+
+		builder.addDoubleProperty("distanceP", () -> this.distanceP, (val) -> {
+			this.distanceP = val;
+			distancePID.setP(this.distanceP);
+		});
+		builder.addDoubleProperty("distanceI", () -> this.distanceI, (val) -> {
+			this.distanceI = val;
+			distancePID.setI(this.distanceI);
+		});
+		builder.addDoubleProperty("distanceD", () -> this.distanceD, (val) -> {
+			this.distanceD = val;
+			distancePID.setD(this.distanceD);
+		});
     }
 
 }

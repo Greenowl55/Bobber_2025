@@ -29,18 +29,18 @@ public class RightToRight extends SequentialCommandGroup {
         addCommands(
                 AutoBuilder.followPath(paths.get(0)),
                 new ReefRight(swerve),
-                new ElevatorPosition(elevator, Constants.ELEVATOR_L4),
+                new ElevatorPosition(elevator, "L4", Constants.ELEVATOR_L4),
                 new AutoTilt(tilt, Constants.FISHHOOK_L4),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
                 new AutoTilt(tilt, Constants.FISHHOOK_IN),
-                new ElevatorPosition(elevator, Constants.ELEVATOR_INTAKE),
+                new ElevatorPosition(elevator, "INTAKE", Constants.ELEVATOR_INTAKE),
 
                 AutoBuilder.followPath(paths.get(1)),
                 new AutoIntake(coral, Constants.CORAL_SENSOR),
 
                 AutoBuilder.followPath(paths.get(2)),
                 new ReefLeft(swerve),
-                new ElevatorPosition(elevator, Constants.ELEVATOR_L4),
+                new ElevatorPosition(elevator, "L4", Constants.ELEVATOR_L4),
                 new AutoTilt(tilt, Constants.FISHHOOK_L4),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
 
@@ -49,7 +49,7 @@ public class RightToRight extends SequentialCommandGroup {
 
                 AutoBuilder.followPath(paths.get(4)),
                 new ReefRight(swerve),
-                new ElevatorPosition(elevator, Constants.ELEVATOR_L3),
+                new ElevatorPosition(elevator, "L3", Constants.ELEVATOR_L3),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)));
                 
     }

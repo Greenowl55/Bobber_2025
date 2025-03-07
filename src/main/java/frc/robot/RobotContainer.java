@@ -127,11 +127,11 @@ public class RobotContainer {
 	// Driver Buttons
 
 		// Elevator positions
-		driverController.button(8).onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_BOTTOM));
-		driverController.a().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_INTAKE));
-		driverController.b().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L2));
-		driverController.x().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L3));
-		driverController.y().onTrue(new ElevatorPosition(m_elevator, Constants.ELEVATOR_L4));
+		driverController.button(8).onTrue(new ElevatorPosition(m_elevator, "BOTTOM", Constants.ELEVATOR_BOTTOM));
+		driverController.a().onTrue(new ElevatorPosition(m_elevator, "INTAKE", Constants.ELEVATOR_INTAKE));
+		driverController.b().onTrue(new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2));
+		driverController.x().onTrue(new ElevatorPosition(m_elevator, "L3", Constants.ELEVATOR_L3));
+		driverController.y().onTrue(new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4));
 		// driverController.rightBumper().whileTrue(new ManualControl(m_elevator, 0.2));
 		// driverController.leftBumper().whileTrue(new ManualControl(m_elevator, -0.2));
 		// m_elevator.setDefaultCommand(m_elevator.runOnce(() -> {m_elevator.elevator(0);}));
@@ -151,10 +151,10 @@ public class RobotContainer {
 		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		//tilt control
-		coDriverController.button(Constants.CODRIVER_3).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_GROUND));
-		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_ALGAE));
-		coDriverController.button(Constants.CODRIVER_4).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_L4));
-		coDriverController.button(Constants.CODRIVER_9).whileTrue(new Tilt_Position(m_tilt, Constants.FISHHOOK_IN));
+		coDriverController.button(Constants.CODRIVER_3).whileTrue(new Tilt_Position(m_tilt, "GROUND", Constants.FISHHOOK_GROUND));
+		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, "ALGAE", Constants.FISHHOOK_ALGAE));
+		coDriverController.button(Constants.CODRIVER_4).whileTrue(new Tilt_Position(m_tilt, "L4", Constants.FISHHOOK_L4));
+		coDriverController.button(Constants.CODRIVER_9).whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
 
 		// climber control
 		//TODO coDriverController.button(Constants.CODRIVER_7).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
