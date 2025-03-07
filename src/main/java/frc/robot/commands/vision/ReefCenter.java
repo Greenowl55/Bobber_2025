@@ -8,6 +8,9 @@ import edu.wpi.first.math.estimator.PoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
@@ -32,6 +35,10 @@ public class ReefCenter extends Command{
 	private final PIDController rotationPID;
 	private final PIDController strafePID;
 	private final PIDController distancePID;
+
+	private double xoffset;
+	private double zoffset;
+	private double rotoffset;
 	//public static Pose2d tPose2d(double[] inData);
 
 	public ReefCenter(CommandSwerveDrivetrain drive_subsystem) {
@@ -133,5 +140,12 @@ public class ReefCenter extends Command{
 		return false;
 	}
     
-    
+        @Override
+    public void initSendable(SendableBuilder builder) {
+        builder.setSmartDashboardType("reef offsets"); //to get usable values make setpoints 0
+        builder.publishConstDouble("rotation offset", xoffset);
+		builder.publishConstDouble("strafe offset", zoffset);
+		builder.publishConstDouble("rotation", rotoffset);
+    }
+
 }
