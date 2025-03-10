@@ -27,7 +27,7 @@ public class ReefCenter extends Command{
 
 	private double rotSetpoint = 0;
 	private double xsetpoint = 0; //TODO
-	private double zsetpoint = -.5; //TODO
+	private double zsetpoint = -.42; //TODO
 	private boolean tagVisible = false;
 
 	// PID Controllers for alignment
@@ -73,8 +73,8 @@ public class ReefCenter extends Command{
 
 		// Set tolerances for when we consider ourselv+es "aligned"
 		rotationPID.setTolerance(2);
-		strafePID.setTolerance(.2);
-		distancePID.setTolerance(.2);
+		strafePID.setTolerance(.02);
+		distancePID.setTolerance(.05);
 	}
 
 	@Override
@@ -124,16 +124,17 @@ public class ReefCenter extends Command{
 			this.distanceError = zoffset;
 			this.rotationError = rotoffset;
 
-			double rotationOutput = rotationPID.calculate(rotoffset);
-			double strafeOutput = strafePID.calculate(xoffset);
-			double forwardOutput = distancePID.calculate(zoffset);
+			double rotationOutput = -rotationPID.calculate(yawtotag) * Math.PI /2;
+			double strafeOutput = -strafePID.calculate(botX);
+			double forwardOutput = distancePID.calculate(botZ);
+			
 
 			//limit speed
 			rotationOutput = Math.max(-Math.PI, Math.min(Math.PI, rotationOutput));
 			strafeOutput = Math.max(-1, Math.min(1, strafeOutput));
 			forwardOutput = Math.max(-1, Math.min(1, forwardOutput));
 
-			double outputMin = 0.25;
+			double outputMin = 0.15;
 			if (rotationOutput > 0 && rotationOutput < outputMin) {
 				rotationOutput = outputMin;
 			} else if (rotationOutput < 0 && rotationOutput > -outputMin) {
@@ -144,7 +145,6 @@ public class ReefCenter extends Command{
 			} else if (strafeOutput < 0 && strafeOutput > -outputMin) {
 				strafeOutput = -outputMin;
 			}
-			System.out.println(forwardOutput);
 			if (forwardOutput > 0 && forwardOutput < outputMin) {
 				forwardOutput = outputMin;
 			} else if (forwardOutput < 0 && forwardOutput > -outputMin) {
@@ -170,7 +170,7 @@ public class ReefCenter extends Command{
 			// Apply combined movement
 			m_drive.setControl(
 					drive
-							.withVelocityX(-forwardOutput) // Forward/backward
+							.withVelocityX(forwardOutput) // Forward/backward
 							.withVelocityY(strafeOutput) // Left/right
 							.withRotationalRate(rotationOutput) ); // Rotation
 		} else {
