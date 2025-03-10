@@ -167,6 +167,8 @@ public class RobotContainer {
 				.whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
 
 		// climber control
+		coDriverController.button(Constants.CODRIVER_6).whileTrue(
+				new Climber_Out(m_climber, Constants.CLIMBER_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		// TODO coDriverController.button(Constants.CODRIVER_7).whileTrue(new
 		// Climber_In(m_climber,
 		// 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));

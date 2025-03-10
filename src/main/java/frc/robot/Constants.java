@@ -46,6 +46,8 @@ public class Constants {
     public static final int CLIMBER_MOTOR_ID = 14;
 
     // Climber setpoints
+    public static final int CLIMBER_OUT = 50;
+    public static final int CLIMBER_IN = 0;
     // TODO: Set these values
 
     // CoDriver Buttons
