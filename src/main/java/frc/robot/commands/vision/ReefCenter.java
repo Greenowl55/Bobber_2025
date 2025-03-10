@@ -26,11 +26,8 @@ public class ReefCenter extends Command{
 	private CommandSwerveDrivetrain m_drive;
 
 	private double rotSetpoint = 0;
-	private final double txSetpoint = 0;
-	private final double taSetpoint = 4;
-
-	private double xsetpoint = 1; //TODO
-	private double zsetpoint = 1; //TODO
+	private double xsetpoint = 0; //TODO
+	private double zsetpoint = -.5; //TODO
 	private boolean tagVisible = false;
 
 	// PID Controllers for alignment
@@ -54,6 +51,14 @@ public class ReefCenter extends Command{
 	private double botX = 0;
 	private double botZ = 0;
 	private double botYaw = 0;
+
+	private double distanceError = 0;
+	private double strafeError = 0;
+	private double rotationError = 0;
+
+	private double distanceOutput = 0;
+	private double strafeOutput = 0;
+	private double rotationOutput = 0;
 	//public static Pose2d tPose2d(double[] inData);
 
 	public ReefCenter(CommandSwerveDrivetrain drive_subsystem) {
@@ -67,9 +72,9 @@ public class ReefCenter extends Command{
 		SmartDashboard.putData(this);
 
 		// Set tolerances for when we consider ourselv+es "aligned"
-		rotationPID.setTolerance(1);
-		strafePID.setTolerance(1);
-		distancePID.setTolerance(1);
+		rotationPID.setTolerance(2);
+		strafePID.setTolerance(.2);
+		distancePID.setTolerance(.2);
 	}
 
 	@Override
@@ -79,8 +84,8 @@ public class ReefCenter extends Command{
 		distancePID.reset();
 		
 			rotationPID.setSetpoint(rotSetpoint);
-			strafePID.setSetpoint(txSetpoint);
-			distancePID.setSetpoint(taSetpoint);
+			strafePID.setSetpoint(this.xsetpoint);
+			distancePID.setSetpoint(this.zsetpoint);
 	}
 
 	@Override
@@ -94,7 +99,7 @@ public class ReefCenter extends Command{
 		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace(Constants.LIMELIGHT4_NAME);
 		double rot = Math.toDegrees(pose.getRotation().getY());
 		double[] fieldpose = LimelightHelpers.getBotPose_TargetSpace(Constants.LIMELIGHT4_NAME);
-
+		Pose3d botPose = LimelightHelpers.getBotPose3d_TargetSpace(Constants.LIMELIGHT4_NAME);
 
 		boolean tagFound = false;
 		tagVisible = false;
@@ -106,18 +111,19 @@ public class ReefCenter extends Command{
 		}
 		if (tagFound == true) { // Calculate control outputs
 			this.tagVisible = true;
-			botX = fieldpose[0]; //offset from tag in meters
-			botZ = fieldpose[2]; //distance from tag in meters
-			double yawtotag = fieldpose[5]; // angle to tag in degrees
+			botX = botPose.getX(); //offset from tag in meters
+			botZ = botPose.getZ(); //distance from tag in meters
+			double yawtotag = Math.toDegrees(botPose.getRotation().getY()); // angle to tag in degrees
 			this.botYaw = yawtotag;
-			double fieldyaw = m_drive.getState().Pose.getRotation().getDegrees(); // robots angle on field
 			
-			double targetyaw = fieldyaw - yawtotag + rotSetpoint; //sets robot angle to be inline with tag
-
 			double xoffset = xsetpoint - botX;
 			double zoffset = zsetpoint - botZ;
 			double rotoffset = rotSetpoint - yawtotag;
 			
+			this.strafeError = xoffset;
+			this.distanceError = zoffset;
+			this.rotationError = rotoffset;
+
 			double rotationOutput = rotationPID.calculate(rotoffset);
 			double strafeOutput = strafePID.calculate(xoffset);
 			double forwardOutput = distancePID.calculate(zoffset);
@@ -127,10 +133,44 @@ public class ReefCenter extends Command{
 			strafeOutput = Math.max(-1, Math.min(1, strafeOutput));
 			forwardOutput = Math.max(-1, Math.min(1, forwardOutput));
 
+			double outputMin = 0.25;
+			if (rotationOutput > 0 && rotationOutput < outputMin) {
+				rotationOutput = outputMin;
+			} else if (rotationOutput < 0 && rotationOutput > -outputMin) {
+				rotationOutput = -outputMin;
+			}
+			if (strafeOutput > 0 && strafeOutput < outputMin) {
+				strafeOutput = outputMin;
+			} else if (strafeOutput < 0 && strafeOutput > -outputMin) {
+				strafeOutput = -outputMin;
+			}
+			System.out.println(forwardOutput);
+			if (forwardOutput > 0 && forwardOutput < outputMin) {
+				forwardOutput = outputMin;
+			} else if (forwardOutput < 0 && forwardOutput > -outputMin) {
+				forwardOutput = -outputMin;
+			}
+			
+			if (rotationPID.atSetpoint()) {
+				rotationOutput = 0;
+			}
+
+			if (strafePID.atSetpoint()) {
+				strafeOutput = 0;
+			}
+
+			if (distancePID.atSetpoint()) {
+				forwardOutput = 0;
+			}
+
+			this.strafeOutput = strafeOutput;
+			this.rotationOutput = rotationOutput;
+			this.distanceOutput = forwardOutput;
+
 			// Apply combined movement
 			m_drive.setControl(
 					drive
-							.withVelocityX(forwardOutput) // Forward/backward
+							.withVelocityX(-forwardOutput) // Forward/backward
 							.withVelocityY(strafeOutput) // Left/right
 							.withRotationalRate(rotationOutput) ); // Rotation
 		} else {
@@ -180,6 +220,18 @@ public class ReefCenter extends Command{
 		builder.addBooleanProperty("inPosition", () -> {
 			return rotationPID.atSetpoint() && strafePID.atSetpoint() && distancePID.atSetpoint();
 		}, null);
+		builder.addBooleanProperty("inStrafePosition", () -> this.strafePID.atSetpoint(), null);
+		builder.addBooleanProperty("inForwardPosition", () -> this.distancePID.atSetpoint(), null);
+		builder.addBooleanProperty("inRotationPosition", () -> this.rotationPID.atSetpoint(), null);
+
+		builder.addDoubleProperty("strafeError", () -> this.strafeError, null);
+		builder.addDoubleProperty("distanceError", () -> this.distanceError, null);
+		builder.addDoubleProperty("rotationError", () -> this.rotationError, null);
+
+		builder.addDoubleProperty("strafeOutput", () -> this.strafeOutput, null);
+		builder.addDoubleProperty("distanceOutput", () -> this.distanceOutput, null);
+		builder.addDoubleProperty("rotationOutput", () -> this.rotationOutput, null);
+
 		builder.addDoubleProperty("rotationP", () -> this.rotationP, (val) -> {
 			this.rotationP = val;
 			rotationPID.setP(this.rotationP);

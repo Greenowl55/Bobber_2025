@@ -19,6 +19,8 @@ public class TargetDebug extends SubsystemBase {
 
     }
 
+
+
     public Pose3d getBotPoseTargetSpace() {
         if (LimelightHelpers.getTV(limelightName)) {
             return LimelightHelpers.getBotPose3d_TargetSpace(limelightName);
@@ -27,30 +29,30 @@ public class TargetDebug extends SubsystemBase {
         }
     }
 
-    public Double getOffsetToTarget() {
+    public double getOffsetToTarget() {
         Pose3d pose = getBotPoseTargetSpace();
         if (pose != null) {
             return pose.getX();
         } else {
-            return null;
+            return Double.NEGATIVE_INFINITY;
         }
     }
 
-    public Double getDistanceToTarget() {
+    public double getDistanceToTarget() {
         Pose3d pose = getBotPoseTargetSpace();
         if (pose != null) {
             return pose.getZ();
         } else {
-            return null;
+            return Double.NEGATIVE_INFINITY;
         }
     }
 
-    public Double getRotationToTarget() {
+    public double getRotationToTarget() {
         Pose3d pose = getBotPoseTargetSpace();
         if (pose != null) {
-            return pose.getRotation().getAngle();
+            return Math.toDegrees(pose.getRotation().getY());
         } else {
-            return null;
+            return Double.NEGATIVE_INFINITY;
         }
     }
 
