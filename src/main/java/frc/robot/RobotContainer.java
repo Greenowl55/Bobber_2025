@@ -124,7 +124,7 @@ public class RobotContainer {
 
 		drivetrain.registerTelemetry(logger::telemeterize);
 
-	// Driver Buttons
+		// Driver Buttons
 
 		// Elevator positions
 		driverController.button(8).onTrue(new ElevatorPosition(m_elevator, "BOTTOM", Constants.ELEVATOR_BOTTOM));
@@ -134,7 +134,8 @@ public class RobotContainer {
 		driverController.y().onTrue(new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4));
 		// driverController.rightBumper().whileTrue(new ManualControl(m_elevator, 0.2));
 		// driverController.leftBumper().whileTrue(new ManualControl(m_elevator, -0.2));
-		// m_elevator.setDefaultCommand(m_elevator.runOnce(() -> {m_elevator.elevator(0);}));
+		// m_elevator.setDefaultCommand(m_elevator.runOnce(() ->
+		// {m_elevator.elevator(0);}));
 
 		// Reef positions
 		driverController.rightTrigger().whileTrue(new ReefCenter(drivetrain));
@@ -142,43 +143,57 @@ public class RobotContainer {
 		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain));
 		driverController.leftTrigger().whileTrue(new VisonOutput());
 
-	// Co-Driver Buttons
+		// Co-Driver Buttons
 
 		// game piece control
-		coDriverController.button(Constants.CODRIVER_2).onTrue(new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_1).whileTrue(new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_8).whileTrue(new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_2).onTrue(
+				new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_1).whileTrue(
+				new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_8).whileTrue(
+				new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_5).whileTrue(
+				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-		//tilt control
-		coDriverController.button(Constants.CODRIVER_3).whileTrue(new Tilt_Position(m_tilt, "GROUND", Constants.FISHHOOK_GROUND));
-		coDriverController.button(Constants.CODRIVER_7).whileTrue(new Tilt_Position(m_tilt, "ALGAE", Constants.FISHHOOK_ALGAE));
-		coDriverController.button(Constants.CODRIVER_4).whileTrue(new Tilt_Position(m_tilt, "L4", Constants.FISHHOOK_L4));
-		coDriverController.button(Constants.CODRIVER_9).whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
+		// tilt control
+		coDriverController.button(Constants.CODRIVER_3)
+				.whileTrue(new Tilt_Position(m_tilt, "GROUND", Constants.FISHHOOK_GROUND));
+		coDriverController.button(Constants.CODRIVER_7)
+				.whileTrue(new Tilt_Position(m_tilt, "ALGAE", Constants.FISHHOOK_ALGAE));
+		coDriverController.button(Constants.CODRIVER_4)
+				.whileTrue(new Tilt_Position(m_tilt, "L4", Constants.FISHHOOK_L4));
+		coDriverController.button(Constants.CODRIVER_9)
+				.whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
 
 		// climber control
-		//TODO coDriverController.button(Constants.CODRIVER_7).whileTrue(new Climber_In(m_climber, 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		//TODO coDriverController.button(Constants.CODRIVER_6).whileTrue(new Climber_Out(m_climber, -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		//m_tilt.setDefaultCommand(m_tilt.run(() -> m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
+		// TODO coDriverController.button(Constants.CODRIVER_7).whileTrue(new
+		// Climber_In(m_climber,
+		// 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		// TODO coDriverController.button(Constants.CODRIVER_6).whileTrue(new
+		// Climber_Out(m_climber,
+		// -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		// m_tilt.setDefaultCommand(m_tilt.run(() ->
+		// m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
 	}
 
-		/* Path follower */
-		private final SendableChooser<Command> autoChooser;
+	/* Path follower */
+	private final SendableChooser<Command> autoChooser;
 
-		public RobotContainer() {
-			autoChooser = AutoBuilder.buildAutoChooser("Tests");
-			SmartDashboard.putData("Auto Mode", autoChooser);
-	
-			autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
-			autoChooser.addOption("Drive", new Drive1(drivetrain));
-			//autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
-	
-			configureBindings();
-	
-		}
-	
+	public RobotContainer() {
+		autoChooser = AutoBuilder.buildAutoChooser("Tests");
+		SmartDashboard.putData("Auto Mode", autoChooser);
+
+		autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
+		autoChooser.addOption("Drive", new Drive1(drivetrain));
+		// autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
+
+		configureBindings();
+
+	}
+
 	public Command getAutonomousCommand() {
 		/* Run the path selected from the auto chooser */
 		return autoChooser.getSelected();
 	}
+
 }
