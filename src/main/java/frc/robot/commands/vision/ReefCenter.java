@@ -39,12 +39,12 @@ public class ReefCenter extends Command{
 	private double rotationI = 0;
 	private double rotationD = 0;
 
-	private double strafeP = 0.1;
-	private double strafeI = 0.01;
+	private double strafeP = 1.5;
+	private double strafeI = 0.03;
 	private double strafeD = 0.002;
 
-	private double distanceP = 0.1;
-	private double distanceI = 0.01;
+	private double distanceP = 1.5;
+	private double distanceI = 0.03;
 	private double distanceD = 0.002;
 
 

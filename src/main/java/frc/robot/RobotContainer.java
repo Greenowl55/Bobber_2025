@@ -159,10 +159,10 @@ public class RobotContainer {
 		// tilt control
 		coDriverController.button(Constants.CODRIVER_3)
 				.whileTrue(new Tilt_Position(m_tilt, "GROUND", Constants.FISHHOOK_GROUND));
-		coDriverController.button(Constants.CODRIVER_7)
-				.whileTrue(new Tilt_Position(m_tilt, "ALGAE", Constants.FISHHOOK_ALGAE));
 		coDriverController.button(Constants.CODRIVER_4)
-				.whileTrue(new Tilt_Position(m_tilt, "L4", Constants.FISHHOOK_L4));
+				.whileTrue(new Tilt_Position(m_tilt, "L4", Constants.FISHHOOK_ALGAE));
+		coDriverController.button(Constants.CODRIVER_7)
+				.whileTrue(new Tilt_Position(m_tilt, "Algae", Constants.FISHHOOK_L4));
 		coDriverController.button(Constants.CODRIVER_9)
 				.whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
 
