@@ -15,26 +15,27 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Leds;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.LEDPattern;
 
-public class ReefCenter extends Command{
+public class ReefCenter extends Command {
 
-        private final SwerveRequest.RobotCentric drive = new SwerveRequest.RobotCentric()
+	private final SwerveRequest.RobotCentric drive = new SwerveRequest.RobotCentric()
 			.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-
+	private final Leds m_leds;
 	private CommandSwerveDrivetrain m_drive;
-	private AddressableLED m_led;
-	
 
 	private double rotSetpoint = 0;
-	private double xsetpoint = 0; //TODO
-	private double zsetpoint = -.42; //TODO
+	private double xsetpoint = 0; // TODO
+	private double zsetpoint = -.42; // TODO
 	private boolean tagVisible = false;
 
 	// PID Controllers for alignment
@@ -54,7 +55,6 @@ public class ReefCenter extends Command{
 	private double distanceI = 0.03;
 	private double distanceD = 0.002;
 
-
 	private double botX = 0;
 	private double botZ = 0;
 	private double botYaw = 0;
@@ -66,16 +66,14 @@ public class ReefCenter extends Command{
 	private double distanceOutput = 0;
 	private double strafeOutput = 0;
 	private double rotationOutput = 0;
-	//public static Pose2d tPose2d(double[] inData);
+	// public static Pose2d tPose2d(double[] inData);
 
-	public ReefCenter(CommandSwerveDrivetrain drive_subsystem) {
-		addRequirements(drive_subsystem);
+	public ReefCenter(CommandSwerveDrivetrain drive_subsystem, Leds leds) {
+		addRequirements(drive_subsystem, leds);
 		m_drive = drive_subsystem;
-
-		m_led = new AddressableLED(0);
-
+		m_leds = leds;
 		// Configure PID controllers with gains
-		rotationPID = new PIDController(rotationP, rotationI, rotationD );
+		rotationPID = new PIDController(rotationP, rotationI, rotationD);
 		strafePID = new PIDController(strafeP, strafeI, strafeD);
 		distancePID = new PIDController(distanceP, distanceI, distanceD);
 		SmartDashboard.putData(this);
@@ -86,33 +84,30 @@ public class ReefCenter extends Command{
 		distancePID.setTolerance(.05);
 	}
 
-	public void inilize() {
-		AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60); // Assuming 60 LEDs
-		for (int i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setRGB(i, 0, 255, 0);
-		}
-		m_led.setData(ledBuffer);
-	}
-
 	@Override
 	public void initialize() {
+		m_leds.setRainbow();
 		rotationPID.reset();
 		strafePID.reset();
 		distancePID.reset();
-		
-			rotationPID.setSetpoint(rotSetpoint);
-			strafePID.setSetpoint(this.xsetpoint);
-			distancePID.setSetpoint(this.zsetpoint);
+
+		rotationPID.setSetpoint(rotSetpoint);
+		strafePID.setSetpoint(this.xsetpoint);
+		distancePID.setSetpoint(this.zsetpoint);
 	}
 
 	@Override
 	public void execute() {
-		double tx = LimelightHelpers.getTX(Constants.LIMELIGHT4_NAME);// Horizontal offset from crosshair to target in degrees
-		double ty = LimelightHelpers.getTY(Constants.LIMELIGHT4_NAME);// Vertical offset from crosshair to target in degrees
-        double ta = LimelightHelpers.getTA(Constants.LIMELIGHT4_NAME);// Target area (0% of image to 100% of image)
+		double tx = LimelightHelpers.getTX(Constants.LIMELIGHT4_NAME);// Horizontal offset from crosshair to target in
+																		// degrees
+		double ty = LimelightHelpers.getTY(Constants.LIMELIGHT4_NAME);// Vertical offset from crosshair to target in
+																		// degrees
+		double ta = LimelightHelpers.getTA(Constants.LIMELIGHT4_NAME);// Target area (0% of image to 100% of image)
 		double id = LimelightHelpers.getFiducialID(Constants.LIMELIGHT4_NAME);
-        double txnc = LimelightHelpers.getTXNC(Constants.LIMELIGHT4_NAME);  // Horizontal offset from principal pixel/point to target in degrees
-        double tync = LimelightHelpers.getTYNC(Constants.LIMELIGHT4_NAME);  // Vertical offset from principal pixel/point to target in degrees
+		double txnc = LimelightHelpers.getTXNC(Constants.LIMELIGHT4_NAME); // Horizontal offset from principal
+																			// pixel/point to target in degrees
+		double tync = LimelightHelpers.getTYNC(Constants.LIMELIGHT4_NAME); // Vertical offset from principal pixel/point
+																			// to target in degrees
 		Pose3d pose = LimelightHelpers.getTargetPose3d_RobotSpace(Constants.LIMELIGHT4_NAME);
 		double rot = Math.toDegrees(pose.getRotation().getY());
 		double[] fieldpose = LimelightHelpers.getBotPose_TargetSpace(Constants.LIMELIGHT4_NAME);
@@ -128,25 +123,24 @@ public class ReefCenter extends Command{
 		}
 		if (tagFound == true) { // Calculate control outputs
 			this.tagVisible = true;
-			botX = botPose.getX(); //offset from tag in meters
-			botZ = botPose.getZ(); //distance from tag in meters
+			botX = botPose.getX(); // offset from tag in meters
+			botZ = botPose.getZ(); // distance from tag in meters
 			double yawtotag = Math.toDegrees(botPose.getRotation().getY()); // angle to tag in degrees
 			this.botYaw = yawtotag;
-			
+
 			double xoffset = xsetpoint - botX;
 			double zoffset = zsetpoint - botZ;
 			double rotoffset = rotSetpoint - yawtotag;
-			
+
 			this.strafeError = xoffset;
 			this.distanceError = zoffset;
 			this.rotationError = rotoffset;
 
-			double rotationOutput = -rotationPID.calculate(yawtotag) * Math.PI /2;
+			double rotationOutput = -rotationPID.calculate(yawtotag) * Math.PI / 2;
 			double strafeOutput = -strafePID.calculate(botX);
 			double forwardOutput = distancePID.calculate(botZ);
-			
 
-			//limit speed
+			// limit speed
 			rotationOutput = Math.max(-Math.PI, Math.min(Math.PI, rotationOutput));
 			strafeOutput = Math.max(-1, Math.min(1, strafeOutput));
 			forwardOutput = Math.max(-1, Math.min(1, forwardOutput));
@@ -167,7 +161,7 @@ public class ReefCenter extends Command{
 			} else if (forwardOutput < 0 && forwardOutput > -outputMin) {
 				forwardOutput = -outputMin;
 			}
-			
+
 			if (rotationPID.atSetpoint()) {
 				rotationOutput = 0;
 			}
@@ -189,28 +183,26 @@ public class ReefCenter extends Command{
 					drive
 							.withVelocityX(forwardOutput) // Forward/backward
 							.withVelocityY(strafeOutput) // Left/right
-							.withRotationalRate(rotationOutput) ); // Rotation
+							.withRotationalRate(rotationOutput)); // Rotation
+			if (inPosition() == true) {
+				m_leds.setGreen();
+			} else {
+				m_leds.setRed();
+			}
 		} else {
 			// If we don't see the correct tag, stop moving
 			m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
 		}
 
-		
 	}
 
 	@Override
-	public void end(boolean isFinished) {
-		m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
-		AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60); // Assuming 60 LEDs
-		for (int i = 0; i < ledBuffer.getLength(); i++) {
-			ledBuffer.setRGB(i, 255, 255, 255);
-		}
-		m_led.setData(ledBuffer);
+	public void end(boolean interrupted) {
+		m_leds.setRainbow();
 	}
 
-	@Override
-	public boolean isFinished() {
-		// Command finishes when we're aligned with the target
+
+	public boolean inPosition() {
 		return rotationPID.atSetpoint() && strafePID.atSetpoint() && distancePID.atSetpoint();
 	}
 
@@ -218,21 +210,20 @@ public class ReefCenter extends Command{
 	public boolean runsWhenDisabled() {
 		return false;
 	}
-    
-    @Override
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("reef offsets"); //to get usable values make setpoints 0
-        builder.addBooleanProperty("tagVisible", () -> this.tagVisible , null);
-		builder.addDoubleProperty("xOffset", () -> this.xsetpoint, (val) -> 
-		{
+
+	@Override
+	public void initSendable(SendableBuilder builder) {
+		builder.setSmartDashboardType("reef offsets"); // to get usable values make setpoints 0
+		builder.addBooleanProperty("tagVisible", () -> this.tagVisible, null);
+		builder.addDoubleProperty("xOffset", () -> this.xsetpoint, (val) -> {
 			this.xsetpoint = val;
 			this.strafePID.setSetpoint(xsetpoint);
 		});
-        builder.addDoubleProperty("zOffset", () -> this.zsetpoint, (val) ->{ 
+		builder.addDoubleProperty("zOffset", () -> this.zsetpoint, (val) -> {
 			this.zsetpoint = val;
 			this.distancePID.setSetpoint(zsetpoint);
 		});
-        builder.addDoubleProperty("rotOffset", () -> this.rotSetpoint, (val) -> {
+		builder.addDoubleProperty("rotOffset", () -> this.rotSetpoint, (val) -> {
 			this.rotSetpoint = val;
 			this.rotationPID.setSetpoint(rotSetpoint);
 		});
@@ -292,6 +283,6 @@ public class ReefCenter extends Command{
 			this.distanceD = val;
 			distancePID.setD(this.distanceD);
 		});
-    }
+	}
 
 }

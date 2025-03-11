@@ -71,4 +71,8 @@ public class Constants {
             2,/*  This is not a field tag */ 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
     };
 
+    //LED things
+    public static final int LED_PORT = 0;
+    public static final int LED_LENGTH = 35;
+
 }

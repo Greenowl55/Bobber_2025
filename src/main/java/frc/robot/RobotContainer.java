@@ -44,6 +44,7 @@ public class RobotContainer {
 	Algae m_algae = new Algae();
 	Tilt m_tilt = new Tilt();
 	Climber m_climber = new Climber();
+	Leds m_Leds = new Leds();
 
 	private final double climber_setpoint = Constants.CLIMBER_OUT;
 
@@ -143,7 +144,7 @@ public class RobotContainer {
 		// {m_elevator.elevator(0);}));
 
 		// Reef positions
-		driverController.rightTrigger().whileTrue(new ReefCenter(drivetrain));
+		driverController.rightTrigger().whileTrue(new ReefCenter(drivetrain, m_Leds));
 		driverController.rightBumper().whileTrue(new ReefRight(drivetrain));
 		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain));
 		driverController.leftTrigger().whileTrue(new VisonOutput());
