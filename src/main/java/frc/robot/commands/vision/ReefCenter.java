@@ -1,6 +1,9 @@
 package frc.robot.commands.vision;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+
+import java.nio.Buffer;
+
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -17,6 +20,8 @@ import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.LimelightHelpers.PoseEstimate;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 public class ReefCenter extends Command{
 
@@ -24,6 +29,8 @@ public class ReefCenter extends Command{
 			.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
 	private CommandSwerveDrivetrain m_drive;
+	private AddressableLED m_led;
+	
 
 	private double rotSetpoint = 0;
 	private double xsetpoint = 0; //TODO
@@ -65,6 +72,8 @@ public class ReefCenter extends Command{
 		addRequirements(drive_subsystem);
 		m_drive = drive_subsystem;
 
+		m_led = new AddressableLED(0);
+
 		// Configure PID controllers with gains
 		rotationPID = new PIDController(rotationP, rotationI, rotationD );
 		strafePID = new PIDController(strafeP, strafeI, strafeD);
@@ -75,6 +84,14 @@ public class ReefCenter extends Command{
 		rotationPID.setTolerance(2);
 		strafePID.setTolerance(.02);
 		distancePID.setTolerance(.05);
+	}
+
+	public void inilize() {
+		AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60); // Assuming 60 LEDs
+		for (int i = 0; i < ledBuffer.getLength(); i++) {
+			ledBuffer.setRGB(i, 0, 255, 0);
+		}
+		m_led.setData(ledBuffer);
 	}
 
 	@Override
@@ -181,10 +198,15 @@ public class ReefCenter extends Command{
 		
 	}
 
-	// @Override
-	// public void end(boolean interrupted) {
-	// 	m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
-	// }
+	@Override
+	public void end(boolean isFinished) {
+		m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
+		AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60); // Assuming 60 LEDs
+		for (int i = 0; i < ledBuffer.getLength(); i++) {
+			ledBuffer.setRGB(i, 255, 255, 255);
+		}
+		m_led.setData(ledBuffer);
+	}
 
 	@Override
 	public boolean isFinished() {
