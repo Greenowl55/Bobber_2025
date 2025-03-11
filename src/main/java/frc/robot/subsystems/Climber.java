@@ -5,6 +5,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
+
 import frc.robot.Constants;
 public class Climber extends SubsystemBase{
 
@@ -30,6 +32,8 @@ public class Climber extends SubsystemBase{
 		motionMagicConfigs.MotionMagicJerk = 500; // jerk in units/100ms^3
 
         m_Climb.getConfigurator().apply(talonFXconfigs);
+
+        m_Climb.setNeutralMode(NeutralModeValue.Brake);
     }
 
     final MotionMagicVoltage m_request = new MotionMagicVoltage(0);
