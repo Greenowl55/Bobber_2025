@@ -14,6 +14,8 @@ import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
+
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,6 +44,8 @@ public class RobotContainer {
 	Algae m_algae = new Algae();
 	Tilt m_tilt = new Tilt();
 	Climber m_climber = new Climber();
+
+	private final double climber_setpoint = Constants.CLIMBER_OUT;
 
 	private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
 	private double MaxAngularRate = RotationsPerSecond.of(0.75)
@@ -168,7 +172,10 @@ public class RobotContainer {
 
 		// climber control
 		coDriverController.button(Constants.CODRIVER_6).whileTrue(
-				new Climber_Out(m_climber, Constants.CLIMBER_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+				new ClimberPosition(m_climber, "out", Constants.CLIMBER_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
+		// coDriverController.button(Constants.CODRIVER_6).onTrue(new ClimberPosition(m_climber, null, climber_setpoint));
+		// coDriverController.button(Constants.CODRIVER_6).onFalse(new ClimberPosition(m_climber, null, Constants.CLIMBER_IN));
 		// TODO coDriverController.button(Constants.CODRIVER_7).whileTrue(new
 		// Climber_In(m_climber,
 		// 0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
@@ -177,6 +184,20 @@ public class RobotContainer {
 		// -0.2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		// m_tilt.setDefaultCommand(m_tilt.run(() ->
 		// m_tilt.setspeed(codriverJoystick.getY()*-0.1)));
+	}
+
+	public void initSendable(SendableBuilder builder){
+		// builder.addDoubleProperty("rotationP", () -> this.climber_setpoint, (val) -> {
+		// 	this.climber_setpoint = val;
+		// 	this.climber_setpoint.setSetpoint(this.climber_setpoint);
+
+		// 	builder.addDoubleProperty("rotOffset", () -> this.rotSetpoint, (val) -> {
+		// 		this.rotSetpoint = val;
+		// 		this.rotationPID.setSetpoint(rotSetpoint);
+		// 	});
+
+		// });
+
 	}
 
 	/* Path follower */
