@@ -27,6 +27,12 @@
           "data": {
             "pathName": "4 mid right"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5 mid right"
+          }
         }
       ]
     }

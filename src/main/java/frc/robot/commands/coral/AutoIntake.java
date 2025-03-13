@@ -7,18 +7,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Coral;
+import frc.robot.subsystems.Leds;
 
 public class AutoIntake extends Command implements AutoCloseable {
     private double speed;
     private Coral coral;
+    private Leds leds;
     private final DigitalInput photoelectricSensor = new DigitalInput(Constants.CORAL_SENSOR);
 
-    public AutoIntake(Coral coral, double speed) {
+    public AutoIntake(Coral coral, double speed, Leds leds) {
         super();
         SmartDashboard.putData(this);
         this.coral = coral;
         this.speed = speed;
-        addRequirements(coral);
+        this.leds = leds;
+        addRequirements(coral, leds);
     }
 
     private boolean sensorTriggered() {
@@ -38,6 +41,7 @@ public class AutoIntake extends Command implements AutoCloseable {
     @Override
     public void end(boolean isFinished) {
         this.coral.setSpeed(0);
+        leds.greenscroll();
     }
 
     @Override

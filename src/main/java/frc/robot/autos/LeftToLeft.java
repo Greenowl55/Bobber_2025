@@ -7,6 +7,7 @@ import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -27,7 +28,7 @@ public class LeftToLeft extends SequentialCommandGroup {
 
         List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile("left to left");             //DOESNT RECOGIZE LEFT TO LEFT I THINK???
         addCommands(
-                AutoBuilder.followPath(paths.get(0)),
+                AutoBuilder.followPath(paths.get(0)).withTimeout(3),
                 new ReefLeft(swerve),
                 new ElevatorPosition(elevator, "L4", Constants.ELEVATOR_L4),
                 new AutoTilt(tilt, Constants.FISHHOOK_L4),
@@ -36,7 +37,7 @@ public class LeftToLeft extends SequentialCommandGroup {
                 new ElevatorPosition(elevator, "INTAKE", Constants.ELEVATOR_INTAKE),
 
                 AutoBuilder.followPath(paths.get(1)),
-                new AutoIntake(coral, Constants.CORAL_SENSOR),
+                new AutoIntake(coral, Constants.CORAL_SENSOR, null),
 
                 AutoBuilder.followPath(paths.get(2)),
                 new ReefRight(swerve),
@@ -45,7 +46,7 @@ public class LeftToLeft extends SequentialCommandGroup {
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
 
                 AutoBuilder.followPath(paths.get(3)),
-                new AutoIntake(coral, Constants.CORAL_SENSOR),
+                new AutoIntake(coral, Constants.CORAL_SENSOR, null),
 
                 AutoBuilder.followPath(paths.get(4)),
                 new ReefLeft(swerve),
@@ -54,3 +55,8 @@ public class LeftToLeft extends SequentialCommandGroup {
                 
     }
 }
+
+
+
+//Hello, my lovely Alex
+//                    -Simon

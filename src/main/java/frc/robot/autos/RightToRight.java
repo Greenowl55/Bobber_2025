@@ -36,7 +36,7 @@ public class RightToRight extends SequentialCommandGroup {
                 new ElevatorPosition(elevator, "INTAKE", Constants.ELEVATOR_INTAKE),
 
                 AutoBuilder.followPath(paths.get(1)),
-                new AutoIntake(coral, Constants.CORAL_SENSOR),
+                new AutoIntake(coral, Constants.CORAL_SENSOR, null),
 
                 AutoBuilder.followPath(paths.get(2)),
                 new ReefLeft(swerve),
@@ -45,7 +45,7 @@ public class RightToRight extends SequentialCommandGroup {
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
 
                 AutoBuilder.followPath(paths.get(3)),
-                new AutoIntake(coral, Constants.CORAL_SENSOR),
+                new AutoIntake(coral, Constants.CORAL_SENSOR, null),
 
                 AutoBuilder.followPath(paths.get(4)),
                 new ReefRight(swerve),

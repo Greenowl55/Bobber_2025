@@ -86,7 +86,7 @@ public class ReefCenter extends Command {
 
 	@Override
 	public void initialize() {
-		m_leds.setRainbow();
+		m_leds.clear();
 		rotationPID.reset();
 		strafePID.reset();
 		distancePID.reset();
@@ -198,7 +198,7 @@ public class ReefCenter extends Command {
 
 	@Override
 	public void end(boolean interrupted) {
-		m_leds.setRainbow();
+		m_leds.clear();
 	}
 
 

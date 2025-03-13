@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "elevator l4"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2 left"
@@ -26,6 +32,12 @@
           "type": "path",
           "data": {
             "pathName": "4 left"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5 left"
           }
         }
       ]

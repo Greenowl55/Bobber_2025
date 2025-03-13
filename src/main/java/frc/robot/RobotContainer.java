@@ -14,6 +14,7 @@ import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -70,6 +71,11 @@ public class RobotContainer {
 	private final Joystick codriverJoystick = new Joystick(1);
 
 	public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+	private void registerNamedCommands(){
+
+		NamedCommands.registerCommand("elevator l4", new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4).withTimeout(2));
+	}
 
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
@@ -153,7 +159,7 @@ public class RobotContainer {
 
 		// game piece control
 		coDriverController.button(Constants.CODRIVER_2).onTrue(
-				new AutoIntake(m_coral, Constants.CORAL_SLOW).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+				new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_1).whileTrue(
 				new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_8).whileTrue(
@@ -205,6 +211,7 @@ public class RobotContainer {
 	private final SendableChooser<Command> autoChooser;
 
 	public RobotContainer() {
+		registerNamedCommands();
 		autoChooser = AutoBuilder.buildAutoChooser("Tests");
 		SmartDashboard.putData("Auto Mode", autoChooser);
 
