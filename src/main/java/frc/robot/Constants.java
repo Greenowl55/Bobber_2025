@@ -68,7 +68,7 @@ public class Constants {
 
     // Reef April Tag array
     public static final int[] REEF_TAGS = {
-            2,/*  This is not a field tag */ 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
+            /*  2 This is not a field tag */ 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
     };
 
     //LED things

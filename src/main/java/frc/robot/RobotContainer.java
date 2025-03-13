@@ -12,6 +12,7 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix.platform.can.AutocacheState;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.fasterxml.jackson.databind.util.Named;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -74,9 +76,20 @@ public class RobotContainer {
 
 	private void registerNamedCommands(){
 
-		NamedCommands.registerCommand("elevator l4", new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4).withTimeout(2));
-	}
+		NamedCommands.registerCommand("elevator l4", new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4).withTimeout(1));
+		NamedCommands.registerCommand("elevator l3", new ElevatorPosition(m_elevator, "L3", Constants.ELEVATOR_L3).withTimeout(1));
+		NamedCommands.registerCommand("elevator l2", new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2).withTimeout(1));
+		NamedCommands.registerCommand("elevator intake", new ElevatorPosition(m_elevator, "intake", Constants.ELEVATOR_INTAKE).withTimeout(1));
+		
+		NamedCommands.registerCommand("ReefLeft",new ReefLeft(drivetrain, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("ReefRight",new ReefRight(drivetrain, m_Leds).withTimeout(2));
 
+		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1));
+		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1));
+		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SENSOR, m_Leds).withTimeout(2));
+
+		NamedCommands.registerCommand("cfast",Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(1)));
+	}
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
 		// and Y is defined as to the left according to WPILib convention.
@@ -151,8 +164,8 @@ public class RobotContainer {
 
 		// Reef positions
 		driverController.rightTrigger().whileTrue(new ReefCenter(drivetrain, m_Leds));
-		driverController.rightBumper().whileTrue(new ReefRight(drivetrain));
-		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain));
+		driverController.rightBumper().whileTrue(new ReefRight(drivetrain, m_Leds));
+		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain, m_Leds));
 		driverController.leftTrigger().whileTrue(new VisonOutput());
 
 		// Co-Driver Buttons
@@ -168,12 +181,12 @@ public class RobotContainer {
 				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		// tilt control
-		coDriverController.button(Constants.CODRIVER_3)
-				.whileTrue(new Tilt_Position(m_tilt, "GROUND", Constants.FISHHOOK_GROUND));
-		coDriverController.button(Constants.CODRIVER_4)
-				.whileTrue(new Tilt_Position(m_tilt, "L4", Constants.FISHHOOK_ALGAE));
 		coDriverController.button(Constants.CODRIVER_7)
-				.whileTrue(new Tilt_Position(m_tilt, "Algae", Constants.FISHHOOK_L4));
+				.whileTrue(new Tilt_Position(m_tilt, "algae", Constants.FISHHOOK_ALGAE));
+		coDriverController.button(Constants.CODRIVER_4)
+				.whileTrue(new Tilt_Position(m_tilt, "ground", Constants.FISHHOOK_GROUND));
+		coDriverController.button(Constants.CODRIVER_3)
+				.whileTrue(new Tilt_Position(m_tilt, "l4", Constants.FISHHOOK_L4));
 		coDriverController.button(Constants.CODRIVER_9)
 				.whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
 
