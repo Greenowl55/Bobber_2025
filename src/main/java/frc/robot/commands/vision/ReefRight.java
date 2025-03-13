@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Leds;
 
 public class ReefRight extends Command {
 
@@ -32,10 +33,11 @@ public class ReefRight extends Command {
 	.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
 private CommandSwerveDrivetrain m_drive;
+private Leds m_leds;
 
 private double rotSetpoint = 0.7;
-private double xsetpoint = 0.12; //TODO
-private double zsetpoint = -.45; //TODO
+private double xsetpoint = 0.14; //TODO
+private double zsetpoint = -.42; //TODO
 private boolean tagVisible = false;
 
 // PID Controllers for alignment
@@ -69,9 +71,10 @@ private double strafeOutput = 0;
 private double rotationOutput = 0;
 //public static Pose2d tPose2d(double[] inData);
 
-public ReefRight(CommandSwerveDrivetrain drive_subsystem) {
+public ReefRight(CommandSwerveDrivetrain drive_subsystem, Leds leds) {
 addRequirements(drive_subsystem);
 m_drive = drive_subsystem;
+m_leds = leds;
 
 // Configure PID controllers with gains
 rotationPID = new PIDController(rotationP, rotationI, rotationD );
@@ -90,6 +93,7 @@ public void initialize() {
 rotationPID.reset();
 strafePID.reset();
 distancePID.reset();
+m_leds.clear();
 
 	rotationPID.setSetpoint(rotSetpoint);
 	strafePID.setSetpoint(this.xsetpoint);
@@ -181,6 +185,12 @@ if (tagFound == true) { // Calculate control outputs
 					.withVelocityX(forwardOutput) // Forward/backward
 					.withVelocityY(strafeOutput) // Left/right
 					.withRotationalRate(rotationOutput) ); // Rotation
+
+					if (inPosition() == true) {
+						m_leds.setGreen();
+					} else {
+						m_leds.setRed();
+					}
 } else {
 	// If we don't see the correct tag, stop moving
 	m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
@@ -193,6 +203,9 @@ if (tagFound == true) { // Calculate control outputs
 // public void end(boolean interrupted) {
 // 	m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
 // }
+public boolean inPosition() {
+	return rotationPID.atSetpoint() && strafePID.atSetpoint() && distancePID.atSetpoint();
+}
 
 @Override
 public boolean isFinished() {

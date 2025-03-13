@@ -21,15 +21,16 @@ import frc.robot.commands.vision.ReefRight;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Leds;
 import frc.robot.subsystems.Tilt;
 
 public class LeftToLeft extends SequentialCommandGroup {
-    public LeftToLeft(CommandSwerveDrivetrain swerve, Elevator elevator, Tilt tilt, Coral coral)throws Exception {	 //EXCEPTION NEEDED???
+    public LeftToLeft(CommandSwerveDrivetrain swerve, Elevator elevator, Tilt tilt, Coral coral, Leds leds)throws Exception {	 //EXCEPTION NEEDED???
 
         List<PathPlannerPath> paths = PathPlannerAuto.getPathGroupFromAutoFile("left to left");             //DOESNT RECOGIZE LEFT TO LEFT I THINK???
         addCommands(
                 AutoBuilder.followPath(paths.get(0)).withTimeout(3),
-                new ReefLeft(swerve),
+                new ReefLeft(swerve, leds),
                 new ElevatorPosition(elevator, "L4", Constants.ELEVATOR_L4),
                 new AutoTilt(tilt, Constants.FISHHOOK_L4),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
@@ -40,7 +41,7 @@ public class LeftToLeft extends SequentialCommandGroup {
                 new AutoIntake(coral, Constants.CORAL_SENSOR, null),
 
                 AutoBuilder.followPath(paths.get(2)),
-                new ReefRight(swerve),
+                new ReefRight(swerve, leds),
                 new ElevatorPosition(elevator, "L4", Constants.ELEVATOR_L4),
                 new AutoTilt(tilt, Constants.FISHHOOK_L4),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)),
@@ -49,7 +50,7 @@ public class LeftToLeft extends SequentialCommandGroup {
                 new AutoIntake(coral, Constants.CORAL_SENSOR, null),
 
                 AutoBuilder.followPath(paths.get(4)),
-                new ReefLeft(swerve),
+                new ReefLeft(swerve, leds),
                 new ElevatorPosition(elevator, "L3", Constants.ELEVATOR_L3),
                 Commands.race(new Fast(coral, Constants.CORAL_FAST), Commands.waitSeconds(Constants.AUTO_TIMEOUT)));
                 

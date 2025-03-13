@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Leds;
 import frc.robot.Constants;
 
 public class ReefLeft extends Command {
@@ -23,10 +24,11 @@ public class ReefLeft extends Command {
 	.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
 private CommandSwerveDrivetrain m_drive;
+private final Leds m_leds;
 
 private double rotSetpoint = -1;
-private double xsetpoint = -0.17; //TODO
-private double zsetpoint = -.45; //TODO
+private double xsetpoint = -0.18; //TODO
+private double zsetpoint = -.42; //TODO
 private boolean tagVisible = false;
 
 // PID Controllers for alignment
@@ -60,10 +62,11 @@ private double strafeOutput = 0;
 private double rotationOutput = 0;
 //public static Pose2d tPose2d(double[] inData);
 
-public ReefLeft(CommandSwerveDrivetrain drive_subsystem) {
+public ReefLeft(CommandSwerveDrivetrain drive_subsystem, Leds leds) {
 addRequirements(drive_subsystem);
-m_drive = drive_subsystem;
 
+m_drive = drive_subsystem;
+m_leds = leds;
 // Configure PID controllers with gains
 rotationPID = new PIDController(rotationP, rotationI, rotationD );
 strafePID = new PIDController(strafeP, strafeI, strafeD);
@@ -81,6 +84,7 @@ public void initialize() {
 rotationPID.reset();
 strafePID.reset();
 distancePID.reset();
+m_leds.clear();
 
 	rotationPID.setSetpoint(rotSetpoint);
 	strafePID.setSetpoint(this.xsetpoint);
@@ -172,6 +176,12 @@ if (tagFound == true) { // Calculate control outputs
 					.withVelocityX(forwardOutput) // Forward/backward
 					.withVelocityY(strafeOutput) // Left/right
 					.withRotationalRate(rotationOutput) ); // Rotation
+
+					if (inPosition() == true) {
+						m_leds.setGreen();
+					} else {
+						m_leds.setRed();
+					}
 } else {
 	// If we don't see the correct tag, stop moving
 	m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
@@ -180,6 +190,9 @@ if (tagFound == true) { // Calculate control outputs
 
 }
 
+public boolean inPosition() {
+	return rotationPID.atSetpoint() && strafePID.atSetpoint() && distancePID.atSetpoint();
+}
 // @Override
 // public void end(boolean interrupted) {
 // 	m_drive.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
