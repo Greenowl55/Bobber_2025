@@ -34,7 +34,7 @@ public class ReefRight extends Command {
 private CommandSwerveDrivetrain m_drive;
 
 private double rotSetpoint = 0.7;
-private double xsetpoint = 0.12; //TODO
+private double xsetpoint = 0.14; //TODO
 private double zsetpoint = -.45; //TODO
 private boolean tagVisible = false;
 
