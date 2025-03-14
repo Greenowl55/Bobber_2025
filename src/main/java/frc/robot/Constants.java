@@ -47,7 +47,7 @@ public class Constants {
 
     // Climber setpoints
     public static final int CLIMBER_OUT = 320;
-    public static final int CLIMBER_IN = -100;
+    public static final int CLIMBER_IN = -105;
     // TODO: Set these values
 
     // CoDriver Buttons

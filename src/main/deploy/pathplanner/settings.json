@@ -10,7 +10,12 @@
     "right",
     "right to mid"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "KAT Autos",
+    "NOT WORKING",
+    "Tests DO NOT USE!",
+    "Working"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

@@ -5,34 +5,28 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "1 mid"
-          }
-        },
-        {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "ReefRight"
+                  "pathName": "1 mid"
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 2.0
+                  "name": "elevator intake"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ReefRight"
           }
         },
         {
@@ -159,6 +153,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Working",
   "choreoAuto": false
 }

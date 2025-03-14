@@ -81,8 +81,8 @@ public class RobotContainer {
 		NamedCommands.registerCommand("elevator l2", new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2).withTimeout(1));
 		NamedCommands.registerCommand("elevator intake", new ElevatorPosition(m_elevator, "intake", Constants.ELEVATOR_INTAKE).withTimeout(1));
 		
-		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(2));
-		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(3.3));
+		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(3.3));
 
 		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1));
 		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1));
@@ -97,15 +97,15 @@ public class RobotContainer {
 				// Drivetrain will execute this command periodically
 				drivetrain.applyRequest(
 						() -> drive
-								.withVelocityX(
+								.withVelocityX(				//Remove 0.7 later (for Kat)
 										-driverController.getLeftY()
-												* MaxSpeed) // Drive forward with negative Y (forward)
+												* MaxSpeed * 0.7) // Drive forward with negative Y (forward)
 								.withVelocityY(
 										-driverController.getLeftX()
-												* MaxSpeed) // Drive left with negative X (left)
+												* MaxSpeed * 0.7) // Drive left with negative X (left) 
 								.withRotationalRate(
 										-driverController.getRightX()
-												* MaxAngularRate) // Drive counterclockwise with negative X (left)
+												* MaxAngularRate * 0.7) // Drive counterclockwise with negative X (left)
 				));
 
 		// TODO Find button for:
@@ -163,10 +163,10 @@ public class RobotContainer {
 		// {m_elevator.elevator(0);}));
 
 		// Reef positions
-		driverController.rightTrigger().whileTrue(new ReefCenter(drivetrain, m_Leds));
+		driverController.leftTrigger().whileTrue(new ReefCenter(drivetrain, m_Leds));
 		driverController.rightBumper().whileTrue(new ReefRight(drivetrain, m_Leds));
 		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain, m_Leds));
-		driverController.leftTrigger().whileTrue(new VisonOutput());
+		//driverController.leftTrigger().whileTrue(new VisonOutput());
 
 		// Co-Driver Buttons
 
