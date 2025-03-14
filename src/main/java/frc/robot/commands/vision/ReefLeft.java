@@ -27,8 +27,8 @@ private CommandSwerveDrivetrain m_drive;
 private final Leds m_leds;
 
 private double rotSetpoint = -1;
-private double xsetpoint = -0.18; //TODO
-private double zsetpoint = -.42; //TODO
+private double xsetpoint = -0.2; //TODO
+private double zsetpoint = -.41; //TODO
 private boolean tagVisible = false;
 
 // PID Controllers for alignment

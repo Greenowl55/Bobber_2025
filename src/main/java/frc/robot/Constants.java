@@ -32,13 +32,13 @@ public class Constants {
 
     // Game piece speeds
     public static final double ALGAE_IN = -0.5;
-    public static final double ALGAE_OUT = 0.5;
+    public static final double ALGAE_OUT = 0.25;
     public static final double CORAL_SLOW = -0.2;
     public static final double CORAL_FAST = -0.3;
 
     // fish hook setpoints
-    public static final double FISHHOOK_IN = 0.2;
-    public static final double FISHHOOK_L4 = 4.25;
+    public static final double FISHHOOK_IN = 0.6;
+    public static final double FISHHOOK_L4 = 4.85;
     public static final double FISHHOOK_ALGAE = 6;
     public static final double FISHHOOK_GROUND = 9;
 
@@ -46,8 +46,8 @@ public class Constants {
     public static final int CLIMBER_MOTOR_ID = 14;
 
     // Climber setpoints
-    public static final int CLIMBER_OUT = -80;
-    public static final int CLIMBER_IN = -25;
+    public static final int CLIMBER_OUT = 320;
+    public static final int CLIMBER_IN = -100;
     // TODO: Set these values
 
     // CoDriver Buttons

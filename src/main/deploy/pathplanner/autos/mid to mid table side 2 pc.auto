@@ -1,0 +1,164 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1 mid"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefRight"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 2.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 mid right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3 rtm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4 rtm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ReefLeft"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator intake"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

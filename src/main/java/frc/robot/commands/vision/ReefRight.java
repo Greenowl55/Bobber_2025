@@ -36,8 +36,8 @@ private CommandSwerveDrivetrain m_drive;
 private Leds m_leds;
 
 private double rotSetpoint = 0.7;
-private double xsetpoint = 0.14; //TODO
-private double zsetpoint = -.45; //TODO
+private double xsetpoint = 0.145; //TODO
+private double zsetpoint = -.41; //TODO
 private boolean tagVisible = false;
 
 // PID Controllers for alignment
@@ -121,7 +121,7 @@ for (int tag : Constants.REEF_TAGS) {
 		break;
 	}
 }
-if (tagFound == true) { // Calculate control outputs
+if (tagFound) { // Calculate control outputs
 	this.tagVisible = true;
 	botX = botPose.getX(); //offset from tag in meters
 	botZ = botPose.getZ(); //distance from tag in meters

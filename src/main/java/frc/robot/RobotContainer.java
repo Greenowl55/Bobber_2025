@@ -81,14 +81,14 @@ public class RobotContainer {
 		NamedCommands.registerCommand("elevator l2", new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2).withTimeout(1));
 		NamedCommands.registerCommand("elevator intake", new ElevatorPosition(m_elevator, "intake", Constants.ELEVATOR_INTAKE).withTimeout(1));
 		
-		NamedCommands.registerCommand("ReefLeft",new ReefLeft(drivetrain, m_Leds).withTimeout(2));
-		NamedCommands.registerCommand("ReefRight",new ReefRight(drivetrain, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(2));
 
 		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1));
 		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1));
-		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SENSOR, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withTimeout(2));
 
-		NamedCommands.registerCommand("cfast",Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(1)));
+		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(1)));
 	}
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
@@ -184,9 +184,9 @@ public class RobotContainer {
 		coDriverController.button(Constants.CODRIVER_7)
 				.whileTrue(new Tilt_Position(m_tilt, "algae", Constants.FISHHOOK_ALGAE));
 		coDriverController.button(Constants.CODRIVER_4)
-				.whileTrue(new Tilt_Position(m_tilt, "ground", Constants.FISHHOOK_GROUND));
+				.whileTrue(new Tilt_Position(m_tilt, "ground", Constants.FISHHOOK_L4));
 		coDriverController.button(Constants.CODRIVER_3)
-				.whileTrue(new Tilt_Position(m_tilt, "l4", Constants.FISHHOOK_L4));
+				.whileTrue(new Tilt_Position(m_tilt, "l4", Constants.FISHHOOK_GROUND));
 		coDriverController.button(Constants.CODRIVER_9)
 				.whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
 
@@ -229,7 +229,7 @@ public class RobotContainer {
 		SmartDashboard.putData("Auto Mode", autoChooser);
 
 		autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
-		autoChooser.addOption("Drive", new Drive1(drivetrain));
+		//autoChooser.addOption("Drive", new Drive1(drivetrain));
 		// autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
 
 		configureBindings();

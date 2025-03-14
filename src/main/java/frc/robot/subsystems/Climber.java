@@ -27,9 +27,9 @@ public class Climber extends SubsystemBase{
 		slot0Configs.kD = 0; // output per unit of error in velocity (output/rps)
 
 		var motionMagicConfigs = talonFXconfigs.MotionMagic;
-		motionMagicConfigs.MotionMagicCruiseVelocity = 50; // velocity in units/100ms
-		motionMagicConfigs.MotionMagicAcceleration = 100; // acceleration in units/100ms^2
-		motionMagicConfigs.MotionMagicJerk = 500; // jerk in units/100ms^3
+		motionMagicConfigs.MotionMagicCruiseVelocity = 250; // velocity in units/100ms
+		motionMagicConfigs.MotionMagicAcceleration = 500; // acceleration in units/100ms^2
+		motionMagicConfigs.MotionMagicJerk = 1000; // jerk in units/100ms^3
 
         m_Climb.getConfigurator().apply(talonFXconfigs);
 

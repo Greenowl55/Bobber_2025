@@ -13,7 +13,6 @@ public class AutoIntake extends Command implements AutoCloseable {
     private double speed;
     private Coral coral;
     private Leds leds;
-    private final DigitalInput photoelectricSensor = new DigitalInput(Constants.CORAL_SENSOR);
 
     public AutoIntake(Coral coral, double speed, Leds leds) {
         super();
@@ -24,9 +23,7 @@ public class AutoIntake extends Command implements AutoCloseable {
         addRequirements(coral, leds);
     }
 
-    private boolean sensorTriggered() {
-        return photoelectricSensor.get() == false;
-    }
+
 
     @Override
     public void initialize() {
@@ -35,7 +32,7 @@ public class AutoIntake extends Command implements AutoCloseable {
 
     @Override
     public boolean isFinished() {
-        return this.sensorTriggered();
+        return coral.sensorTriggered();
     }
 
     @Override
@@ -47,7 +44,6 @@ public class AutoIntake extends Command implements AutoCloseable {
     @Override
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("Coral Sensor");
-        builder.addBooleanProperty("CoralSensor", () -> this.sensorTriggered(), null);
         builder.publishConstBoolean("Working", true);
     }
 

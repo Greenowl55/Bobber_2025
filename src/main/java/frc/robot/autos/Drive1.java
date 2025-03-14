@@ -21,6 +21,7 @@ public class Drive1 extends SequentialCommandGroup {
 		addCommands(
 				// Command.runonce(() -> m_swerve.seedfieldrelative(pose)),
 				// new PathPlannerAuto("drive")
-				AutoBuilder.buildAuto("drive"));
+				//AutoBuilder.buildAuto("drive")
+				);
 	}
 }
