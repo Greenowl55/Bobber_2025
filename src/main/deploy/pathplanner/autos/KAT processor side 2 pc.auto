@@ -82,48 +82,6 @@
           "data": {
             "name": "ReefLeft"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "cfast"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltIn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4 left"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoIntake"
-          }
         }
       ]
     }
