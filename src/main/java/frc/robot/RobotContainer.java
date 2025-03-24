@@ -81,14 +81,17 @@ public class RobotContainer {
 		NamedCommands.registerCommand("elevator l2", new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2).withTimeout(1));
 		NamedCommands.registerCommand("elevator intake", new ElevatorPosition(m_elevator, "intake", Constants.ELEVATOR_INTAKE).withTimeout(1));
 		
-		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(3.3));
-		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(3.3));
+		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(1.5));
+		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(1.5));
 
-		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1));
-		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1));
-		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(2.5));
+		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(2.5));
 
-		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(1)));
+		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(0.9));
+		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(0.9));
+		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withTimeout(1));
+
+		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.35)));
 	}
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
