@@ -35,7 +35,7 @@
     {
       "name": "AutoIntake",
       "waypointRelativePos": 0.7452380952380955,
-      "endWaypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {

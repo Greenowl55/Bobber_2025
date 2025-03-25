@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.821960227272727,
+        "x": 2.5543664383561646,
         "y": 4.064886363636362
       },
       "prevControl": {
-        "x": 1.821960227272727,
+        "x": 1.5543664383561646,
         "y": 4.064886363636362
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "start"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "TESTS",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

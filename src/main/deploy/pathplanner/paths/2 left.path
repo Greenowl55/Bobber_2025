@@ -34,8 +34,8 @@
   "eventMarkers": [
     {
       "name": "AutoIntake",
-      "waypointRelativePos": 0.7523809523809523,
-      "endWaypointRelativePos": 1.0,
+      "waypointRelativePos": 0.8047619047619047,
+      "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {

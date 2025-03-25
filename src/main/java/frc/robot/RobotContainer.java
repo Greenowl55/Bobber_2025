@@ -87,9 +87,9 @@ public class RobotContainer {
 		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(2.5));
 		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(2.5));
 
-		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(0.9));
-		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(0.9));
-		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withTimeout(1));
+		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(0.3));
+		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(0.3));
+		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.35)));
 	}
@@ -100,15 +100,15 @@ public class RobotContainer {
 				// Drivetrain will execute this command periodically
 				drivetrain.applyRequest(
 						() -> drive
-								.withVelocityX(				//Remove 0.7 later (for Kat)
+								.withVelocityX(				
 										-driverController.getLeftY()
-												* MaxSpeed * 0.7) // Drive forward with negative Y (forward)
+												* MaxSpeed) // Drive forward with negative Y (forward)
 								.withVelocityY(
 										-driverController.getLeftX()
-												* MaxSpeed * 0.7) // Drive left with negative X (left) 
+												* MaxSpeed) // Drive left with negative X (left) 
 								.withRotationalRate(
 										-driverController.getRightX()
-												* MaxAngularRate * 0.7) // Drive counterclockwise with negative X (left)
+												* MaxAngularRate) // Drive counterclockwise with negative X (left)
 				));
 
 		// TODO Find button for:

@@ -29,34 +29,9 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.0,
-      "maxWaypointRelativePos": 0.06666666666666668,
-      "constraints": {
-        "maxVelocity": 3.0,
-        "maxAcceleration": 1.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
-    {
-      "name": "AutoIntake",
-      "waypointRelativePos": 0.0,
-      "endWaypointRelativePos": 0.14523809523809525,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "AutoIntake"
-        }
-      }
-    },
     {
       "name": "elevator l4",
       "waypointRelativePos": 0.29523809523809513,
@@ -70,7 +45,7 @@
     },
     {
       "name": "ReefLeftLONG",
-      "waypointRelativePos": 0.8023809523809518,
+      "waypointRelativePos": 0.754761904761905,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

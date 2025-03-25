@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 left"
+            "pathName": "donothing 1"
           }
         },
         {
@@ -36,19 +36,19 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltIn"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "2 left"
+                  "pathName": "donothing 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltIn"
                 }
               },
               {
@@ -69,7 +69,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3 left"
+            "pathName": "donothing 1"
           }
         },
         {
@@ -98,19 +98,19 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltIn"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4 left"
+                  "pathName": "donothing 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltIn"
                 }
               },
               {
@@ -123,9 +123,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.375
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "5 left"
+            "pathName": "donothing 1"
           }
         },
         {
@@ -157,6 +163,12 @@
           "type": "named",
           "data": {
             "name": "AutoTiltIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator intake"
           }
         }
       ]
