@@ -228,10 +228,11 @@ public class RobotContainer {
 
 	public RobotContainer() {
 		registerNamedCommands();
-		autoChooser = AutoBuilder.buildAutoChooser("Tests");
+		autoChooser = 
+		AutoBuilder.buildAutoChooser("nothing");
 		SmartDashboard.putData("Auto Mode", autoChooser);
 
-		autoChooser.setDefaultOption("Do Nothing", new PrintCommand("Do Nothing"));
+		autoChooser.setDefaultOption("nothing", new PrintCommand("Do Nothing"));
 		//autoChooser.addOption("Drive", new Drive1(drivetrain));
 		// autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
 

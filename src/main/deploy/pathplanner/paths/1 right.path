@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.1446955854842304,
-        "y": 7.260691607190357
+        "x": 5.973546890981961,
+        "y": 7.932314565825172
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 5.101931818181818
       },
       "prevControl": {
-        "x": 5.138165411105959,
-        "y": 5.164226905997785
+        "x": 5.147357656732238,
+        "y": 5.2759556440096045
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,9 +34,25 @@
   "eventMarkers": [
     {
       "name": "elevator l4",
-      "waypointRelativePos": 0.507142857142857,
+      "waypointRelativePos": 0.5,
       "endWaypointRelativePos": null,
-      "command": null
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "elevator l4"
+        }
+      }
+    },
+    {
+      "name": "ReefRightLONG",
+      "waypointRelativePos": 0.7519531250000003,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ReefLeftLONG"
+        }
+      }
     }
   ],
   "globalConstraints": {

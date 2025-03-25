@@ -45,7 +45,7 @@
     },
     {
       "name": "ReefRightLONG",
-      "waypointRelativePos": 0.8023809523809524,
+      "waypointRelativePos": 0.751953125,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
