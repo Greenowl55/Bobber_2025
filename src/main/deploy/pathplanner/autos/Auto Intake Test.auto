@@ -13,13 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ReefRight"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "donothing 2"
+            "name": "AutoIntake"
           }
         }
       ]

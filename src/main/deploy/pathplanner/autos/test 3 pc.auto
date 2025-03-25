@@ -1,0 +1,180 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "donothing 1"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefLeft"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "donothing 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltIn"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.375
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "donothing 1"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefLeft"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "donothing 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltIn"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.375
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "donothing 1"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefRight"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator intake"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
