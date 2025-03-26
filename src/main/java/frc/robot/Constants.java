@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.RobotBase;
+
 // You should use this. -4674
 // You should use this. -4674
 // You should use this. -4674
@@ -74,5 +76,19 @@ public class Constants {
     //LED things
     public static final int LED_PORT = 0;
     public static final int LED_LENGTH = 35;
+
+    public static final Mode simMode = Mode.SIM;
+    public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
+
+      public static enum Mode {
+        /** Running on a real robot. */
+        REAL,
+
+        /** Running a physics simulator. */
+        SIM,
+
+        /** Replaying from a log file. */
+        REPLAY
+  }
 
 }

@@ -9,6 +9,8 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import com.ctre.phoenix.platform.can.AutocacheState;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
@@ -17,6 +19,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController.*;
@@ -30,7 +33,6 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.autos.*;
 import frc.robot.commands.Climb.*;
 import frc.robot.commands.algae.*;
 import frc.robot.commands.coral.*;
@@ -224,17 +226,12 @@ public class RobotContainer {
 	}
 
 	/* Path follower */
-	private final SendableChooser<Command> autoChooser;
+	private final LoggedDashboardChooser<Command> autoChooser;
 
 	public RobotContainer() {
 		registerNamedCommands();
-		autoChooser = 
-		AutoBuilder.buildAutoChooser("nothing");
-		SmartDashboard.putData("Auto Mode", autoChooser);
-
-		autoChooser.setDefaultOption("nothing", new PrintCommand("Do Nothing"));
-		//autoChooser.addOption("Drive", new Drive1(drivetrain));
-		// autoChooser.addOption("forward", drivetrain.getAutoPath("Drive"));
+		autoChooser = new LoggedDashboardChooser<>("Auto Mode", AutoBuilder.buildAutoChooser());
+		autoChooser.addDefaultOption("nothing", new PrintCommand("Do Nothing"));
 
 		configureBindings();
 		
@@ -242,7 +239,7 @@ public class RobotContainer {
 
 	public Command getAutonomousCommand() {
 		/* Run the path selected from the auto chooser */
-		return autoChooser.getSelected();
+		return autoChooser.get();
 	}
 
 }

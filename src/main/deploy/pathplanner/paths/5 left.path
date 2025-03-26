@@ -42,17 +42,6 @@
           "name": "elevator l4"
         }
       }
-    },
-    {
-      "name": "ReefRightLONG",
-      "waypointRelativePos": 0.751953125,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "ReefRightLONG"
-        }
-      }
     }
   ],
   "globalConstraints": {

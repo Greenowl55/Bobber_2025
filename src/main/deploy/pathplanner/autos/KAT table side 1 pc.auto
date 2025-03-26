@@ -13,12 +13,6 @@
                 "data": {
                   "pathName": "1 right"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "elevator intake"
-                }
               }
             ]
           }
@@ -27,12 +21,6 @@
           "type": "named",
           "data": {
             "name": "ReefRight"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
           }
         },
         {
