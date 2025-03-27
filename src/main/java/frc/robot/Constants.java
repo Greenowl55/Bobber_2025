@@ -77,6 +77,8 @@ public class Constants {
     public static final int LED_PORT = 0;
     public static final int LED_LENGTH = 35;
 
+    // AdvantageKit and AdvantageScope things
+    public static final boolean isCompetitionReady = true;	// Set to false for testing and true for comps
     public static final Mode simMode = Mode.SIM;
     public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 

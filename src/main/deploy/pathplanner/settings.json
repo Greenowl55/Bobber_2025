@@ -12,10 +12,8 @@
     "right to mid"
   ],
   "autoFolders": [
-    "KAT Autos",
-    "NOT WORKING",
     "Tests DO NOT USE!",
-    "Working"
+    "Main"
   ],
   "defaultMaxVel": 4.0,
   "defaultMaxAccel": 3.0,

@@ -51,7 +51,7 @@ public class RobotContainer {
 	Climber m_climber = new Climber();
 	Leds m_Leds = new Leds();
 
-	boolean isCompetition = true;	// Set to false for testing and true for comps
+	public boolean isCompetitionReady = false;	// Set to false for testing and true for comps
 
 	private final double climber_setpoint = Constants.CLIMBER_OUT;
 
@@ -85,8 +85,8 @@ public class RobotContainer {
 		NamedCommands.registerCommand("elevator l2", new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2).withTimeout(1));
 		NamedCommands.registerCommand("elevator intake", new ElevatorPosition(m_elevator, "intake", Constants.ELEVATOR_INTAKE).withTimeout(1));
 		
-		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(1.5));
-		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(1.5));
+		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(0.6));
+		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(0.6));
 
 		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(2.5));
 		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(2.5));
@@ -233,7 +233,7 @@ public class RobotContainer {
 	public RobotContainer() {
 		registerNamedCommands();
 		autoChooser = new LoggedDashboardChooser<>("Auto Mode", AutoBuilder.buildAutoChooserWithOptionsModifier(
-			(stream) -> isCompetition
+			(stream) -> isCompetitionReady
 			? stream.filter(auto -> auto.getName().contains("pc"))
 			: stream
 		));

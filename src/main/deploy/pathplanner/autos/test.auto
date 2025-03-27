@@ -7,11 +7,17 @@
         {
           "type": "path",
           "data": {
+            "pathName": "get in position test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "donothing 1"
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -73,7 +79,7 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -135,7 +141,7 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -147,7 +153,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ReefRight"
+                  "name": "ReefLeft"
                 }
               }
             ]
@@ -175,6 +181,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Tests DO NOT USE!",
   "choreoAuto": false
 }

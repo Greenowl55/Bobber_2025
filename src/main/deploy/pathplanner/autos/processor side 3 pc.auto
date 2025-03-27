@@ -5,46 +5,28 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "1 left"
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 2.0
+                  "name": "AutoTiltL4"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "ReefRight"
+                  "name": "ReefLeft"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltL4"
           }
         },
         {
@@ -54,27 +36,34 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "AutoTiltIn"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "2 left"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltIn"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator intake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "elevator intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "2 left"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoIntake"
+            "waitTime": 0.375
           }
         },
         {
@@ -84,21 +73,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ReefLeft"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefLeft"
+                }
+              }
+            ]
           }
         },
         {
@@ -108,27 +98,34 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "AutoTiltIn"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "4 left"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltIn"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator intake"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "elevator intake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4 left"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoIntake"
+            "waitTime": 0.375
           }
         },
         {
@@ -138,21 +135,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "ReefRight"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefLeft"
+                }
+              }
+            ]
           }
         },
         {
@@ -177,6 +175,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "Working",
+  "folder": "Main",
   "choreoAuto": false
 }

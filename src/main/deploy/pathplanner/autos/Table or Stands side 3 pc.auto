@@ -7,11 +7,11 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 left"
+            "pathName": "1 right"
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
@@ -23,76 +23,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ReefLeft"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "cfast"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "2 left"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoTiltIn"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "elevator intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.375
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "3 left"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoTiltL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ReefLeft"
+                  "name": "ReefRight"
                 }
               }
             ]
@@ -111,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "4 left"
+                  "pathName": "2 right"
                 }
               },
               {
@@ -136,13 +67,25 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
+          "data": {
+            "pathName": "3 right"
+          }
+        },
+        {
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "5 left"
+                  "name": "AutoTiltL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefRight"
                 }
               }
             ]
@@ -151,7 +94,63 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoTiltL4"
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "4 right"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltIn"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevator intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.375
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5 right"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltL4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ReefRight"
+                }
+              }
+            ]
           }
         },
         {
@@ -176,6 +175,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Main",
   "choreoAuto": false
 }
