@@ -51,6 +51,8 @@ public class RobotContainer {
 	Climber m_climber = new Climber();
 	Leds m_Leds = new Leds();
 
+	boolean isCompetition = true;	// Set to false for testing and true for comps
+
 	private final double climber_setpoint = Constants.CLIMBER_OUT;
 
 	private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -230,11 +232,15 @@ public class RobotContainer {
 
 	public RobotContainer() {
 		registerNamedCommands();
-		autoChooser = new LoggedDashboardChooser<>("Auto Mode", AutoBuilder.buildAutoChooser());
+		autoChooser = new LoggedDashboardChooser<>("Auto Mode", AutoBuilder.buildAutoChooserWithOptionsModifier(
+			(stream) -> isCompetition
+			? stream.filter(auto -> auto.getName().contains("pc"))
+			: stream
+		));
 		autoChooser.addDefaultOption("nothing", new PrintCommand("Do Nothing"));
 
-		configureBindings();
-		
+
+
 	}
 
 	public Command getAutonomousCommand() {
