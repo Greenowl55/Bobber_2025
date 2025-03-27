@@ -63,8 +63,8 @@ public class Robot extends LoggedRobot {
 	@Override
 	public void robotPeriodic() {
 		CommandScheduler.getInstance().run();
-		Logger.recordOutput("RobotPose", new Pose2d());
-		
+	//	Logger.recordOutput("RobotPose", new Pose2d());
+	//	Logger.recordOutput("ZeroedComponentPoses", new Pose3d[] {new Pose3d()});
 		/*
 		 * This example of adding Limelight is very simple and may not be sufficient for
 		 * on-field use.

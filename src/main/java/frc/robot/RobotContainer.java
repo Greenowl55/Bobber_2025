@@ -238,7 +238,7 @@ public class RobotContainer {
 			: stream
 		));
 		autoChooser.addDefaultOption("nothing", new PrintCommand("Do Nothing"));
-
+		configureBindings();
 
 
 	}
