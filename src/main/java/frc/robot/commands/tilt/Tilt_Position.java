@@ -24,7 +24,6 @@ public class Tilt_Position extends Command {
     
     @Override
     public void execute() {
-        System.out.println(m_tilt.getPosition());
     }
 
   public boolean isFinished() {

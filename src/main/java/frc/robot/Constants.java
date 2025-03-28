@@ -21,9 +21,9 @@ public class Constants {
 
     // Elevator positions
     public static final double ELEVATOR_BOTTOM = 0.0;
-    public static final double ELEVATOR_INTAKE = 8.0;
-    public static final double ELEVATOR_L2 = 16;
-    public static final double ELEVATOR_L3 = 30.0;
+    public static final double ELEVATOR_INTAKE = 6.5;
+    public static final double ELEVATOR_L2 = 16.5;
+    public static final double ELEVATOR_L3 = 30.5;
     public static final double ELEVATOR_L4 = 61.0;
 
     // Fishhook Motors
@@ -33,13 +33,13 @@ public class Constants {
     public static final int CORAL_SENSOR = 0;
 
     // Game piece speeds
-    public static final double ALGAE_IN = 0.15;
-    public static final double ALGAE_OUT = -0.1;
-    public static final double CORAL_SLOW = -0.2;
-    public static final double CORAL_FAST = -0.3;
+    public static final double ALGAE_IN = -0.45;
+    public static final double ALGAE_OUT = 0.3;
+    public static final double CORAL_SLOW = -0.15;
+    public static final double CORAL_FAST = -0.25;
 
     // fish hook setpoints
-    public static final double FISHHOOK_IN = 0.6;
+    public static final double FISHHOOK_IN = 1;
     public static final double FISHHOOK_L4 = 4.85;
     public static final double FISHHOOK_ALGAE = 6;
     public static final double FISHHOOK_GROUND = 9;
@@ -70,7 +70,7 @@ public class Constants {
 
     // Reef April Tag array
     public static final int[] REEF_TAGS = {
-            /*  2 This is not a field tag */ 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
+            2,/*  2 This is not a field tag */ 6, 7, 8, 9, 10, 11, 17, 18, 19, 20, 21, 22
     };
 
     //LED things

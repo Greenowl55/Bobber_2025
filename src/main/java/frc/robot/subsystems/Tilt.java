@@ -36,9 +36,9 @@ public class Tilt extends SubsystemBase {
                                      // results in 0.1 V output
     
             var motionMagicConfigs = talonFXconfigs.MotionMagic;
-            motionMagicConfigs.MotionMagicCruiseVelocity = 15; // velocity in units/100ms
-            motionMagicConfigs.MotionMagicAcceleration = 35; // acceleration in units/100ms^2 (2x the speed of the cruise velocity)
-            motionMagicConfigs.MotionMagicJerk = 200; // jerk in units/100ms^3 (10x the speed of the cruise velocity)
+            motionMagicConfigs.MotionMagicCruiseVelocity = 300; // velocity in units/100ms
+            motionMagicConfigs.MotionMagicAcceleration = 150; // acceleration in units/100ms^2 (2x the speed of the cruise velocity)
+            motionMagicConfigs.MotionMagicJerk = 500; // jerk in units/100ms^3 (10x the speed of the cruise velocity)
     
             m_tilt.getConfigurator().apply(talonFXconfigs);
             m_tilt.setNeutralMode(NeutralModeValue.Brake);
@@ -49,7 +49,6 @@ public class Tilt extends SubsystemBase {
         public void setAngle(double angle) {
             this.angle = angle;
             m_tilt.setControl(m_request.withPosition(angle));
-            System.out.println("Set position to " + this.angle);
         }
     
         public void setspeed(double speed){
