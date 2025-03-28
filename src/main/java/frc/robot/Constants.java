@@ -35,8 +35,9 @@ public class Constants {
     // Game piece speeds
     public static final double ALGAE_IN = -0.45;
     public static final double ALGAE_OUT = 0.3;
-    public static final double CORAL_SLOW = -0.15;
-    public static final double CORAL_FAST = -0.25;
+    public static final double CORAL_INTAKE = -0.075;
+    public static final double CORAL_SLOW = -0.1;
+    public static final double CORAL_FAST = -0.2;
 
     // fish hook setpoints
     public static final double FISHHOOK_IN = 1;
@@ -48,8 +49,8 @@ public class Constants {
     public static final int CLIMBER_MOTOR_ID = 14;
 
     // Climber setpoints
-    public static final int CLIMBER_OUT =  190;//320
-    public static final int CLIMBER_IN = -55;//-105
+    public static final int CLIMBER_OUT =  190;
+    public static final int CLIMBER_IN = 0;
     // TODO: Set these values
 
     // CoDriver Buttons
@@ -75,7 +76,9 @@ public class Constants {
 
     //LED things
     public static final int LED_PORT = 0;
+    public static final int LED_PORT2 = 1;
     public static final int LED_LENGTH = 35;
+    public static final int LED_LENGTH2 = 35;
 
     // AdvantageKit and AdvantageScope things
     public static final boolean isCompetitionReady = true;	// Set to false for testing and true for comps

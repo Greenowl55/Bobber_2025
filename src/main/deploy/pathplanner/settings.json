@@ -3,6 +3,7 @@
   "robotLength": 0.9652,
   "holonomicMode": true,
   "pathFolders": [
+    "left align",
     "TESTS",
     "left",
     "left to mid",

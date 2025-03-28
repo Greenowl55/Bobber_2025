@@ -31,18 +31,10 @@ public class AutoIntake extends Command implements AutoCloseable {
         this.hascoral = false;
     }
 
-    @Override
-    public void execute() {
-        boolean sensor = coral.sensorTriggered();
-        if (sensor) {
-            this.hascoral = true;
-            this.coral.setSpeed(Constants.CORAL_SLOW);
-        }
-    }
 
     @Override
     public boolean isFinished() {
-        return hascoral && !coral.sensorTriggered();
+        return coral.sensorTriggered();
     }
 
     @Override
