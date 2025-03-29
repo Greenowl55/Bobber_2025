@@ -24,7 +24,7 @@ import frc.robot.Constants;
 public class Leds extends SubsystemBase{
 
 private AddressableLED m_led = new AddressableLED(Constants.LED_PORT);
-private AddressableLED m_led2 = new AddressableLED(Constants.LED_PORT2);
+//private AddressableLED m_led2 = new AddressableLED(Constants.LED_PORT2);
 private LEDPattern green = LEDPattern.solid(Color.kGreen).atBrightness(Percent.of(100));
 private LEDPattern red = LEDPattern.solid(Color.kRed).atBrightness(Percent.of(100));
 private LEDPattern clear = LEDPattern.solid(Color.kWhite).atBrightness(Percent.of(100));
@@ -39,17 +39,17 @@ private LEDPattern currentPattern;
 
     public Leds(){
 		m_led.setLength(ledBuffer.getLength());
-        m_led2.setLength(ledBuffer2.getLength());
+       // m_led2.setLength(ledBuffer2.getLength());
         currentPattern = rainbow;
         setDefaultCommand(this.animate());
 		m_led.start();
-        m_led2.start();
+        //m_led2.start();
     }
 
     public Command animate() {
         return run(() -> {
             currentPattern.applyTo(ledBuffer);
-            clear.applyTo(ledBuffer2);
+            //clear.applyTo(ledBuffer2);
         });
     }
 

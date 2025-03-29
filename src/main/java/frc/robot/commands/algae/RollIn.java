@@ -22,4 +22,5 @@ public class RollIn extends Command {
     public void end(boolean interrupted) {
         this.algae.setSpeed(0);
     }
+
 }

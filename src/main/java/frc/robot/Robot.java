@@ -24,11 +24,14 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.TargetDebug;
+import frc.robot.subsystems.Leds;
+import frc.robot.commands.Led;
 
 public class Robot extends LoggedRobot {
 	private Command m_autonomousCommand;
 
 	private final RobotContainer m_robotContainer;
+	private Leds m_leds; // Initialize the LED subsystem
 
 	private final boolean kUseLimelight = false;
 
@@ -95,9 +98,10 @@ public class Robot extends LoggedRobot {
 
 	@Override
 	public void disabledInit() {
-	}
-
-	@Override
+		//m_leds.setRainbow(); // Set rainbow when disabled
+			}
+		
+			@Override
 	public void disabledPeriodic() {
 	}
 

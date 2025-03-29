@@ -23,4 +23,5 @@ public class ManualControl extends Command {
     public void end(boolean interrupted) {
         this.elevator.elevator(0);
     }
+
 }

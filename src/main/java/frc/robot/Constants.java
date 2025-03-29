@@ -49,7 +49,7 @@ public class Constants {
     public static final int CLIMBER_MOTOR_ID = 14;
 
     // Climber setpoints
-    public static final int CLIMBER_OUT =  190;
+    public static final int CLIMBER_OUT =  570;
     public static final int CLIMBER_IN = 0;
     // TODO: Set these values
 
@@ -76,7 +76,7 @@ public class Constants {
 
     //LED things
     public static final int LED_PORT = 0;
-    public static final int LED_PORT2 = 1;
+    public static final int LED_PORT2 = 2;
     public static final int LED_LENGTH = 35;
     public static final int LED_LENGTH2 = 35;
 

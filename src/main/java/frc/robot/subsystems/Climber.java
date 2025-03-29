@@ -22,13 +22,13 @@ public class Climber extends SubsystemBase{
 		slot0Configs.kS = 0.56; // voltage needed to overcome static friction
 		slot0Configs.kV = 0.1219; // output per unit of target velocity (output/rps)
 		slot0Configs.kA = 0.02; // output per unit of target acceleration (output/rps^2)
-		slot0Configs.kP = 3; // output per unit of error in position (output/rotation)
+		slot0Configs.kP = 4; // output per unit of error in position (output/rotation)
 		slot0Configs.kI = 0; // output per unit of integrated error in position (output/(rotation*s))
 		slot0Configs.kD = 0; // output per unit of error in velocity (output/rps)
 
 		var motionMagicConfigs = talonFXconfigs.MotionMagic;
-		motionMagicConfigs.MotionMagicCruiseVelocity = 250; // velocity in units/100ms
-		motionMagicConfigs.MotionMagicAcceleration = 500; // acceleration in units/100ms^2
+		motionMagicConfigs.MotionMagicCruiseVelocity = 500; // velocity in units/100ms
+		motionMagicConfigs.MotionMagicAcceleration = 7500; // acceleration in units/100ms^2
 		motionMagicConfigs.MotionMagicJerk = 1000; // jerk in units/100ms^3
 
         m_Climb.getConfigurator().apply(talonFXconfigs);
