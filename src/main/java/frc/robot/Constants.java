@@ -33,6 +33,7 @@ public class Constants {
     public static final int CORAL_SENSOR = 0;
 
     // Game piece speeds
+    public static final double ALGAE_HOLD = -0.2;
     public static final double ALGAE_IN = -0.45;
     public static final double ALGAE_OUT = 0.3;
     public static final double CORAL_INTAKE = -0.075;

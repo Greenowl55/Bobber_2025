@@ -23,6 +23,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.subsystems.TargetDebug;
 import frc.robot.subsystems.Leds;
 import frc.robot.commands.Led;
@@ -98,7 +99,8 @@ public class Robot extends LoggedRobot {
 
 	@Override
 	public void disabledInit() {
-		//m_leds.setRainbow(); // Set rainbow when disabled
+		m_robotContainer.m_Leds.setRainbow();
+		CommandScheduler.getInstance().schedule(m_robotContainer.m_Leds.animate().ignoringDisable(true).onlyWhile(RobotModeTriggers.disabled())); // Start the LED animation when disabled
 			}
 		
 			@Override

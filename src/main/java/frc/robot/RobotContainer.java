@@ -187,6 +187,8 @@ public class RobotContainer {
 		coDriverController.button(Constants.CODRIVER_5).whileTrue(
 				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
+		//m_algae.setDefaultCommand(m_algae.runOnce(() -> m_algae.setSpeed(Constants.ALGAE_HOLD)));
+		
 		// tilt control
 		coDriverController.button(Constants.CODRIVER_7)
 				.whileTrue(new Tilt_Position(m_tilt, "algae", Constants.FISHHOOK_ALGAE));
