@@ -52,6 +52,8 @@ public class Constants {
     // Climber setpoints
     public static final int CLIMBER_OUT =  570;
     public static final int CLIMBER_IN = 0;
+    public static final double CLIMBER_OUT_MANUAL = -0.75;
+    public static final double CLIMBER_IN_MANUAL = 0.75;
     // TODO: Set these values
 
     // CoDriver Buttons
@@ -65,6 +67,7 @@ public class Constants {
     public static final int CODRIVER_8 = 8;
     public static final int CODRIVER_9 = 9;
     public static final int CODRIVER_10 = 10;
+    public static final int CODRIVER_11 = 11;
 
     // Auto things
     public static final double MOTOR_POSITION_EPSILON = 0.05;
@@ -78,8 +81,9 @@ public class Constants {
     //LED things
     public static final int LED_PORT = 0;
     public static final int LED_PORT2 = 2;
-    public static final int LED_LENGTH = 35;
-    public static final int LED_LENGTH2 = 35;
+    public static final int MAST_LENGTH = 35;
+    public static final int BAR_LENGTH2 = 32;
+    public static final int LED_LENGTH = MAST_LENGTH + BAR_LENGTH2;
 
     // AdvantageKit and AdvantageScope things
     public static final boolean isCompetitionReady = true;	// Set to false for testing and true for comps

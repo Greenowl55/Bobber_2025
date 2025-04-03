@@ -80,22 +80,22 @@ public class RobotContainer {
 
 	private void registerNamedCommands(){
 
-		NamedCommands.registerCommand("elevator l4", new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4).withTimeout(1));
+		NamedCommands.registerCommand("elevator l4", new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4).withTimeout(1.2));
 		NamedCommands.registerCommand("elevator l3", new ElevatorPosition(m_elevator, "L3", Constants.ELEVATOR_L3).withTimeout(1));
 		NamedCommands.registerCommand("elevator l2", new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2).withTimeout(1));
 		NamedCommands.registerCommand("elevator intake", new ElevatorPosition(m_elevator, "intake", Constants.ELEVATOR_INTAKE).withTimeout(1));
 		
-		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(0.6));
-		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(0.6));
+		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(2));
 
 		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(1.3));
 		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(1.3));
 
-		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(0.3));
-		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(0.3));
+		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(0.5));
+		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(0.5));
 		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.35)));
+		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.5)));
 	}
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
@@ -106,10 +106,10 @@ public class RobotContainer {
 						() -> drive
 								.withVelocityX(				
 										-driverController.getLeftY()
-												* MaxSpeed) // Drive forward with negative Y (forward)
+												* MaxSpeed * 0.7) // Drive forward with negative Y (forward)
 								.withVelocityY(
 										-driverController.getLeftX()
-												* MaxSpeed) // Drive left with negative X (left) 
+												* MaxSpeed * 0.7) // Drive left with negative X (left) 
 								.withRotationalRate(
 										-driverController.getRightX()
 												* MaxAngularRate) // Drive counterclockwise with negative X (left)
@@ -170,7 +170,7 @@ public class RobotContainer {
 		// {m_elevator.elevator(0);}));
 
 		// Reef positions
-		driverController.leftTrigger().whileTrue(new ReefCenter(drivetrain, m_Leds));
+		driverController.rightTrigger().whileTrue(new ReefCenter(drivetrain, m_Leds));
 		driverController.rightBumper().whileTrue(new ReefRight(drivetrain, m_Leds));
 		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain, m_Leds));
 		//driverController.leftTrigger().whileTrue(new VisonOutput());
@@ -178,30 +178,30 @@ public class RobotContainer {
 		// Co-Driver Buttons
 
 		// game piece control
-		coDriverController.button(Constants.CODRIVER_2).onTrue(
+		coDriverController.button(Constants.CODRIVER_11).onTrue(
 				new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_1).whileTrue(
+		coDriverController.button(Constants.CODRIVER_10).whileTrue(
 				new Fast(m_coral, Constants.CORAL_FAST).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_8).whileTrue(
+		coDriverController.button(Constants.CODRIVER_2).whileTrue(
 				new RollIn(m_algae, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-		coDriverController.button(Constants.CODRIVER_5).whileTrue(
+		coDriverController.button(Constants.CODRIVER_4).whileTrue(
 				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		//m_algae.setDefaultCommand(m_algae.runOnce(() -> m_algae.setSpeed(Constants.ALGAE_HOLD)));
 		
 		// tilt control
-		coDriverController.button(Constants.CODRIVER_7)
+		coDriverController.button(Constants.CODRIVER_1)
 				.whileTrue(new Tilt_Position(m_tilt, "algae", Constants.FISHHOOK_ALGAE));
-		coDriverController.button(Constants.CODRIVER_4)
+		coDriverController.button(Constants.CODRIVER_8)
 				.whileTrue(new Tilt_Position(m_tilt, "ground", Constants.FISHHOOK_L4));
-		coDriverController.button(Constants.CODRIVER_3)
+		coDriverController.button(Constants.CODRIVER_7)
 				.whileTrue(new Tilt_Position(m_tilt, "l4", Constants.FISHHOOK_GROUND));
-		coDriverController.button(Constants.CODRIVER_9)
-				.whileTrue(new Tilt_Position(m_tilt, "IN", Constants.FISHHOOK_IN));
 
 		// climber control
-		coDriverController.button(Constants.CODRIVER_6).whileTrue(
-				new ClimberPosition(m_climber, "out", Constants.CLIMBER_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		// coDriverController.button(Constants.CODRIVER_6).whileTrue(
+		// 		new ClimberPosition(m_climber, "out", Constants.CLIMBER_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_6).whileTrue(new Climber_Out(m_climber, Constants.CLIMBER_OUT_MANUAL));
+		coDriverController.button(Constants.CODRIVER_5).whileTrue(new Climber_In(m_climber, Constants.CLIMBER_IN_MANUAL));
 
 		// coDriverController.button(Constants.CODRIVER_6).onTrue(new ClimberPosition(m_climber, null, climber_setpoint));
 		// coDriverController.button(Constants.CODRIVER_6).onFalse(new ClimberPosition(m_climber, null, Constants.CLIMBER_IN));
@@ -230,24 +230,21 @@ public class RobotContainer {
 	}
 
 	/* Path follower */
-	private final LoggedDashboardChooser<Command> autoChooser;
+	private final SendableChooser<Command> autoChooser;
 
 	public RobotContainer() {
 		registerNamedCommands();
-		autoChooser = new LoggedDashboardChooser<>("Auto Mode", AutoBuilder.buildAutoChooserWithOptionsModifier(
-			(stream) -> isCompetitionReady
-			? stream.filter(auto -> auto.getName().contains("pc"))
-			: stream
-		));
-		autoChooser.addDefaultOption("nothing", new PrintCommand("Do Nothing"));
+		autoChooser = 
+		AutoBuilder.buildAutoChooser("nothing");
+		SmartDashboard.putData("Auto Mode", autoChooser);
+
+		autoChooser.setDefaultOption("Nothing",  new PrintCommand("Do Nothing"));
 		configureBindings();
-
-
 	}
 
 	public Command getAutonomousCommand() {
 		/* Run the path selected from the auto chooser */
-		return autoChooser.get();
+		return autoChooser.getSelected();
 	}
 
 }

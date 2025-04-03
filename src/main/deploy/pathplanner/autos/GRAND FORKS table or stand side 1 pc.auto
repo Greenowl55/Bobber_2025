@@ -1,0 +1,67 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1 right pc"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ReefRight"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "cfast"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltIn"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 right pc"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoIntake"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Main",
+  "choreoAuto": false
+}
