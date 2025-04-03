@@ -20,6 +20,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -28,7 +29,7 @@ import frc.robot.subsystems.TargetDebug;
 import frc.robot.subsystems.Leds;
 import frc.robot.commands.Led;
 
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot {
 	private Command m_autonomousCommand;
 
 	private final RobotContainer m_robotContainer;
@@ -50,7 +51,7 @@ public class Robot extends LoggedRobot {
 			  break;
 	  
 			case REPLAY:
-			  setUseTiming(false);
+			  //setUseTiming(false);
 			  String logPath = LogFileUtil.findReplayLog();
 			  Logger.setReplaySource(new WPILOGReader(logPath));
 			  Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));

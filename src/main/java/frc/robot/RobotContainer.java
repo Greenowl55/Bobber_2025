@@ -91,9 +91,9 @@ public class RobotContainer {
 		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(1.3));
 		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(1.3));
 
-		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(0.5));
-		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(0.5));
-		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1));
+		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1));
+		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withTimeout(2));
 
 		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.5)));
 	}
@@ -160,6 +160,7 @@ public class RobotContainer {
 
 		// Elevator positions
 		driverController.button(8).onTrue(new ElevatorPosition(m_elevator, "BOTTOM", Constants.ELEVATOR_BOTTOM));
+		//driverController.button(8).onTrue(m_elevator.zeroElevator()); TODO debug
 		driverController.a().onTrue(new ElevatorPosition(m_elevator, "INTAKE", Constants.ELEVATOR_INTAKE));
 		driverController.b().onTrue(new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2));
 		driverController.x().onTrue(new ElevatorPosition(m_elevator, "L3", Constants.ELEVATOR_L3));
@@ -233,13 +234,14 @@ public class RobotContainer {
 	private final SendableChooser<Command> autoChooser;
 
 	public RobotContainer() {
+		configureBindings();
 		registerNamedCommands();
 		autoChooser = 
 		AutoBuilder.buildAutoChooser("nothing");
 		SmartDashboard.putData("Auto Mode", autoChooser);
 
 		autoChooser.setDefaultOption("Nothing",  new PrintCommand("Do Nothing"));
-		configureBindings();
+	
 	}
 
 	public Command getAutonomousCommand() {

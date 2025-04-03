@@ -80,20 +80,20 @@ public class Elevator extends SubsystemBase {
 	public boolean isHomed = false;
 
 	Trigger currentOverZeroThreshold = new Trigger(() -> m_elevator1.getSupplyCurrent().getValueAsDouble() > 10)
-			.debounce(0.2);
+			.debounce(0.35);
 
 	public Command zeroElevator() {
 
 		return this.runOnce(
 				() -> {
-					m_elevator1.setVoltage(-3);
+					m_elevator1.setVoltage(-4);
 					isHomed = false;
 				})
 				.until(currentOverZeroThreshold)
 				.andThen(
 						this.runOnce(
 								() -> {
-									m_elevator1.setControl(new NeutralOut());
+									// m_elevator1.setControl(new NeutralOut());
 									m_elevator1.setPosition(0);
 									isHomed = true;
 								}));
