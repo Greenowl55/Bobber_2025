@@ -88,8 +88,8 @@ public class RobotContainer {
 		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(2));
 		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(2));
 
-		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(1.3));
-		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(1.3));
+		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(6));
+		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(6));
 
 		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1));
 		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1));
@@ -106,10 +106,10 @@ public class RobotContainer {
 						() -> drive
 								.withVelocityX(				
 										-driverController.getLeftY()
-												* MaxSpeed * 0.7) // Drive forward with negative Y (forward)
+												* MaxSpeed * 0.6) // Drive forward with negative Y (forward)
 								.withVelocityY(
 										-driverController.getLeftX()
-												* MaxSpeed * 0.7) // Drive left with negative X (left) 
+												* MaxSpeed * 0.6) // Drive left with negative X (left) 
 								.withRotationalRate(
 										-driverController.getRightX()
 												* MaxAngularRate) // Drive counterclockwise with negative X (left)

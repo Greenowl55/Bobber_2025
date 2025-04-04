@@ -29,6 +29,7 @@ public class AutoIntake extends Command implements AutoCloseable {
     public void initialize() {
         this.coral.setSpeed(this.speed);
         this.hascoral = false;
+        leds.clear();
     }
 
 

@@ -14,19 +14,19 @@ public class RollIn extends Command {
         this.speed = speed;
         this.algae = algae;
         this.coral = coral;
-        addRequirements(algae);
+        addRequirements(coral, algae);
     }
 
     @Override
     public void initialize() {
         this.algae.setSpeed(this.speed);
-      //  this.coral.setSpeed(Constants.CORAL_FAST);
+        this.coral.setSpeed(Constants.CORAL_SLOW);
     }
 
     @Override
     public void end(boolean interrupted) {
         this.algae.setSpeed(0);
-       // this.coral.setSpeed(0);
+        this.coral.setSpeed(0);
     }
 
 }

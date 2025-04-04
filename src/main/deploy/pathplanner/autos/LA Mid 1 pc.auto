@@ -19,6 +19,12 @@
         {
           "type": "named",
           "data": {
+            "name": "elevator l4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AutoTiltL4"
           }
         },

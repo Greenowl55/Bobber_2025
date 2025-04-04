@@ -33,13 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "elevator l4",
-      "waypointRelativePos": 0.04857316332725957,
+      "name": "elevator intake",
+      "waypointRelativePos": 0.052332195676907625,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
         "data": {
-          "name": "elevator l4"
+          "name": "elevator intake"
         }
       }
     }
