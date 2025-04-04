@@ -61,6 +61,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoIntake"
+          }
+        },
+        {
           "type": "wait",
           "data": {
             "waitTime": 0.375

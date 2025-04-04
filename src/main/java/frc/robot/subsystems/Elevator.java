@@ -16,15 +16,18 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import frc.robot.Constants;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+
 public class Elevator extends SubsystemBase {
 
 	TalonFX m_elevator1 = new TalonFX(Constants.ELEVATOR_LEADER);
 	TalonFX m_elevator2 = new TalonFX(Constants.ELEVATOR_FOLLOWER);
+	DigitalInput m_switch = new DigitalInput(1);
 
 	public Elevator() {
 		SmartDashboard.putData(this);
@@ -80,23 +83,19 @@ public class Elevator extends SubsystemBase {
 	public boolean isHomed = false;
 
 	Trigger currentOverZeroThreshold = new Trigger(() -> m_elevator1.getSupplyCurrent().getValueAsDouble() > 10)
-			.debounce(0.35);
+			.debounce(0.2);
 
 	public Command zeroElevator() {
 
 		return this.runOnce(
 				() -> {
-					m_elevator1.setVoltage(-4);
+					m_elevator1.setVoltage(-0.5);
 					isHomed = false;
-				})
-				.until(currentOverZeroThreshold)
-				.andThen(
-						this.runOnce(
-								() -> {
-									// m_elevator1.setControl(new NeutralOut());
-									m_elevator1.setPosition(0);
-									isHomed = true;
-								}));
+				}).until(() -> m_switch.get())
+				.andThen(() -> {
+					m_elevator1.setPosition(0);
+					isHomed = true;
+				});
 	}
 
 	@Override

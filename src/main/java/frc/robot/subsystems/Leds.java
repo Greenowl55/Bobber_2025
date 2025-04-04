@@ -52,7 +52,7 @@ private LEDPattern currentPattern;
     public Command animate() {
         return run(() -> {
             currentPattern.applyTo(Mast);
-            white.applyTo(Bar);
+            green.applyTo(Bar);
         });
     }
 
@@ -91,7 +91,7 @@ private LEDPattern currentPattern;
     public void clear() {
         currentPattern = clear;
         clear.applyTo(Mast);
-        white.applyTo(Bar);
+        green.applyTo(Bar);
     }
 
     
