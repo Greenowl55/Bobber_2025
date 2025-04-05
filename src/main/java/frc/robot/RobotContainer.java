@@ -88,11 +88,14 @@ public class RobotContainer {
 		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(2));
 		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(2));
 
-		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(6));
-		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(6));
+		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(5));
+		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(5));
+		NamedCommands.registerCommand("ReefCenter", new ReefCenter(drivetrain, m_Leds).withTimeout(5));
 
-		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1));
-		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1));
+		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(0.5));
+		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(0.5));
+		NamedCommands.registerCommand("AutoTiltAlgae", new AutoTilt(m_tilt, Constants.FISHHOOK_ALGAE).withTimeout(1));
+		NamedCommands.registerCommand("AlgaeIn", new RollIn(m_algae, m_coral, Constants.ALGAE_IN).withTimeout(10));
 		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.5)));
@@ -187,6 +190,8 @@ public class RobotContainer {
 				new RollIn(m_algae, m_coral, Constants.ALGAE_IN).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 		coDriverController.button(Constants.CODRIVER_4).whileTrue(
 				new Rollout(m_algae, Constants.ALGAE_OUT).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+		coDriverController.button(Constants.CODRIVER_12).whileTrue(
+				new Fast(m_coral, Constants.CORAL_L2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
 		//m_algae.setDefaultCommand(m_algae.runOnce(() -> m_algae.setSpeed(Constants.ALGAE_HOLD)));
 		

@@ -39,6 +39,7 @@ public class Constants {
     public static final double CORAL_INTAKE = -0.075;
     public static final double CORAL_SLOW = -0.1;
     public static final double CORAL_FAST = -0.25;
+    public static final double CORAL_L2 = -0.2;
 
     // fish hook setpoints
     public static final double FISHHOOK_IN = 1;
@@ -68,6 +69,7 @@ public class Constants {
     public static final int CODRIVER_9 = 9;
     public static final int CODRIVER_10 = 10;
     public static final int CODRIVER_11 = 11;
+    public static final int CODRIVER_12 = 12;
 
     // Auto things
     public static final double MOTOR_POSITION_EPSILON = 0.05;

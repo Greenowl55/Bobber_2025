@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.759278350515464,
-        "y": 3.120360824742267
+        "x": 7.079829545454547,
+        "y": 4.064886363636362
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6334971005154637,
-        "y": 2.896749713631156
+        "x": 6.829829545454547,
+        "y": 4.064886363636362
       },
       "isLocked": false,
-      "linkedName": "end 3 left"
+      "linkedName": "tets 1 end"
     },
     {
       "anchor": {
-        "x": 1.1659793814432988,
-        "y": 0.577319587628865
+        "x": 6.571278409090909,
+        "y": 4.064886363636362
       },
       "prevControl": {
-        "x": 1.2946033203044418,
-        "y": 0.7916928190544443
+        "x": 6.821278409090909,
+        "y": 4.064886363636362
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "end 2 left"
+      "linkedName": "test 1 start"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "mid",
+  "folder": "TESTS",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 59.99999999999999
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

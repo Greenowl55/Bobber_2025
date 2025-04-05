@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ReefRight"
+            "name": "ReefLeftLONG"
           }
         },
         {
@@ -47,15 +47,9 @@
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "2 left pc"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "AutoIntake"
+            "name": "ReefCenter"
           }
         }
       ]

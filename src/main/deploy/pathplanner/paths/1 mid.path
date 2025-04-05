@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 5.730733478580655,
-        "y": 4.180616115184202
+        "x": 6.322422680412371,
+        "y": 4.015771466373107
       },
       "prevControl": {
-        "x": 5.980733472042277,
-        "y": 4.180673292004905
+        "x": 6.5724226738739935,
+        "y": 4.01582864319381
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "elevator intake",
-      "waypointRelativePos": 0.052332195676907625,
+      "waypointRelativePos": 0.011376564277590987,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -53,7 +53,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 2.0,
     "rotation": 180.0
   },
   "reversed": false,
