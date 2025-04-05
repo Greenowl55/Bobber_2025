@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.6228846153846148,
+        "y": 0.35605769230769285
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.0516718635676203,
+        "y": 0.888649267681813
+      },
+      "isLocked": false,
+      "linkedName": "BP3"
+    },
+    {
+      "anchor": {
+        "x": 3.7592307692307685,
+        "y": 3.1116346153846153
+      },
+      "prevControl": {
+        "x": 3.5769736785347583,
+        "y": 2.846165476130246
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 59.03624346792648
+  },
+  "reversed": false,
+  "folder": "Bayou 2 pc field side",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 51.54629078329407
+  },
+  "useDefaultConstraints": true
+}
