@@ -1,30 +1,26 @@
 {
-  "robotWidth": 0.914,
-  "robotLength": 1.016,
+  "robotWidth": 0.864,
+  "robotLength": 0.978,
   "holonomicMode": true,
   "pathFolders": [
-    "right pc",
     "TESTS",
     "left",
-    "left align",
-    "left pc ",
-    "left to mid",
+    "left 1pc ",
     "mid",
-    "mid to mid",
     "right",
-    "right to mid"
+    "right 1pc"
   ],
   "autoFolders": [
     "Tests DO NOT USE!",
     "Main"
   ],
-  "defaultMaxVel": 3.0,
+  "defaultMaxVel": 4.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 55.0,
-  "robotMOI": 2.0,
+  "robotMass": 63.0,
+  "robotMOI": 7.0,
   "robotTrackwidth": 0.5588,
   "driveWheelRadius": 0.051,
   "driveGearing": 6.75,

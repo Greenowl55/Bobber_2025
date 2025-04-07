@@ -85,8 +85,8 @@ public class RobotContainer {
 		NamedCommands.registerCommand("elevator l2", new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2).withTimeout(1));
 		NamedCommands.registerCommand("elevator intake", new ElevatorPosition(m_elevator, "intake", Constants.ELEVATOR_INTAKE).withTimeout(1));
 		
-		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(2));
-		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(2));
+		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(0.6));
+		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(0.6));
 
 		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(5));
 		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(5));
