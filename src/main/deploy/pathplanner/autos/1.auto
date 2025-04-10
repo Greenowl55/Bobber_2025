@@ -7,19 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 left pc"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ReefRightLONG"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
+            "pathName": "1 left"
           }
         },
         {
@@ -39,23 +27,11 @@
           "data": {
             "name": "AutoTiltIn"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ReefCenter"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Main",
+  "folder": null,
   "choreoAuto": false
 }

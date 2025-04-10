@@ -67,12 +67,6 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.375
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "3 left"
@@ -108,17 +102,11 @@
           "data": {
             "name": "AutoTiltIn"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Main",
+  "folder": null,
   "choreoAuto": false
 }

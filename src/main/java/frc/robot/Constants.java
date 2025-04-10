@@ -43,7 +43,7 @@ public class Constants {
 
     // fish hook setpoints
     public static final double FISHHOOK_IN = 1;
-    public static final double FISHHOOK_L4 = 4.25;
+    public static final double FISHHOOK_L4 = 4.75;
     public static final double FISHHOOK_ALGAE = 6;
     public static final double FISHHOOK_GROUND = 9;
 
