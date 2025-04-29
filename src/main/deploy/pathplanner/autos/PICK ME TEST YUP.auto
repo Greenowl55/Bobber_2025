@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ReefRightLONG"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -18,12 +24,6 @@
                 "type": "named",
                 "data": {
                   "name": "AutoTiltL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ReefRight"
                 }
               }
             ]
@@ -61,15 +61,47 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "AutoIntake"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoIntake"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 5.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "left 3 short"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "3 left"
+            "name": "ReefRightLONG"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator l4"
           }
         },
         {
@@ -85,7 +117,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ReefLeft"
+                  "name": "ReefRight"
                 }
               }
             ]

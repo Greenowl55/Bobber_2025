@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 mid"
+            "pathName": "1 right"
           }
         },
         {
@@ -17,15 +17,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "elevator l4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoTiltL4"
+                }
+              }
+            ]
           }
         },
         {
@@ -39,6 +40,12 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "2 right"
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "AutoTiltIn"
@@ -47,16 +54,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ReefCenter"
+                  "name": "elevator intake"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l2"
           }
         },
         {
@@ -66,34 +67,29 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoTiltAlgae"
+                  "name": "AutoIntake"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "AlgaeIn"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    }
+                  ]
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltIn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Main",
+  "folder": null,
   "choreoAuto": false
 }

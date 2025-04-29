@@ -21,7 +21,7 @@ public class Constants {
 
     // Elevator positions
     public static final double ELEVATOR_BOTTOM = 0.0;
-    public static final double ELEVATOR_INTAKE = 6.5;
+    public static final double ELEVATOR_INTAKE = 6.6;
     public static final double ELEVATOR_L2 = 17.5;
     public static final double ELEVATOR_L3 = 31.5;
     public static final double ELEVATOR_L4 = 61.0;
@@ -42,7 +42,7 @@ public class Constants {
     public static final double CORAL_L2 = -0.2;
 
     // fish hook setpoints
-    public static final double FISHHOOK_IN = 1;
+    public static final double FISHHOOK_IN = 1.3;
     public static final double FISHHOOK_L4 = 4.75;
     public static final double FISHHOOK_ALGAE = 6;
     public static final double FISHHOOK_GROUND = 9;

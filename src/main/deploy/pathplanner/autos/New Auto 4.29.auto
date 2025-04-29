@@ -5,27 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "push and score"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ReefRightLONG"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
+            "pathName": "1 right"
           }
         },
         {
@@ -45,17 +27,11 @@
           "data": {
             "name": "AutoTiltIn"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Main",
+  "folder": null,
   "choreoAuto": false
 }

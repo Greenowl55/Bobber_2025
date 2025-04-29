@@ -94,7 +94,6 @@ rotationPID.reset();
 strafePID.reset();
 distancePID.reset();
 m_leds.clear();
-
 	rotationPID.setSetpoint(rotSetpoint);
 	strafePID.setSetpoint(this.xsetpoint);
 	distancePID.setSetpoint(this.zsetpoint);

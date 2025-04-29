@@ -7,7 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 left"
+            "pathName": "1 right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ReefLeftLONG"
           }
         },
         {
@@ -18,12 +24,6 @@
                 "type": "named",
                 "data": {
                   "name": "AutoTiltL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ReefRight"
                 }
               }
             ]
@@ -42,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "2 left"
+                  "pathName": "2 right"
                 }
               },
               {
@@ -75,21 +75,33 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "3 left"
+                        "waitTime": 1.0
                       }
                     },
                     {
-                      "type": "wait",
+                      "type": "path",
                       "data": {
-                        "waitTime": 0.4
+                        "pathName": "3 right"
                       }
                     }
                   ]
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ReefRightLONG"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevator l4"
           }
         },
         {
@@ -105,7 +117,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ReefLeft"
+                  "name": "ReefRight"
                 }
               }
             ]
@@ -122,17 +134,11 @@
           "data": {
             "name": "AutoTiltIn"
           }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Main",
+  "folder": null,
   "choreoAuto": false
 }
