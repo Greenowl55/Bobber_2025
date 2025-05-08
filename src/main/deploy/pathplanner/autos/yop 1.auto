@@ -7,26 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 left"
+            "pathName": "1 right"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ReefRightLONG"
+            "name": "ReefLeftLONG"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoTiltL4"
-                }
-              }
-            ]
+            "name": "AutoTiltL4"
           }
         },
         {
@@ -42,7 +35,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "2 left"
+                  "pathName": "2 right"
                 }
               },
               {
@@ -77,13 +70,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 5.0
+                        "waitTime": 1.0
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "left 3 short"
+                        "pathName": "3 right"
                       }
                     }
                   ]
@@ -139,6 +132,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Main",
   "choreoAuto": false
 }
