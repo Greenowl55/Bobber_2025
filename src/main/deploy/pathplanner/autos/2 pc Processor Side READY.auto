@@ -11,22 +11,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoTiltL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ReefLeft"
-                }
-              }
-            ]
+            "name": "ReefRightLONG"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoTiltL4"
           }
         },
         {
@@ -61,31 +54,32 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.375
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "3 left"
-          }
-        },
-        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoTiltL4"
+                  "name": "AutoIntake"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "ReefLeft"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 2.0
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "left 3 short"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -94,44 +88,13 @@
         {
           "type": "named",
           "data": {
-            "name": "cfast"
+            "name": "ReefRightLONG"
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "4 left"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoTiltIn"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "elevator intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.375
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "5 left"
+            "name": "elevator l4"
           }
         },
         {
@@ -147,7 +110,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ReefLeft"
+                  "name": "ReefRight"
                 }
               }
             ]
@@ -163,12 +126,6 @@
           "type": "named",
           "data": {
             "name": "AutoTiltIn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator intake"
           }
         }
       ]

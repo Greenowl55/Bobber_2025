@@ -31,8 +31,8 @@ private LEDPattern red = LEDPattern.solid(Color.kRed).atBrightness(Percent.of(10
 private LEDPattern clear = LEDPattern.solid(Color.kWhite).atBrightness(Percent.of(100));
 private LEDPattern white = LEDPattern.solid(Color.kWhite).atBrightness(Percent.of(10));
 private AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LED_LENGTH);
-private AddressableLEDBufferView Mast = ledBuffer.createView(32, 66);
-private AddressableLEDBufferView Bar = ledBuffer.createView(0, 31);
+private AddressableLEDBufferView Mast = ledBuffer.createView(0, 33);
+//private AddressableLEDBufferView Bar = ledBuffer.createView(0, 31);
 private static final Distance ledSpacing = Meters.of(1 / 60.0);
 private LEDPattern rainbow = LEDPattern.rainbow(255, 128).scrollAtAbsoluteSpeed(MetersPerSecond.of(0.5), ledSpacing);
 private LEDPattern coralblink = LEDPattern.rainbow(255, 128).blink(Seconds.of(1));
@@ -52,7 +52,7 @@ private LEDPattern currentPattern;
     public Command animate() {
         return run(() -> {
             currentPattern.applyTo(Mast);
-            green.applyTo(Bar);
+            //green.applyTo(Bar);
         });
     }
 
@@ -91,7 +91,7 @@ private LEDPattern currentPattern;
     public void clear() {
         currentPattern = clear;
         clear.applyTo(Mast);
-        green.applyTo(Bar);
+        //green.applyTo(Bar);
     }
 
     
