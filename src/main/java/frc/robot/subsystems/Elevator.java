@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-
 public class Elevator extends SubsystemBase {
 
 	TalonFX m_elevator1 = new TalonFX(Constants.ELEVATOR_LEADER);
@@ -96,6 +95,20 @@ public class Elevator extends SubsystemBase {
 					m_elevator1.setPosition(0);
 					isHomed = true;
 				});
+	}
+
+	public void setBrakeMode(boolean enabled) {
+		if (enabled) {
+			m_elevator1.setNeutralMode(NeutralModeValue.Brake);
+			m_elevator2.setNeutralMode(NeutralModeValue.Brake);
+		} else {
+			m_elevator1.setNeutralMode(NeutralModeValue.Coast);
+			m_elevator2.setNeutralMode(NeutralModeValue.Coast);
+		}
+	}
+
+	public void zeroElevatorPosition() {
+		m_elevator1.setPosition(0.0);
 	}
 
 	@Override

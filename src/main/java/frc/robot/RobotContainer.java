@@ -126,14 +126,14 @@ public class RobotContainer {
 		// -joystick.getLeftX()))
 		// ));
 
-		driverController
-				.pov(0)
-				.whileTrue(
-						drivetrain.applyRequest(() -> forwardStraight.withVelocityX(0.5).withVelocityY(0)));
-		driverController
-				.pov(180)
-				.whileTrue(
-						drivetrain.applyRequest(() -> forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
+		// driverController
+		// 		.pov(0)
+		// 		.whileTrue(
+		// 				drivetrain.applyRequest(() -> forwardStraight.withVelocityX(0.5).withVelocityY(0)));
+		// driverController
+		// 		.pov(180)
+		// 		.whileTrue(
+		// 				drivetrain.applyRequest(() -> forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
 
 		// Run SysId routines when holding back/start and X/Y.
 		// Note that each routine should be run exactly once in a single log.
@@ -168,6 +168,8 @@ public class RobotContainer {
 		driverController.b().onTrue(new ElevatorPosition(m_elevator, "L2", Constants.ELEVATOR_L2));
 		driverController.x().onTrue(new ElevatorPosition(m_elevator, "L3", Constants.ELEVATOR_L3));
 		driverController.y().onTrue(new ElevatorPosition(m_elevator, "L4", Constants.ELEVATOR_L4));
+
+		
 		// driverController.rightBumper().whileTrue(new ManualControl(m_elevator, 0.2));
 		// driverController.leftBumper().whileTrue(new ManualControl(m_elevator, -0.2));
 		// m_elevator.setDefaultCommand(m_elevator.runOnce(() ->
@@ -179,6 +181,8 @@ public class RobotContainer {
 		driverController.leftBumper().whileTrue(new ReefLeft(drivetrain, m_Leds));
 		//driverController.leftTrigger().whileTrue(new VisonOutput());
 
+		// D-pad down for elevator coast reset
+		driverController.povDown().whileTrue(new ZeroElevator(m_elevator));
 		// Co-Driver Buttons
 
 		// game piece control
