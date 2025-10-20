@@ -23,8 +23,8 @@ public class Constants {
     public static final double ELEVATOR_BOTTOM = 0.0;
     public static final double ELEVATOR_INTAKE = 6.6;
     public static final double ELEVATOR_L2 = 17.5;
-    public static final double ELEVATOR_L3 = 31.5;
-    public static final double ELEVATOR_L4 = 61.0;
+    public static final double ELEVATOR_L3 = 31.0;
+    public static final double ELEVATOR_L4 = 60.5;
 
     // Fishhook Motors
     public static final int TILT_MOTOR_ID = 8;
@@ -36,14 +36,18 @@ public class Constants {
     public static final double ALGAE_HOLD = -0.2;
     public static final double ALGAE_IN = -0.45;
     public static final double ALGAE_OUT = 0.3;
-    public static final double CORAL_INTAKE = -0.075;
-    public static final double CORAL_SLOW = -0.1;
-    public static final double CORAL_FAST = -0.25;
-    public static final double CORAL_L2 = -0.2;
+//public static final double CORAL_INTAKE = -0.075;
+public static final double CORAL_INTAKE = -0.15;
+//public static final double CORAL_SLOW = -0.1;
+public static final double CORAL_SLOW = -0.2;
+//public static final double CORAL_FAST = -0.25;
+public static final double CORAL_FAST = -0.25;
+// public static final double CORAL_L2 = -0.2;
+public static final double CORAL_L2 = -0.2;
 
     // fish hook setpoints
     public static final double FISHHOOK_IN = 1.3;
-    public static final double FISHHOOK_L4 = 4.75;
+    public static final double FISHHOOK_L4 = 4.5;
     public static final double FISHHOOK_ALGAE = 6;
     public static final double FISHHOOK_GROUND = 9;
 

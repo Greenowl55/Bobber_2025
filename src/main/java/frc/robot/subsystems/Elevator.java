@@ -43,7 +43,7 @@ public class Elevator extends SubsystemBase {
 
 		var motionMagicConfigs = talonFXconfigs.MotionMagic;
 		motionMagicConfigs.MotionMagicCruiseVelocity = 275; // velocity in units/100ms
-		motionMagicConfigs.MotionMagicAcceleration = 250; // acceleration in units/100ms^2
+		motionMagicConfigs.MotionMagicAcceleration = 250; // acceleration in units/100ms^2  250 is full speed
 		motionMagicConfigs.MotionMagicJerk = 500; // jerk in units/100ms^3
 
 		// apply motion magic config to slot 0 on Drive1
@@ -95,6 +95,10 @@ public class Elevator extends SubsystemBase {
 					m_elevator1.setPosition(0);
 					isHomed = true;
 				});
+	}
+
+	public void moveElevator(double speed) {
+		m_elevator1.setVoltage(speed);
 	}
 
 	public void setBrakeMode(boolean enabled) {

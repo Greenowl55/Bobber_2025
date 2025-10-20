@@ -88,17 +88,17 @@ public class RobotContainer {
 		NamedCommands.registerCommand("ReefLeft", new ReefLeft(drivetrain, m_Leds).withTimeout(0.6));
 		NamedCommands.registerCommand("ReefRight", new ReefRight(drivetrain, m_Leds).withTimeout(0.6));
 
-		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(5));
-		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(5));
-		NamedCommands.registerCommand("ReefCenter", new ReefCenter(drivetrain, m_Leds).withTimeout(5));
+		NamedCommands.registerCommand("ReefLeftLONG", new ReefLeft(drivetrain, m_Leds).withTimeout(2.5));
+		NamedCommands.registerCommand("ReefRightLONG", new ReefRight(drivetrain, m_Leds).withTimeout(2.5));
+		NamedCommands.registerCommand("ReefCenter", new ReefCenter(drivetrain, m_Leds).withTimeout(4));
 
-		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(1.5));
-		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(1.5));
+		NamedCommands.registerCommand("AutoTiltL4", new AutoTilt(m_tilt, Constants.FISHHOOK_L4).withTimeout(.9));
+		NamedCommands.registerCommand("AutoTiltIn", new AutoTilt(m_tilt, Constants.FISHHOOK_IN).withTimeout(.9));
 		NamedCommands.registerCommand("AutoTiltAlgae", new AutoTilt(m_tilt, Constants.FISHHOOK_ALGAE).withTimeout(1.5));
 		NamedCommands.registerCommand("AlgaeIn", new RollIn(m_algae, m_coral, Constants.ALGAE_IN).withTimeout(4));
 		NamedCommands.registerCommand("AutoIntake", new AutoIntake(m_coral, Constants.CORAL_SLOW, m_Leds).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.75)));
+		NamedCommands.registerCommand("cfast", Commands.race(new Fast(m_coral, Constants.CORAL_FAST), Commands.waitSeconds(0.5)));
 	}
 	private void configureBindings() {
 		// Note that X is defined as forward according to WPILib convention,
@@ -109,10 +109,10 @@ public class RobotContainer {
 						() -> drive
 								.withVelocityX(				
 										-driverController.getLeftY()
-												* MaxSpeed * 0.6) // Drive forward with negative Y (forward)
+												* MaxSpeed * 0.4) // Drive forward with negative Y (forward)
 								.withVelocityY(
 										-driverController.getLeftX()
-												* MaxSpeed * 0.6) // Drive left with negative X (left) 
+												* MaxSpeed * 0.4) // Drive left with negative X (left) 
 								.withRotationalRate(
 										-driverController.getRightX()
 												* MaxAngularRate) // Drive counterclockwise with negative X (left)

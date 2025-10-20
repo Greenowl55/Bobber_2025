@@ -11,12 +11,12 @@ public class ZeroElevator extends Command {
     }
     @Override
     public void end(boolean interrupted) {
-        elevator.setBrakeMode(true);
+        elevator.moveElevator(0);
         elevator.zeroElevatorPosition();
     }
     @Override
     public void initialize() {
-        elevator.setBrakeMode(false);
+        elevator.moveElevator(-.3);
     }
 
 

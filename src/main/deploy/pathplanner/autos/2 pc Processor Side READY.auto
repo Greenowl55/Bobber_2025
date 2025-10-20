@@ -23,6 +23,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "cfast"
@@ -70,7 +76,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 1.5
                       }
                     },
                     {
@@ -83,49 +89,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ReefRightLONG"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevator l4"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "AutoTiltL4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "ReefRight"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "cfast"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoTiltIn"
           }
         }
       ]
